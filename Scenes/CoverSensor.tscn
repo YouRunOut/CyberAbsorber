@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://douetcpw0f15j"]
+
+[ext_resource type="Script" uid="uid://dn6qfdjqpo5y7" path="res://Scripts/CoverSensor.gd" id="1_1u8xy"]
+[ext_resource type="Material" uid="uid://dfd3frksjmf3s" path="res://Textures/Materials/Debug/Green.tres" id="2_wqscs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p7inw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y7b65"]
+height = 6.0
+radius = 20.0
+
+[node name="CoverSensor" type="Node3D"]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0)
+script = ExtResource("1_1u8xy")
+MAX_DISTANCE = 20.0
+
+[node name="CoverArea" type="Area3D" parent="." groups=["Cover"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CoverArea"]
+shape = SubResource("CapsuleShape3D_p7inw")
+
+[node name="Distance" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Distance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("CylinderShape3D_y7b65")
+
+[node name="StandSensor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+size = Vector3(0.2, 0.2, 0.2)
+material = ExtResource("2_wqscs")
+
+[node name="StandSightLine" type="RayCast3D" parent="StandSensor"]
+
+[node name="CrouchSensor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(0.2, 0.2, 0.2)
+material = ExtResource("2_wqscs")
+
+[node name="CrouchSightLine" type="RayCast3D" parent="CrouchSensor"]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31872, 0)
+billboard = 1
+
+[connection signal="body_entered" from="Distance" to="." method="_on_distance_body_entered"]
+[connection signal="body_exited" from="Distance" to="." method="_on_distance_body_exited"]

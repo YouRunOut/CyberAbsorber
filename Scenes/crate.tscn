@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bodpyvtur8x5e"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tiud5"]
+friction = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2twf"]
+transparency = 1
+albedo_color = Color(0.160784, 0.0980392, 0, 0.686275)
+metallic = 0.54
+metallic_specular = 1.0
+roughness = 0.76
+rim = 0.29
+rim_tint = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_shdaa"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_koweg"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[node name="Crate" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["Crate"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+physics_material_override = SubResource("PhysicsMaterial_tiud5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+material_override = SubResource("StandardMaterial3D_t2twf")
+mesh = SubResource("BoxMesh_shdaa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("ConvexPolygonShape3D_koweg")

@@ -1,0 +1,476 @@
+[gd_scene load_steps=27 format=3 uid="uid://bju1n8gyah3ov"]
+
+[ext_resource type="Script" uid="uid://bcodumfa7lwlx" path="res://Scripts/SkillTree.gd" id="1_qe7bx"]
+[ext_resource type="Shader" uid="uid://b6kap6ap1l7sx" path="res://Shaders/Grain.gdshader" id="1_r0g4a"]
+[ext_resource type="Texture2D" uid="uid://dmoxbu0ulihdb" path="res://Pics/MainMenu/skilltree.png" id="2_qhoan"]
+[ext_resource type="PackedScene" uid="uid://bscck1g6reg7a" path="res://Scenes/SkillBtn.tscn" id="3_rsogl"]
+[ext_resource type="Texture2D" uid="uid://wipgypmg2wbq" path="res://Pics/MainMenu/skill_lvl2.png" id="4_448xh"]
+[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://Fonts/FRM325x8.ttf" id="4_mwwih"]
+[ext_resource type="AudioStream" uid="uid://d3t50fcdeysyv" path="res://Sounds/Music/AmbientMusic.mp3" id="7_6knrx"]
+[ext_resource type="FontFile" uid="uid://ta82dsir1jky" path="res://Fonts/Zlusa _font.ttf" id="7_7q6t8"]
+[ext_resource type="Theme" uid="uid://mmtwwe3undae" path="res://Themes/new_theme.tres" id="8_53pwk"]
+[ext_resource type="AudioStream" uid="uid://cofvg2wbb53r" path="res://Sounds/FX/btn_hover.wav" id="8_xcjk1"]
+[ext_resource type="AudioStream" uid="uid://b8apg8vuaguqp" path="res://Sounds/FX/intensification.wav" id="9_1immg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6bun"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_br7y6"]
+shader = ExtResource("1_r0g4a")
+shader_parameter/grain_amount = 0.05
+shader_parameter/grain_size = 0.233
+
+[sub_resource type="Gradient" id="Gradient_loa60"]
+offsets = PackedFloat32Array(0.691964, 1)
+colors = PackedColorArray(0, 0.972549, 0.835294, 0.392157, 0.803922, 0.196078, 0.439216, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5r536"]
+gradient = SubResource("Gradient_loa60")
+
+[sub_resource type="Curve" id="Curve_b203e"]
+_data = [Vector2(0, 0.505494), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jersd"]
+curve = SubResource("Curve_b203e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rbbqa"]
+particle_flag_rotate_y = true
+radial_velocity_max = 1000.0
+gravity = Vector3(0, 98, 0)
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_jersd")
+color_ramp = SubResource("GradientTexture1D_5r536")
+turbulence_enabled = true
+turbulence_noise_strength = 9.66
+turbulence_noise_speed_random = 4.0
+turbulence_influence_min = 0.588
+turbulence_influence_max = 0.84
+turbulence_initial_displacement_min = -100.0
+turbulence_initial_displacement_max = 100.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_h7aq1"]
+font = ExtResource("4_mwwih")
+font_size = 32
+font_color = Color(0.27451, 0.823529, 0.741176, 1)
+outline_size = 5
+outline_color = Color(0.137255, 0.564706, 0.498039, 0.537255)
+shadow_size = 10
+shadow_color = Color(0.803922, 0.196078, 0.439216, 0.305882)
+shadow_offset = Vector2(1, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_462tg"]
+font = ExtResource("4_mwwih")
+font_size = 48
+font_color = Color(0.196078, 0.803922, 0.713726, 1)
+outline_size = 6
+outline_color = Color(0.137255, 0.564706, 0.498039, 0.537255)
+shadow_size = 10
+shadow_color = Color(0.803922, 0.196078, 0.439216, 0.305882)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Gradient" id="Gradient_mb7e2"]
+colors = PackedColorArray(0.0627451, 0.0666667, 0.0627451, 0.392157, 0.0627451, 0.0666667, 0.0627451, 0.392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_acrpe"]
+gradient = SubResource("Gradient_mb7e2")
+
+[sub_resource type="Gradient" id="Gradient_kue2y"]
+colors = PackedColorArray(0.803922, 0.196078, 0.439216, 1, 0.803922, 0.196078, 0.439216, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ysu4t"]
+gradient = SubResource("Gradient_kue2y")
+
+[sub_resource type="Theme" id="Theme_cgp0o"]
+default_font = ExtResource("7_7q6t8")
+default_font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogcpk"]
+font = ExtResource("4_mwwih")
+font_size = 32
+font_color = Color(0, 0.976471, 0.807843, 0.854902)
+outline_size = 4
+outline_color = Color(0, 0, 0, 0)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.137255)
+shadow_offset = Vector2(-3, 6)
+
+[node name="SkillTree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qe7bx")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Color" type="ColorRect" parent="Background"]
+material = SubResource("ShaderMaterial_u6bun")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0980392, 0.0941176, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+self_modulate = Color(0, 0, 0, 0.188235)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_qhoan")
+expand_mode = 2
+
+[node name="Grain" type="ColorRect" parent="Background"]
+material = SubResource("ShaderMaterial_br7y6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
+self_modulate = Color(1, 1, 1, 0.258824)
+position = Vector2(576, 324)
+scale = Vector2(5.5, 3)
+amount = 10000
+lifetime = 3.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_rbbqa")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 180
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = 50
+
+[node name="Body" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="SkillPointCount" type="Label" parent="MarginContainer/Body"]
+layout_mode = 1
+offset_right = 142.0
+offset_bottom = 32.0
+size_flags_horizontal = 0
+text = "Perks: "
+label_settings = SubResource("LabelSettings_h7aq1")
+
+[node name="Header" type="VBoxContainer" parent="MarginContainer/Body"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.5
+offset_right = 73.5
+offset_bottom = 147.0
+grow_horizontal = 2
+pivot_offset = Vector2(73, 0)
+
+[node name="LVL" type="TextureRect" parent="MarginContainer/Body/Header"]
+layout_mode = 2
+texture = ExtResource("4_448xh")
+flip_h = true
+flip_v = true
+
+[node name="Count" type="Label" parent="MarginContainer/Body/Header/LVL"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(18, 24)
+text = "6"
+label_settings = SubResource("LabelSettings_462tg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Skills" type="Control" parent="MarginContainer/Body/MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Third" type="MarginContainer" parent="MarginContainer/Body/MarginContainer/Skills"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -161.0
+offset_right = 490.0
+offset_bottom = 161.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(490, 161)
+mouse_filter = 2
+theme_override_constants/margin_top = 10
+
+[node name="Third" type="VBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Third"]
+layout_mode = 2
+
+[node name="top" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Third/Third"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="L20" parent="MarginContainer/Body/MarginContainer/Skills/Third/Third/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="R20" parent="MarginContainer/Body/MarginContainer/Skills/Third/Third/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="Second" type="MarginContainer" parent="MarginContainer/Body/MarginContainer/Skills"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -171.5
+offset_right = 490.0
+offset_bottom = 171.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(490, 150)
+mouse_filter = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 150
+
+[node name="Second" type="VBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Second"]
+layout_mode = 2
+alignment = 1
+
+[node name="top" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="L10" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="R10" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="down" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="L11" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second/down" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="R11" parent="MarginContainer/Body/MarginContainer/Skills/Second/Second/down" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="First" type="MarginContainer" parent="MarginContainer/Body/MarginContainer/Skills"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -199.0
+offset_right = 490.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(490, 171)
+mouse_filter = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 100
+
+[node name="First" type="VBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/First"]
+layout_mode = 2
+alignment = 1
+
+[node name="top" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/First/First"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="L00" parent="MarginContainer/Body/MarginContainer/Skills/First/First/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="R00" parent="MarginContainer/Body/MarginContainer/Skills/First/First/top" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="down" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/First/First"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="L01" parent="MarginContainer/Body/MarginContainer/Skills/First/First/down" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+
+[node name="R01" parent="MarginContainer/Body/MarginContainer/Skills/First/First/down" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+
+[node name="Center" type="MarginContainer" parent="MarginContainer/Body/MarginContainer/Skills"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -223.5
+offset_right = 490.0
+offset_bottom = 223.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(490, 190)
+mouse_filter = 2
+theme_override_constants/margin_top = 300
+
+[node name="Center" type="VBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Center"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="down" type="HBoxContainer" parent="MarginContainer/Body/MarginContainer/Skills/Center/Center"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="C00" parent="MarginContainer/Body/MarginContainer/Skills/Center/Center/down" instance=ExtResource("3_rsogl")]
+layout_mode = 2
+
+[node name="ExpProgress" type="Control" parent="MarginContainer/Body"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ExpProgressBar" type="TextureProgressBar" parent="MarginContainer/Body/ExpProgress"]
+self_modulate = Color(1, 1, 1, 0.780392)
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1000.0
+value = 300.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_acrpe")
+texture_progress = SubResource("GradientTexture1D_ysu4t")
+
+[node name="ExpCount" type="Label" parent="MarginContainer/Body/ExpProgress/ExpProgressBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -32.0
+offset_right = 38.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.637001, 0.637001)
+pivot_offset = Vector2(38, 16)
+theme = SubResource("Theme_cgp0o")
+text = "455
+"
+label_settings = SubResource("LabelSettings_ogcpk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="MarginContainer/Body"]
+custom_minimum_size = Vector2(153, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -214.0
+offset_bottom = 50.0
+grow_horizontal = 0
+scale = Vector2(0.579529, 0.579529)
+pivot_offset = Vector2(234, 50)
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("8_53pwk")
+toggle_mode = true
+text = "Leave the game"
+
+[node name="AudioHover" type="AudioStreamPlayer2D" parent="MarginContainer/Body/ExitButton"]
+stream = ExtResource("8_xcjk1")
+bus = &"GuiFX"
+
+[node name="AudioPressed" type="AudioStreamPlayer2D" parent="MarginContainer/Body/ExitButton"]
+stream = ExtResource("9_1immg")
+volume_db = 10.0
+bus = &"GuiFX"
+
+[node name="Soundtrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6knrx")
+volume_db = -5.0
+
+[connection signal="mouse_entered" from="MarginContainer/Body/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/Body/ExitButton" to="." method="_on_exit_button_pressed"]

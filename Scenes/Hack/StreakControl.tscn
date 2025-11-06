@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy820qstfymgo"]
+
+[ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_dnkph"]
+
+[sub_resource type="Resource" id="Resource_d86hx"]
+metadata/__load_path__ = "res://Scripts/StreakControl.gd"
+
+[sub_resource type="Resource" id="Resource_p5g05"]
+metadata/__load_path__ = "res://Sounds/GUI/Hack/Completed.mp3"
+
+[node name="StreakControl" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("Resource_d86hx")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.0
+offset_top = -25.5
+offset_right = 284.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.745098, 0.0823529, 0.207843, 1)
+theme_override_colors/font_shadow_color = Color(0.152941, 1, 0.466667, 0.286275)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 13
+theme_override_fonts/font = ExtResource("2_dnkph")
+theme_override_font_sizes/font_size = 50
+text = "Hacking completed"
+
+[node name="StreakTree" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 0)
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("Resource_p5g05")
+volume_db = -7.0
+pitch_scale = 0.8

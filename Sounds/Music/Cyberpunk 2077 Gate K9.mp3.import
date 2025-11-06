@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmjrmflbgmc32"
+path="res://.godot/imported/Cyberpunk 2077 Gate K9.mp3-d1129c85f1137ccd7d3a74d3919a763b.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Cyberpunk 2077 Gate K9.mp3"
+dest_files=["res://.godot/imported/Cyberpunk 2077 Gate K9.mp3-d1129c85f1137ccd7d3a74d3919a763b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
