@@ -27,6 +27,8 @@ func _ready():
   # NAME == (side(R,L,C), path(0,1,2), num(0,1))
 	NAME = str(self).left(3) # str(self).substr(0,3)
 	skill_note = Main.skill_book[NAME]
+	if skill_note[1] == null:
+		skill_note[1] = texture_normal
 	skill_pic.set_texture(skill_note[1]) # второй объект
 	writeup.text = skill_note[2]
 	side = NAME[0]

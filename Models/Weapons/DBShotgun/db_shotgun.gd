@@ -1,17 +1,10 @@
 extends Node3D
-@onready var audio_enemy_hit = $EnemyHit
-
-@onready var animation = $AnimationPlayer
-@onready var muzzle = $Full/Hole/MuzzleFlash
-@onready var fire = $Full/Hole/fire
-@onready var load = $Full/Load
-
-@onready var reload_timer = $ReloadTimer
-@onready var ammo_count = $Full/Load/HoloPlace/Holo/AmmoCount
+@onready var animation: AnimationPlayer = %AnimationPlayer
+@onready var reload_timer: Timer = %ReloadTimer
 
 var who_take : String
 
-@onready var kill_line = $Full/Hole/KillLine
+@onready var kill_line: RayCast3D = %KillLine
 
 @export_group("Shooting")
 @export var DAMAGE : float = 25.0

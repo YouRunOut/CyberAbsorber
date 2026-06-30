@@ -327,7 +327,21 @@ layers = 1048575
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_6m7t1")
 
+[node name="KillLine" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+target_position = Vector3(0, -300, 0)
+collision_mask = 21
+
+[node name="ReloadTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.0
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_515eb")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
