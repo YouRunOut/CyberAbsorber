@@ -8,6 +8,11 @@ alwaysApply: true
 ## Naming
 - Use `snake_case` for file names, script names, variables, functions, and input action identifiers.
 - Keep naming consistent across scenes/scripts; do not mix styles for the same domain concept.
+- Scene files for locations must use `scn_` prefix (for example `scn_first_level.tscn`).
+- GUI script files must use `gui_` prefix.
+- GUI component script files must use `guicmp_` prefix.
+- Entity scene files must use `ent_` prefix.
+- Entity script files must use `entclass_` prefix.
 
 ## Architecture
 - Keep `Player`, `Enemy`, `UI`, and `World` responsibilities separated.
