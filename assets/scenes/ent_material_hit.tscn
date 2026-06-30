@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://jhhvo1kle8ah"]
+
+[ext_resource type="Script" uid="uid://bn5jas5btixb0" path="res://src/scripts/entclass_material_hit.gd" id="1_tccba"]
+[ext_resource type="AudioStream" uid="uid://c627clatjwrns" path="res://assets/sounds/weapon/pistol/onWall.mp3" id="2_jjcv8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuyyu"]
+albedo_color = Color(0.984314, 0.635294, 0.603922, 1)
+emission_enabled = true
+emission = Color(0.945098, 0.364706, 0.345098, 1)
+emission_energy_multiplier = 16.0
+emission_on_uv2 = true
+rim_enabled = true
+ao_enabled = true
+ao_light_affect = 0.46
+heightmap_scale = -16.0
+subsurf_scatter_strength = 1.0
+refraction_scale = -1.0
+detail_blend_mode = 1
+billboard_keep_scale = true
+distance_fade_min_distance = 2594.75
+distance_fade_max_distance = 1375.34
+
+[sub_resource type="Curve" id="Curve_88wi6"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(1, -200), -348.136, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7pek4"]
+curve = SubResource("Curve_88wi6")
+
+[sub_resource type="Curve" id="Curve_5ph2t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.10019, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lyyp0"]
+curve = SubResource("Curve_5ph2t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jxktx"]
+direction = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_max = 1.5
+gravity = Vector3(0, -10, 0)
+linear_accel_curve = SubResource("CurveTexture_7pek4")
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_lyyp0")
+collision_mode = 1
+collision_friction = 0.1
+collision_bounce = 0.4
+collision_use_scale = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_maub8"]
+radius = 0.05
+height = 0.1
+radial_segments = 4
+rings = 2
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_praq2"]
+points = PackedVector3Array(0.0256052, 0.0341581, 0.00183299, -0.0414812, -0.0253921, -0.0011397, -0.0011397, -0.0253921, -0.0414812, 0.040729, -0.0254204, 0.00184294, 0.000350792, -0.024342, 0.0429492, -0.0414812, 0.0253921, -0.0011397, 0.00184051, 0.0238916, -0.0414595, 0.000350792, 0.024342, 0.0429492, -0.00115387, -0.0482625, 0.00185545, -0.00115387, 0.0482625, 0.00185545, 0.0429492, 0.0243324, 0.000350792, 0.042169, -0.0238867, -0.00113102, -0.0414595, 0.0238916, 0.00184051, -0.0011397, 0.0253921, -0.0414812, -0.00114015, 0.0478226, -0.0026311, -0.00114015, -0.0478226, -0.0026311, -0.0414595, -0.0238916, 0.00184051, 0.00184051, -0.0238916, -0.0414595, 0.00185545, -0.0482625, -0.00115387, 0.00185545, 0.0482625, -0.00115387, -0.00113892, -0.0238916, 0.0421611, 0.00184326, -0.0478715, 0.00184326, 0.0410626, -0.0256305, -0.00114542, -0.0383507, -0.0267974, 0.00183617, 0.00183603, 0.0267949, -0.0383552, -0.0383507, 0.0267974, 0.00183617, 0.00183603, -0.0267949, -0.0383552, 0.0429492, -0.0243324, 0.000350792, 0.0410626, 0.0256305, -0.00114542, -0.00115354, -0.025628, 0.0410587, -0.00115354, 0.025628, 0.0410587, 0.00184326, 0.0478715, 0.00184326)
+
+[node name="MaterialHit" type="Node3D"]
+script = ExtResource("1_tccba")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+transform = Transform3D(2.19989, 0, 0, 0, 2.19989, 0, 0, 0, 2.19989, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_wuyyu")
+emitting = false
+amount = 15
+lifetime = 6.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+fixed_fps = 60
+collision_base_size = 0.1
+visibility_aabb = AABB(-60.9543, -130.012, -54.8471, 121.909, 260.024, 109.694)
+process_material = SubResource("ParticleProcessMaterial_jxktx")
+draw_pass_1 = SubResource("SphereMesh_maub8")
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="shot" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_jjcv8")
+attenuation_model = 2
+volume_db = -8.0
+max_db = 0.0
+autoplay = true
+max_distance = 30.0
+bus = &"WeaponFX"
+
+[node name="hole" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.28, 0, 0, 0, 0.28, 0, 0, 0, 0.28, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_wuyyu")
+mesh = SubResource("SphereMesh_maub8")
+
+[node name="Area3D" type="Area3D" parent="hole" groups=["Bullet"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hole/Area3D"]
+shape = SubResource("ConvexPolygonShape3D_praq2")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -4,9 +4,9 @@ class_name ggsPluginData
 
 const APPLY_ON_CHANGED_ALL_DEFAULT: bool = true
 const GRAB_FOCUS_ON_MOUSE_OVER_ALL: bool = true
-const DIR_SETTINGS_DEFAULT: String = "res://game_settings/settings"
-const DIR_TEMPLATES_DEFAULT: String = "res://game_settings/templates"
-const DIR_COMPONENTS_DEFAULT: String = "res://game_settings/components"
+const DIR_SETTINGS_DEFAULT: String = "res://assets/game_settings/settings"
+const DIR_TEMPLATES_DEFAULT: String = "res://assets/game_settings/templates"
+const DIR_COMPONENTS_DEFAULT: String = "res://assets/game_settings/components"
 const DIR_SAVE_FILE_DEFAULT: String = "user://settings.cfg"
 const SPLIT_OFFSET_0_DEFAULT: int = -315
 const SPLIT_OFFSET_1_DEFAULT: int = 615

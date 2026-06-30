@@ -1,0 +1,28 @@
+---
+description: Baseline Godot engine refactor safety rules
+alwaysApply: true
+---
+
+# Godot Engine Baseline Rules
+
+Use these rules for any Godot project work unless the user explicitly overrides them.
+
+## Scope and Safety
+- Prefer minimal, reversible changes; avoid mixed "cleanup + behavior" diffs.
+- For structural refactors, preserve gameplay behavior and input mappings.
+- Do not modify third-party/plugin folders unless requested (`addons/`, engine-generated dirs).
+
+## File and Scene Operations
+- Move/rename scenes/resources through Godot Editor to keep references valid.
+- After each refactor batch, validate key scenes open and run without missing resources.
+- Keep one domain per batch (for example `hack`, `ui`, `player`) before moving to next.
+
+## Path and Loading Policy
+- Do not introduce hardcoded direct resource paths in gameplay code (`res://...`).
+- Do not introduce `preload(...)` in gameplay code.
+- Prefer dependency injection via exported `PackedScene`/`Resource` fields, scene wiring, or centralized config/autoload references.
+- If direct path loading is unavoidable, request explicit user approval first and document why.
+
+## Verification
+- Run a short smoke check after refactor batches: boot scene, level transition, core interaction loops.
+- If uncertain whether a change is structural or behavioral, ask before proceeding.

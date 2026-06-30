@@ -17,12 +17,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="CyberAbsorber"
 run/main_scene="uid://bwxnryiun6r1l"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="CyberAbsorber"
+config/custom_user_dir_name="UC - Host Error"
 config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/bg_color=Color(0.054902, 0.219608, 0.192157, 1)
 boot_splash/use_filter=false
-boot_splash/image="res://Pics/Other/soulskullgif.png"
+boot_splash/image="res://assets/pics/other/soulskullgif.png"
 config/icon="uid://b5ccbfwv71t5b"
+config/macos_native_icon="uid://b5ccbfwv71t5b"
+config/windows_native_icon="uid://b5ccbfwv71t5b"
 
 [audio]
 
@@ -31,7 +33,7 @@ buses/default_bus_layout="uid://d4dqaa6tvwql0"
 [autoload]
 
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
-Main="*res://Scripts/main.gd"
+Main="*res://src/scripts/main.gd"
 
 [display]
 
