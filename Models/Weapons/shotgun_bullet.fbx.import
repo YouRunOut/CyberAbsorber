@@ -3,21 +3,25 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://jonkxfyej8v8"
-path="res://.godot/imported/shotgun_bullet.fbx-39e67de2197c36fcf4078684baf08c13.scn"
+uid="uid://b3r3x2h1y2mhj"
+path="res://.godot/imported/shotgun_bullet.fbx-3b50961b5da5f1aca1c1b4ad2d3cd345.scn"
 
 [deps]
 
-source_file="res://Models/Weapons/shotgun_bullet.fbx"
-dest_files=["res://.godot/imported/shotgun_bullet.fbx-39e67de2197c36fcf4078684baf08c13.scn"]
+source_file="res://models/weapons/shotgun_bullet.fbx"
+dest_files=["res://.godot/imported/shotgun_bullet.fbx-3b50961b5da5f1aca1c1b4ad2d3cd345.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,7 +36,11 @@ animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
+fbx/naming_version=2

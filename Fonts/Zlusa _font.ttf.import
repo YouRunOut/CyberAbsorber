@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ta82dsir1jky"
-path="res://.godot/imported/Zlusa _font.ttf-53a093f4631ba7ff7880a6bef3103b31.fontdata"
+uid="uid://nl5eckdqt6cu"
+path="res://.godot/imported/Zlusa _font.ttf-732925c8f551c0a60480ed84ff5e157f.fontdata"
 
 [deps]
 
-source_file="res://Fonts/Zlusa _font.ttf"
-dest_files=["res://.godot/imported/Zlusa _font.ttf-53a093f4631ba7ff7880a6bef3103b31.fontdata"]
+source_file="res://fonts/Zlusa _font.ttf"
+dest_files=["res://.godot/imported/Zlusa _font.ttf-732925c8f551c0a60480ed84ff5e157f.fontdata"]
 
 [params]
 
@@ -21,8 +21,9 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
-hinting=1
-subpixel_positioning=1
+modulate_color_glyphs=false
+hinting=3
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null

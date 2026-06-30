@@ -71,19 +71,19 @@ func CharLevelUp():
 
 func set_skill_book():
 	skill_book = {
-		'L00':  [false, preload("res://Pics/MainMenu/skill_pic/skill_L00.png"), "Энергия накапливается слегка быстрее"],
-		'L01':  [false, preload("res://Pics/MainMenu/skill_pic/skill_L01.png"), "Энергия накапливается быстрее"],
-		'L10':  [false, preload("res://Pics/MainMenu/skill_pic/skill_L10.png"), "Энергия накапливается значительно быстрее"],
-		'L11':  [false, preload("res://Pics/MainMenu/skill_pic/skill_L11.png"), "Больше не нужно многократно нажимать [Q], достаточно зажать"],
-		'L20':  [false, preload("res://Pics/MainMenu/skill_pic/skill_L20.png"), "Энергия накапливается мгновенно"],
+		'L00':  [false, preload("res://pics/main_menu/skill_pic/skill_L00.png"), "Энергия накапливается слегка быстрее"],
+		'L01':  [false, preload("res://pics/main_menu/skill_pic/skill_L01.png"), "Энергия накапливается быстрее"],
+		'L10':  [false, preload("res://pics/main_menu/skill_pic/skill_L10.png"), "Энергия накапливается значительно быстрее"],
+		'L11':  [false, preload("res://pics/main_menu/skill_pic/skill_L11.png"), "Больше не нужно многократно нажимать [Q], достаточно зажать"],
+		'L20':  [false, preload("res://pics/main_menu/skill_pic/skill_L20.png"), "Энергия накапливается мгновенно"],
 		
-		'R00':  [false, preload("res://Pics/MainMenu/skill_pic/skill_R00.png"), "Рассеивание энергии слегка замедлено"],
-		'R01':  [false, preload("res://Pics/MainMenu/skill_pic/skill_R01.png"), "Рассеивание энергии замедлено"],
-		'R10':  [false, preload("res://Pics/MainMenu/skill_pic/skill_R10.png"), "Рассеивание энергии значительно замедлено"],
-		'R11':  [false, preload("res://Pics/MainMenu/skill_pic/skill_R11.png"), "Рассеивание энергии очень медленное"],
-		'R20':  [false, preload("res://Pics/MainMenu/skill_pic/skill_R20.png"), "Рассеивание энергии отсутствует"],
+		'R00':  [false, preload("res://pics/main_menu/skill_pic/skill_R00.png"), "Рассеивание энергии слегка замедлено"],
+		'R01':  [false, preload("res://pics/main_menu/skill_pic/skill_R01.png"), "Рассеивание энергии замедлено"],
+		'R10':  [false, preload("res://pics/main_menu/skill_pic/skill_R10.png"), "Рассеивание энергии значительно замедлено"],
+		'R11':  [false, preload("res://pics/main_menu/skill_pic/skill_R11.png"), "Рассеивание энергии очень медленное"],
+		'R20':  [false, preload("res://pics/main_menu/skill_pic/skill_R20.png"), "Рассеивание энергии отсутствует"],
 		
-		'C00':  [false, preload("res://Pics/MainMenu/skill_pic/skill_C00.png"), "Смерть во плоти"]
+		'C00':  [false, preload("res://pics/main_menu/skill_pic/skill_C00.png"), "Смерть во плоти"]
 	}
 
 func upgrade(skill_name):

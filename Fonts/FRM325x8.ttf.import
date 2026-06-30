@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bvc6xdcffx8hh"
-path="res://.godot/imported/FRM325x8.ttf-6ac7206e17aa88c01c2ceec8b9e1b9b9.fontdata"
+uid="uid://bnjuryb240pil"
+path="res://.godot/imported/FRM325x8.ttf-780ccaf474ceb3d02a522c6546d22d12.fontdata"
 
 [deps]
 
-source_file="res://Fonts/FRM325x8.ttf"
-dest_files=["res://.godot/imported/FRM325x8.ttf-6ac7206e17aa88c01c2ceec8b9e1b9b9.fontdata"]
+source_file="res://fonts/FRM325x8.ttf"
+dest_files=["res://.godot/imported/FRM325x8.ttf-780ccaf474ceb3d02a522c6546d22d12.fontdata"]
 
 [params]
 
@@ -21,8 +21,9 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
-hinting=1
-subpixel_positioning=1
+modulate_color_glyphs=false
+hinting=3
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null

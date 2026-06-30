@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://ck6x6n2mw1al6"
-path="res://.godot/imported/ambient_wind.mp3-5bbd6a28cd87fa9e318cbe012ae5e38a.mp3str"
+uid="uid://3vfroto45sdv"
+path="res://.godot/imported/ambient_wind.mp3-5956618d4de48bf4c520ef750e34205a.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/ambient_wind.mp3"
-dest_files=["res://.godot/imported/ambient_wind.mp3-5bbd6a28cd87fa9e318cbe012ae5e38a.mp3str"]
+source_file="res://sounds/atmo/ambient_wind.mp3"
+dest_files=["res://.godot/imported/ambient_wind.mp3-5956618d4de48bf4c520ef750e34205a.mp3str"]
 
 [params]
 

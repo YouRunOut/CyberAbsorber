@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://b3ulof2hj64la"
-path="res://.godot/imported/pistoletnaya-pulya-porazivshaya-myakot.mp3-52403c273e16729166b7fdc5e29ab13a.mp3str"
+uid="uid://deysuyx6wvhvr"
+path="res://.godot/imported/pistoletnaya-pulya-porazivshaya-myakot.mp3-a2beffbe9db32f3212536cb0426e927e.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3"
-dest_files=["res://.godot/imported/pistoletnaya-pulya-porazivshaya-myakot.mp3-52403c273e16729166b7fdc5e29ab13a.mp3str"]
+source_file="res://sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3"
+dest_files=["res://.godot/imported/pistoletnaya-pulya-porazivshaya-myakot.mp3-a2beffbe9db32f3212536cb0426e927e.mp3str"]
 
 [params]
 

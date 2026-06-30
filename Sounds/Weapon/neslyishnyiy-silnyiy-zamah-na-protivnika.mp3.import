@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://dtkujgxsh1rab"
-path="res://.godot/imported/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3-656fbc16c2863b7d7419ba7ca8c59548.mp3str"
+uid="uid://cdbubwqkigy0o"
+path="res://.godot/imported/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3-0363374e99885b1100b573abe7d8c740.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Weapon/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3"
-dest_files=["res://.godot/imported/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3-656fbc16c2863b7d7419ba7ca8c59548.mp3str"]
+source_file="res://sounds/weapon/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3"
+dest_files=["res://.godot/imported/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3-0363374e99885b1100b573abe7d8c740.mp3str"]
 
 [params]
 

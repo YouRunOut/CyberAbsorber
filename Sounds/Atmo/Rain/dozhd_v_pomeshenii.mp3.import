@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://e7unim5mhlgx"
-path="res://.godot/imported/dozhd_v_pomeshenii.mp3-9d8a3a417f049f560697acff91a27c80.mp3str"
+uid="uid://cwfv2y4tb3rhj"
+path="res://.godot/imported/dozhd_v_pomeshenii.mp3-e86902fa24628acf59f55b41f712c088.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/Rain/dozhd_v_pomeshenii.mp3"
-dest_files=["res://.godot/imported/dozhd_v_pomeshenii.mp3-9d8a3a417f049f560697acff91a27c80.mp3str"]
+source_file="res://sounds/atmo/rain/dozhd_v_pomeshenii.mp3"
+dest_files=["res://.godot/imported/dozhd_v_pomeshenii.mp3-e86902fa24628acf59f55b41f712c088.mp3str"]
 
 [params]
 

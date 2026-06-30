@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://wtm7q4qaof5r"
-path="res://.godot/imported/FRM3216x16.ttf-a2e8da8d4e18c8f199a59e8ca2d72a33.fontdata"
+uid="uid://ccdunuish6v0l"
+path="res://.godot/imported/FRM3216x16.ttf-2a0595ec24e26638a9f72ae5315e46a6.fontdata"
 
 [deps]
 
-source_file="res://Fonts/FRM3216x16.ttf"
-dest_files=["res://.godot/imported/FRM3216x16.ttf-a2e8da8d4e18c8f199a59e8ca2d72a33.fontdata"]
+source_file="res://fonts/FRM3216x16.ttf"
+dest_files=["res://.godot/imported/FRM3216x16.ttf-2a0595ec24e26638a9f72ae5315e46a6.fontdata"]
 
 [params]
 
@@ -21,8 +21,9 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
-hinting=1
-subpixel_positioning=1
+modulate_color_glyphs=false
+hinting=3
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null

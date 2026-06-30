@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cbv1nknvlr0wr"
-path="res://.godot/imported/quilt.wav-c10c8e74ca16fec2b30528b8a3cb9a27.sample"
+uid="uid://ds8q4rdmehmr3"
+path="res://.godot/imported/quilt.wav-00f3d6727f1d1dd4513e3a3c5024bef0.sample"
 
 [deps]
 
-source_file="res://Sounds/FX/quilt.wav"
-dest_files=["res://.godot/imported/quilt.wav-c10c8e74ca16fec2b30528b8a3cb9a27.sample"]
+source_file="res://sounds/fx/quilt.wav"
+dest_files=["res://.godot/imported/quilt.wav-00f3d6727f1d1dd4513e3a3c5024bef0.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

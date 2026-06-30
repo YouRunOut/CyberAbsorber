@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://gy3au73ceqg6"
-path="res://.godot/imported/glass.mp3-31374324fd9a2065b5320d68c486bd3f.mp3str"
+uid="uid://byjvcy6c7wgjv"
+path="res://.godot/imported/glass.mp3-0c1bdf9dfa98d8b6d0c7924608096a5d.mp3str"
 
 [deps]
 
-source_file="res://Sounds/SFX/Damaged/glass.mp3"
-dest_files=["res://.godot/imported/glass.mp3-31374324fd9a2065b5320d68c486bd3f.mp3str"]
+source_file="res://sounds/sfx/damaged/glass.mp3"
+dest_files=["res://.godot/imported/glass.mp3-0c1bdf9dfa98d8b6d0c7924608096a5d.mp3str"]
 
 [params]
 

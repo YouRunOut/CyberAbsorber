@@ -21,7 +21,7 @@ config/custom_user_dir_name="CyberAbsorber"
 config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/bg_color=Color(0.054902, 0.219608, 0.192157, 1)
 boot_splash/use_filter=false
-boot_splash/image="res://Pics/Other/soulskullgif.png"
+boot_splash/image="res://pics/other/soulskullgif.png"
 config/icon="uid://b5ccbfwv71t5b"
 
 [audio]
@@ -31,7 +31,7 @@ buses/default_bus_layout="uid://d4dqaa6tvwql0"
 [autoload]
 
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
-Main="*res://Scripts/main.gd"
+Main="*res://scripts/main.gd"
 
 [display]
 

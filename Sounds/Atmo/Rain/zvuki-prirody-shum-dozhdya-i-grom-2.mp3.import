@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://bnejd2yrhpx1e"
-path="res://.godot/imported/zvuki-prirody-shum-dozhdya-i-grom-2.mp3-c59077d6d465d66e5dbd3f0f824f9167.mp3str"
+uid="uid://7p5i6uv2i6p6"
+path="res://.godot/imported/zvuki-prirody-shum-dozhdya-i-grom-2.mp3-51b774e878e5ae4777b74620f37a283e.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/Rain/zvuki-prirody-shum-dozhdya-i-grom-2.mp3"
-dest_files=["res://.godot/imported/zvuki-prirody-shum-dozhdya-i-grom-2.mp3-c59077d6d465d66e5dbd3f0f824f9167.mp3str"]
+source_file="res://sounds/atmo/rain/zvuki-prirody-shum-dozhdya-i-grom-2.mp3"
+dest_files=["res://.godot/imported/zvuki-prirody-shum-dozhdya-i-grom-2.mp3-51b774e878e5ae4777b74620f37a283e.mp3str"]
 
 [params]
 

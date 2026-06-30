@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://cf5l52ugxvisp"
-path="res://.godot/imported/landing2.mp3-9f0c1ba98e03fbb01b4d029b3ac8230d.mp3str"
+uid="uid://bk6l3jhaf6tgx"
+path="res://.godot/imported/landing2.mp3-a9d972521592c2add0dc3b3aeee6dd17.mp3str"
 
 [deps]
 
-source_file="res://Sounds/SFX/Footsteps/landing2.mp3"
-dest_files=["res://.godot/imported/landing2.mp3-9f0c1ba98e03fbb01b4d029b3ac8230d.mp3str"]
+source_file="res://sounds/sfx/footsteps/landing2.mp3"
+dest_files=["res://.godot/imported/landing2.mp3-a9d972521592c2add0dc3b3aeee6dd17.mp3str"]
 
 [params]
 

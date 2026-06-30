@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://ci37r6psqcdkw"
-path="res://.godot/imported/gluhoy-zvuk-zamaha.mp3-4573175f191604bf2826a1ccc43f22dc.mp3str"
+uid="uid://dw0syno3yg34b"
+path="res://.godot/imported/gluhoy-zvuk-zamaha.mp3-4a4bec969b9ca2fa502f60fd609599b5.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Melee/gluhoy-zvuk-zamaha.mp3"
-dest_files=["res://.godot/imported/gluhoy-zvuk-zamaha.mp3-4573175f191604bf2826a1ccc43f22dc.mp3str"]
+source_file="res://sounds/weapon/melee/gluhoy-zvuk-zamaha.mp3"
+dest_files=["res://.godot/imported/gluhoy-zvuk-zamaha.mp3-4a4bec969b9ca2fa502f60fd609599b5.mp3str"]
 
 [params]
 

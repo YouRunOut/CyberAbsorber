@@ -1,11 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://c2633u3s5olnb"]
+[gd_scene format=3 uid="uid://bx4ml8gviu51k"]
 
-[ext_resource type="Script" uid="uid://caf5u47cnrtm6" path="res://Scripts/Player.gd" id="1_j8hcs"]
-[ext_resource type="PackedScene" path="res://Scenes/Flesh_Hit.tscn" id="1_fleshhit"]
-[ext_resource type="PackedScene" path="res://Scenes/Material_Hit.tscn" id="1_materialhit"]
+[ext_resource type="PackedScene" uid="uid://dx4u8o33byjuq" path="res://Scenes/ent_flesh_hit.tscn" id="1_fleshhit"]
+[ext_resource type="Script" uid="uid://caf5u47cnrtm6" path="res://Scripts/entclass_player.gd" id="1_j8hcs"]
+[ext_resource type="PackedScene" uid="uid://jhhvo1kle8ah" path="res://Scenes/ent_material_hit.tscn" id="1_materialhit"]
 [ext_resource type="AudioStream" uid="uid://nh774vetufu1" path="res://Sounds/FX/lvlup.wav" id="2_3s7rw"]
-[ext_resource type="PackedScene" uid="uid://ckcgk0avkpa23" path="res://Scenes/gui.tscn" id="3_38y5p"]
-[ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://Scenes/Pistol.tscn" id="3_megsn"]
+[ext_resource type="PackedScene" uid="uid://cco2mm636r30h" path="res://Scenes/gui.tscn" id="3_38y5p"]
+[ext_resource type="PackedScene" uid="uid://e6u8l250ero" path="res://Scenes/Pistol.tscn" id="3_megsn"]
 [ext_resource type="Script" uid="uid://5tgtcwlk2amc" path="res://Scenes/FootstepManager.gd" id="5_16iq7"]
 [ext_resource type="AudioStream" uid="uid://dpm74ncms5xwt" path="res://Sounds/SFX/Footsteps/step1.wav" id="6_jntir"]
 [ext_resource type="AudioStream" uid="uid://cg8n6c5pkr2ym" path="res://Sounds/SFX/Footsteps/step2.wav" id="7_27bqs"]
@@ -351,7 +351,7 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_ah2qt"]
 size = Vector3(5, 1.9, 3.3)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=468677046 node_paths=PackedStringArray("weapon_holder") groups=["Player"]]
 collision_layer = 13
 script = ExtResource("1_j8hcs")
 flesh_hit_scene = ExtResource("1_fleshhit")
@@ -372,89 +372,87 @@ weapon_sway_amount = 0.12
 weapon_rotation_amount = 0.1
 cam_rotation_amount = 0.1
 
-[node name="LVLUP" type="AudioStreamPlayer" parent="."]
+[node name="LVLUP" type="AudioStreamPlayer" parent="." unique_id=1089183220]
 unique_name_in_owner = true
 stream = ExtResource("2_3s7rw")
 volume_db = -5.0
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2048621079]
 unique_name_in_owner = true
 
-[node name="AboveCheck" type="RayCast3D" parent="."]
+[node name="AboveCheck" type="RayCast3D" parent="." unique_id=1293988001]
 unique_name_in_owner = true
 target_position = Vector3(0, 2, 0)
 
-[node name="Standing_collision" type="CollisionShape3D" parent="."]
+[node name="Standing_collision" type="CollisionShape3D" parent="." unique_id=1270726987]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7swnu")
 
-[node name="Crouching_collision" type="CollisionShape3D" parent="."]
+[node name="Crouching_collision" type="CollisionShape3D" parent="." unique_id=1418526924]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_02vo3")
 disabled = true
 
-[node name="Visuals" type="Node3D" parent="."]
+[node name="Visuals" type="Node3D" parent="." unique_id=2073103659]
 unique_name_in_owner = true
 
-[node name="nek" type="Node3D" parent="Visuals"]
+[node name="nek" type="Node3D" parent="Visuals" unique_id=233669656]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="head" type="Node3D" parent="Visuals/nek"]
+[node name="head" type="Node3D" parent="Visuals/nek" unique_id=1160884378]
 unique_name_in_owner = true
 
-[node name="RightHand" type="Node3D" parent="Visuals/nek/head"]
+[node name="RightHand" type="Node3D" parent="Visuals/nek/head" unique_id=1093500356]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.277, -0.393, 0)
 
-[node name="RFist" type="Node3D" parent="Visuals/nek/head/RightHand"]
+[node name="RFist" type="Node3D" parent="Visuals/nek/head/RightHand" unique_id=1829913906]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00317836, -0.0529027, -0.528277)
 
-[node name="RayCast3D" type="RayCast3D" parent="Visuals/nek/head/RightHand/RFist"]
+[node name="RayCast3D" type="RayCast3D" parent="Visuals/nek/head/RightHand/RFist" unique_id=1835233183]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100614)
 target_position = Vector3(0, 0, -0.33)
 
-[node name="Pistol" parent="Visuals/nek/head/RightHand/RFist" instance=ExtResource("3_megsn")]
+[node name="Pistol" parent="Visuals/nek/head/RightHand/RFist" unique_id=1572841537 instance=ExtResource("3_megsn")]
 unique_name_in_owner = true
 
-[node name="LeftHand" type="Node3D" parent="Visuals/nek/head"]
+[node name="LeftHand" type="Node3D" parent="Visuals/nek/head" unique_id=2076813064]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.463009, 0)
 
-[node name="HandAnim" type="AnimationPlayer" parent="Visuals/nek/head/LeftHand"]
+[node name="HandAnim" type="AnimationPlayer" parent="Visuals/nek/head/LeftHand" unique_id=376975072]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_vndkg")
-}
+libraries/ = SubResource("AnimationLibrary_vndkg")
 
-[node name="Hand" type="MeshInstance3D" parent="Visuals/nek/head/LeftHand"]
+[node name="Hand" type="MeshInstance3D" parent="Visuals/nek/head/LeftHand" unique_id=135611449]
 transform = Transform3D(1, 0, 0, 0, 0.61202383, -0.7908391, 0, 0.7908391, 0.61202383, -0.238417, 0, -0.422743)
 visible = false
 mesh = SubResource("BoxMesh_jpk48")
 
-[node name="Finger" type="MeshInstance3D" parent="Visuals/nek/head/LeftHand/Hand"]
+[node name="Finger" type="MeshInstance3D" parent="Visuals/nek/head/LeftHand/Hand" unique_id=1135600032]
 transform = Transform3D(0.978858, 0.204378, 0.00819117, -0.189232, 0.920062, -0.343043, -0.077647, 0.33424, 0.939285, 0.132025, -0.0111438, 0.0662247)
 mesh = SubResource("BoxMesh_jq7ve")
 
-[node name="RayPush" type="RayCast3D" parent="Visuals/nek/head/LeftHand/Hand"]
+[node name="RayPush" type="RayCast3D" parent="Visuals/nek/head/LeftHand/Hand" unique_id=2098702232]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.788011, -0.615662, 0, 0.615662, 0.788011, 0, 0, 0)
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
 
-[node name="TimeToTake" type="Timer" parent="Visuals/nek/head/LeftHand"]
+[node name="TimeToTake" type="Timer" parent="Visuals/nek/head/LeftHand" unique_id=1146543581]
 unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
 
-[node name="FlashLight" type="Node3D" parent="Visuals/nek/head"]
+[node name="FlashLight" type="Node3D" parent="Visuals/nek/head" unique_id=1260160892]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, -0.631187)
 visible = false
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Visuals/nek/head/FlashLight"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Visuals/nek/head/FlashLight" unique_id=356346035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.292448)
 light_color = Color(0.890196, 1, 0.847059, 1)
 light_energy = 2.5
@@ -464,84 +462,82 @@ spot_range = 12.0
 spot_attenuation = 0.517632
 spot_angle = 25.0
 
-[node name="eyes" type="Node3D" parent="Visuals/nek/head"]
+[node name="eyes" type="Node3D" parent="Visuals/nek/head" unique_id=782764157]
 unique_name_in_owner = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals/nek/head/eyes"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals/nek/head/eyes" unique_id=564576862]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_ncji1")
-}
+libraries/ = SubResource("AnimationLibrary_ncji1")
 
-[node name="Camera3D" type="Camera3D" parent="Visuals/nek/head/eyes"]
+[node name="Camera3D" type="Camera3D" parent="Visuals/nek/head/eyes" unique_id=1550392542]
 unique_name_in_owner = true
 current = true
 
-[node name="GUI" parent="Visuals/nek/head/eyes/Camera3D" instance=ExtResource("3_38y5p")]
+[node name="GUI" parent="Visuals/nek/head/eyes/Camera3D" unique_id=732686024 instance=ExtResource("3_38y5p")]
 unique_name_in_owner = true
 
-[node name="Body" type="MeshInstance3D" parent="Visuals"]
+[node name="Body" type="MeshInstance3D" parent="Visuals" unique_id=1652419493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_nlo0w")
 
-[node name="HitBox" type="Area3D" parent="." groups=["player_hitbox"]]
+[node name="HitBox" type="Area3D" parent="." unique_id=676899738 groups=["player_hitbox"]]
 unique_name_in_owner = true
 collision_layer = 3
 collision_mask = 3
 
-[node name="Stand" type="CollisionShape3D" parent="HitBox"]
+[node name="Stand" type="CollisionShape3D" parent="HitBox" unique_id=1210351540]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7swnu")
 
-[node name="Crouch" type="CollisionShape3D" parent="HitBox"]
+[node name="Crouch" type="CollisionShape3D" parent="HitBox" unique_id=1592165797]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_02vo3")
 disabled = true
 
-[node name="Quilt_area" type="Area3D" parent="." groups=["Quilt_area"]]
+[node name="Quilt_area" type="Area3D" parent="." unique_id=1379216219 groups=["Quilt_area"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.76837e-07)
 collision_layer = 0
 collision_mask = 16
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quilt_area"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Quilt_area" unique_id=457844519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.969196, -2.25)
 shape = SubResource("BoxShape3D_ah2qt")
 
-[node name="SlideTimer" type="Timer" parent="."]
+[node name="SlideTimer" type="Timer" parent="." unique_id=539608674]
 unique_name_in_owner = true
 wait_time = 0.66
 one_shot = true
 
-[node name="qTimer" type="Timer" parent="."]
+[node name="qTimer" type="Timer" parent="." unique_id=1258375910]
 unique_name_in_owner = true
 wait_time = 0.05
 autostart = true
 
-[node name="q3Timer" type="Timer" parent="."]
+[node name="q3Timer" type="Timer" parent="." unique_id=991254137]
 unique_name_in_owner = true
 
-[node name="HpTimer" type="Timer" parent="."]
+[node name="HpTimer" type="Timer" parent="." unique_id=1132702354]
 unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[node name="FootstepManager" type="Node3D" parent="." node_paths=PackedStringArray("ground_pos")]
+[node name="FootstepManager" type="Node3D" parent="." unique_id=942978522 node_paths=PackedStringArray("ground_pos")]
 script = ExtResource("5_16iq7")
 footstep_array = Array[AudioStreamWAV]([ExtResource("6_jntir"), ExtResource("7_27bqs")])
 ground_pos = NodePath("../GroundPos")
 
-[node name="GroundPos" type="Marker3D" parent="."]
+[node name="GroundPos" type="Marker3D" parent="." unique_id=1060895647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0131803, 0)
 
-[node name="AudioFootLanding" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioFootLanding" type="AudioStreamPlayer3D" parent="." unique_id=701912320]
 unique_name_in_owner = true
 stream = ExtResource("8_388ir")
 
-[node name="AudioJumping" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioJumping" type="AudioStreamPlayer3D" parent="." unique_id=339364704]
 stream = ExtResource("9_utt3j")
 volume_db = -20.0
 

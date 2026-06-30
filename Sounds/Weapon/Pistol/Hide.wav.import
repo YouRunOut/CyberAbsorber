@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dm8vbc6cnnp4h"
-path="res://.godot/imported/Hide.wav-d84b83a7af55c0897827aad411f9ad84.sample"
+uid="uid://bl2x726ly852o"
+path="res://.godot/imported/Hide.wav-bd0500cda59a2ce1f322cd11c10b5aa1.sample"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Pistol/Hide.wav"
-dest_files=["res://.godot/imported/Hide.wav-d84b83a7af55c0897827aad411f9ad84.sample"]
+source_file="res://sounds/weapon/pistol/Hide.wav"
+dest_files=["res://.godot/imported/Hide.wav-bd0500cda59a2ce1f322cd11c10b5aa1.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

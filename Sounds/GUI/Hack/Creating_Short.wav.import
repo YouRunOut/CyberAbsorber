@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://ci21o2xnq26h3"
-path="res://.godot/imported/Creating_Short.wav-fba2fb8cc31ee78d4ed1823ee2a6cbad.sample"
+uid="uid://laa3ype2lpet"
+path="res://.godot/imported/Creating_Short.wav-6a3b4ca31bf1251d82250e50cc82fa4a.sample"
 
 [deps]
 
-source_file="res://Sounds/GUI/Hack/Creating_Short.wav"
-dest_files=["res://.godot/imported/Creating_Short.wav-fba2fb8cc31ee78d4ed1823ee2a6cbad.sample"]
+source_file="res://sounds/gui/hack/Creating_Short.wav"
+dest_files=["res://.godot/imported/Creating_Short.wav-6a3b4ca31bf1251d82250e50cc82fa4a.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

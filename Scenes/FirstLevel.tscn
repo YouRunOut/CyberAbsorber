@@ -1,24 +1,24 @@
 [gd_scene format=3 uid="uid://bwxnryiun6r1l"]
 
-[ext_resource type="AudioStream" uid="uid://vaxsuqa7kx1t" path="res://Sounds/Music/AmbientMusic2.mp3" id="1_hrou4"]
-[ext_resource type="Texture2D" uid="uid://dlep4wcqcaupg" path="res://Textures/Other/rain.png" id="1_levt7"]
+[ext_resource type="AudioStream" uid="uid://vaxsuqa7kx1t" path="res://sounds/music/AmbientMusic2.mp3" id="1_hrou4"]
+[ext_resource type="Texture2D" uid="uid://dlep4wcqcaupg" path="res://textures/other/rain.png" id="1_levt7"]
 [ext_resource type="Texture2D" uid="uid://cecxr5x0y0gnp" path="res://addons/devblocks/textures/dark/texture_01.png" id="2_er2fm"]
-[ext_resource type="PackedScene" uid="uid://c2633u3s5olnb" path="res://Scenes/Player.tscn" id="2_xyai6"]
-[ext_resource type="PackedScene" uid="uid://l8e32gluy7q" path="res://Scenes/Enemy.tscn" id="3_tu5ik"]
+[ext_resource type="PackedScene" uid="uid://c2633u3s5olnb" path="res://scenes/ent_player.tscn" id="2_xyai6"]
+[ext_resource type="PackedScene" uid="uid://l8e32gluy7q" path="res://scenes/ent_enemy.tscn" id="3_tu5ik"]
 [ext_resource type="Texture2D" uid="uid://ff52ogs4u18l" path="res://addons/devblocks/textures/dark/texture_08.png" id="3_uosbx"]
 [ext_resource type="Texture2D" uid="uid://c7qmh0g1qs76v" path="res://addons/devblocks/textures/dark/texture_03.png" id="4_2afki"]
-[ext_resource type="PackedScene" uid="uid://d23jvp04cebg5" path="res://Scenes/PickObj.tscn" id="4_kq344"]
+[ext_resource type="PackedScene" uid="uid://d23jvp04cebg5" path="res://scenes/ent_pick_obj.tscn" id="4_kq344"]
 [ext_resource type="Texture2D" uid="uid://b7n45i24cfnpe" path="res://addons/devblocks/textures/dark/texture_02.png" id="5_ijx0p"]
 [ext_resource type="Texture2D" uid="uid://sjunkhn8gqrq" path="res://addons/devblocks/textures/dark/texture_09.png" id="6_268os"]
 [ext_resource type="Texture2D" uid="uid://r5du7mjwk5eq" path="res://addons/devblocks/textures/dark/texture_11.png" id="7_4bbe8"]
-[ext_resource type="PackedScene" uid="uid://cut2e8soev4ty" path="res://Scenes/Saw.tscn" id="16_p7qrj"]
-[ext_resource type="PackedScene" uid="uid://d3bt07iffsxk7" path="res://Scenes/LampPost.tscn" id="16_r27e8"]
-[ext_resource type="PackedScene" uid="uid://douetcpw0f15j" path="res://Scenes/CoverSensor.tscn" id="17_cyi20"]
-[ext_resource type="AudioStream" uid="uid://ck6x6n2mw1al6" path="res://Sounds/Atmo/ambient_wind.mp3" id="18_jhn7r"]
-[ext_resource type="PackedScene" uid="uid://clmrvi7bett7n" path="res://Scenes/besedka.tscn" id="18_mqn3r"]
-[ext_resource type="PackedScene" uid="uid://dpggb6j4d7sgl" path="res://Scenes/Hack_Station.tscn" id="19_r1l5e"]
-[ext_resource type="PackedScene" uid="uid://bodpyvtur8x5e" path="res://Scenes/crate.tscn" id="19_rvr72"]
-[ext_resource type="AudioStream" uid="uid://bmcfhtlio1eih" path="res://Sounds/Atmo/Rain/silniy_dozhd_s_gromom.mp3" id="20_85chu"]
+[ext_resource type="PackedScene" uid="uid://cut2e8soev4ty" path="res://scenes/ent_saw.tscn" id="16_p7qrj"]
+[ext_resource type="PackedScene" uid="uid://d3bt07iffsxk7" path="res://scenes/ent_lamp_post.tscn" id="16_r27e8"]
+[ext_resource type="PackedScene" uid="uid://douetcpw0f15j" path="res://scenes/ent_cover_sensor.tscn" id="17_cyi20"]
+[ext_resource type="AudioStream" uid="uid://ck6x6n2mw1al6" path="res://sounds/atmo/ambient_wind.mp3" id="18_jhn7r"]
+[ext_resource type="PackedScene" uid="uid://clmrvi7bett7n" path="res://scenes/besedka.tscn" id="18_mqn3r"]
+[ext_resource type="PackedScene" uid="uid://dpggb6j4d7sgl" path="res://scenes/ent_hack_station.tscn" id="19_r1l5e"]
+[ext_resource type="PackedScene" uid="uid://bodpyvtur8x5e" path="res://scenes/ent_crate.tscn" id="19_rvr72"]
+[ext_resource type="AudioStream" uid="uid://bmcfhtlio1eih" path="res://sounds/atmo/rain/silniy_dozhd_s_gromom.mp3" id="20_85chu"]
 
 [sub_resource type="GDScript" id="GDScript_fddsb"]
 script/source = "extends Node3D
@@ -308,7 +308,7 @@ libraries/ = SubResource("AnimationLibrary_lqlf5")
 speed_scale = 0.2
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2045965054]
-transform = Transform3D(0.960779, 0.2773146, 0, -0.2773146, 0.960779, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.9607789, 0.27731457, 0, -0.27731457, 0.9607789, 0, 0, 0, 1, 0, 0, 0)
 layers = 524289
 light_color = Color(0.839216, 0.803922, 0.639216, 1)
 light_energy = 1.2

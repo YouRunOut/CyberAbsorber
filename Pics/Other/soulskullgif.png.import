@@ -2,22 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jr21g27vxf7p"
-path="res://.godot/imported/soulskullgif.png-f1efd650c751e96b2a4db79c6f4fcff5.ctex"
+uid="uid://d2o8fficbdjcj"
+path="res://.godot/imported/soulskullgif.png-f3b2a9f05bca5f55bd852b6f3d72ee87.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pics/Other/soulskullgif.png"
-dest_files=["res://.godot/imported/soulskullgif.png-f1efd650c751e96b2a4db79c6f4fcff5.ctex"]
+source_file="res://pics/other/soulskullgif.png"
+dest_files=["res://.godot/imported/soulskullgif.png-f3b2a9f05bca5f55bd852b6f3d72ee87.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

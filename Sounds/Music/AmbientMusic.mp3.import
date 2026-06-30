@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://d3t50fcdeysyv"
-path="res://.godot/imported/AmbientMusic.mp3-00e7ed083b0b6c83316e69e8153fba52.mp3str"
+uid="uid://bpgyxfekpu05c"
+path="res://.godot/imported/AmbientMusic.mp3-cf584b7f0e0bbd492c4db7a27e1e37fe.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Music/AmbientMusic.mp3"
-dest_files=["res://.godot/imported/AmbientMusic.mp3-00e7ed083b0b6c83316e69e8153fba52.mp3str"]
+source_file="res://sounds/music/AmbientMusic.mp3"
+dest_files=["res://.godot/imported/AmbientMusic.mp3-cf584b7f0e0bbd492c4db7a27e1e37fe.mp3str"]
 
 [params]
 

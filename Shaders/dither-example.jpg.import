@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://Shaders/dither-example.jpg"
+source_file="res://shaders/dither-example.jpg"
 dest_files=["res://.godot/imported/dither-example.jpg-9b7ba331bb5d0c3f06906bacdb6c67cc.ctex"]
 
 [params]

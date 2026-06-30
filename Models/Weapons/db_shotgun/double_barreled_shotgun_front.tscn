@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://br5io0pm8w13p"]
+
+[ext_resource type="PackedScene" uid="uid://dukwegpvuhnqn" path="res://models/weapons/double-barreled_shotgun_front.fbx" id="1_w4b5f"]
+[ext_resource type="Texture2D" uid="uid://dpwh1n7naa67j" path="res://models/weapons/textures/double-barreled shotgun.png" id="2_pxgce"]
+[ext_resource type="Texture2D" uid="uid://cv3bmcp6l5bdi" path="res://models/weapons/textures/double-barreled_shotgun_front.png" id="3_0lmnp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gqnv"]
+albedo_texture = ExtResource("2_pxgce")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4nu4"]
+albedo_color = Color(0.223103, 0.223103, 0.223103, 1)
+metallic = 0.39
+roughness = 0.32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbq3t"]
+albedo_texture = ExtResource("3_0lmnp")
+
+[node name="double-barreled_shotgun_front" instance=ExtResource("1_w4b5f")]
+
+[node name="mergedBlocks" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2gqnv")
+surface_material_override/1 = SubResource("StandardMaterial3D_n4nu4")
+surface_material_override/2 = SubResource("StandardMaterial3D_dbq3t")

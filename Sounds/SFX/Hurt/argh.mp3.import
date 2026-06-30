@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://cqr0j1jtjfwk4"
-path="res://.godot/imported/argh.mp3-998dece870790aaa6e80db53d5e1f93f.mp3str"
+uid="uid://ctwh12gaowdyp"
+path="res://.godot/imported/argh.mp3-19bfe78b7df34c233f9618e5b466a231.mp3str"
 
 [deps]
 
-source_file="res://Sounds/SFX/Hurt/argh.mp3"
-dest_files=["res://.godot/imported/argh.mp3-998dece870790aaa6e80db53d5e1f93f.mp3str"]
+source_file="res://sounds/sfx/hurt/argh.mp3"
+dest_files=["res://.godot/imported/argh.mp3-19bfe78b7df34c233f9618e5b466a231.mp3str"]
 
 [params]
 

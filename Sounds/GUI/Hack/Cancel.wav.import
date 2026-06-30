@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cgqk2goe6cpew"
-path="res://.godot/imported/Cancel.wav-e676b1820c00afef264a94f711b6d5fe.sample"
+uid="uid://d0mmpdgut32se"
+path="res://.godot/imported/Cancel.wav-c12933a8f38e531c1b2ea6e74dd77e68.sample"
 
 [deps]
 
-source_file="res://Sounds/GUI/Hack/Cancel.wav"
-dest_files=["res://.godot/imported/Cancel.wav-e676b1820c00afef264a94f711b6d5fe.sample"]
+source_file="res://sounds/gui/hack/Cancel.wav"
+dest_files=["res://.godot/imported/Cancel.wav-c12933a8f38e531c1b2ea6e74dd77e68.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

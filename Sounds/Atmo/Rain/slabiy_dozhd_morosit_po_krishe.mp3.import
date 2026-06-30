@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://diaxbpc13ltsf"
-path="res://.godot/imported/slabiy_dozhd_morosit_po_krishe.mp3-fb27842c4c2b31cbefbd57e1c04c1d44.mp3str"
+uid="uid://do8i6q7gwi5xk"
+path="res://.godot/imported/slabiy_dozhd_morosit_po_krishe.mp3-bd943d72e3528f89a67ca2d5870615fc.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/Rain/slabiy_dozhd_morosit_po_krishe.mp3"
-dest_files=["res://.godot/imported/slabiy_dozhd_morosit_po_krishe.mp3-fb27842c4c2b31cbefbd57e1c04c1d44.mp3str"]
+source_file="res://sounds/atmo/rain/slabiy_dozhd_morosit_po_krishe.mp3"
+dest_files=["res://.godot/imported/slabiy_dozhd_morosit_po_krishe.mp3-bd943d72e3528f89a67ca2d5870615fc.mp3str"]
 
 [params]
 

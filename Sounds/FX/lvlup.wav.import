@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://nh774vetufu1"
-path="res://.godot/imported/lvlup.wav-60cb991727e43b56bf717ff12c55c19e.sample"
+uid="uid://jnh8njttjp2i"
+path="res://.godot/imported/lvlup.wav-a759ef9fad49e87ec3b0fdf2eef95c4d.sample"
 
 [deps]
 
-source_file="res://Sounds/FX/lvlup.wav"
-dest_files=["res://.godot/imported/lvlup.wav-60cb991727e43b56bf717ff12c55c19e.sample"]
+source_file="res://sounds/fx/lvlup.wav"
+dest_files=["res://.godot/imported/lvlup.wav-a759ef9fad49e87ec3b0fdf2eef95c4d.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

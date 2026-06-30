@@ -1,10 +1,10 @@
-[gd_scene load_steps=71 format=3 uid="uid://ckcgk0avkpa23"]
+[gd_scene format=3 uid="uid://cco2mm636r30h"]
 
-[ext_resource type="Script" uid="uid://85tlfytxq80s" path="res://Scripts/GUI.gd" id="1_43poy"]
-[ext_resource type="PackedScene" path="res://Scenes/Hack/StreakControl.tscn" id="2_hackui"]
+[ext_resource type="Script" uid="uid://85tlfytxq80s" path="res://Scripts/gui_main.gd" id="1_43poy"]
 [ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_52lof"]
+[ext_resource type="PackedScene" uid="uid://dy820qstfymgo" path="res://Scenes/hack/gui_streak_control.tscn" id="2_hackui"]
 [ext_resource type="AudioStream" uid="uid://cqr0j1jtjfwk4" path="res://Sounds/SFX/Hurt/argh.mp3" id="4_2yeir"]
-[ext_resource type="PackedScene" uid="uid://bju1n8gyah3ov" path="res://Scenes/SkillTree.tscn" id="4_usmpq"]
+[ext_resource type="PackedScene" uid="uid://bju1n8gyah3ov" path="res://Scenes/gui_skill_tree.tscn" id="4_usmpq"]
 [ext_resource type="AudioStream" uid="uid://nh774vetufu1" path="res://Sounds/FX/lvlup.wav" id="5_q2q8x"]
 [ext_resource type="FontFile" uid="uid://ta82dsir1jky" path="res://Fonts/Zlusa _font.ttf" id="6_5xroo"]
 [ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://Fonts/FRM325x8.ttf" id="7_fcfwf"]
@@ -588,7 +588,7 @@ animations = [{
 "duration": 2.0,
 "texture": ExtResource("14_wfpdf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Skull",
 "speed": 5.0
 }]
@@ -624,7 +624,7 @@ shadow_size = 10
 shadow_color = Color(0, 0, 0, 0.137255)
 shadow_offset = Vector2(-1, 2)
 
-[node name="GUI" type="Control"]
+[node name="GUI" type="Control" unique_id=148896996]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -637,18 +637,16 @@ mouse_filter = 1
 script = ExtResource("1_43poy")
 hack_ui_scene = ExtResource("2_hackui")
 
-[node name="SkillTree" parent="." instance=ExtResource("4_usmpq")]
+[node name="SkillTree" parent="." unique_id=113999749 instance=ExtResource("4_usmpq")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
-[node name="TreeAnimation" type="AnimationPlayer" parent="SkillTree"]
+[node name="TreeAnimation" type="AnimationPlayer" parent="SkillTree" unique_id=553711378]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_xtrou")
-}
+libraries/ = SubResource("AnimationLibrary_xtrou")
 
-[node name="Fade" type="ColorRect" parent="SkillTree"]
+[node name="Fade" type="ColorRect" parent="SkillTree" unique_id=1857472766]
 self_modulate = Color(0.0313726, 0.0313726, 0.0313726, 1)
 top_level = true
 z_index = -1
@@ -661,7 +659,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
-[node name="DamageScreen" type="Control" parent="."]
+[node name="DamageScreen" type="Control" parent="." unique_id=1118760221]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -671,7 +669,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="top" type="TextureRect" parent="DamageScreen"]
+[node name="top" type="TextureRect" parent="DamageScreen" unique_id=1161367008]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -680,7 +678,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_q0psg")
 
-[node name="right" type="TextureRect" parent="DamageScreen"]
+[node name="right" type="TextureRect" parent="DamageScreen" unique_id=140441546]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -689,7 +687,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_h35gf")
 
-[node name="down" type="TextureRect" parent="DamageScreen"]
+[node name="down" type="TextureRect" parent="DamageScreen" unique_id=574423182]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -698,7 +696,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_afvmj")
 
-[node name="left" type="TextureRect" parent="DamageScreen"]
+[node name="left" type="TextureRect" parent="DamageScreen" unique_id=812474604]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -707,18 +705,16 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_toj27")
 
-[node name="DamageAnimation" type="AnimationPlayer" parent="DamageScreen"]
+[node name="DamageAnimation" type="AnimationPlayer" parent="DamageScreen" unique_id=2069800853]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_tf3j8")
-}
+libraries/ = SubResource("AnimationLibrary_tf3j8")
 
-[node name="Hurt" type="AudioStreamPlayer" parent="DamageScreen"]
+[node name="Hurt" type="AudioStreamPlayer" parent="DamageScreen" unique_id=576539672]
 stream = ExtResource("4_2yeir")
 pitch_scale = 0.9
 bus = &"Ambient"
 
-[node name="Death screen" type="Control" parent="."]
+[node name="Death screen" type="Control" parent="." unique_id=609672036]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -728,11 +724,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Death screen"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Death screen" unique_id=1982992448]
 unique_name_in_owner = true
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Death screen/CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Death screen/CanvasLayer" unique_id=1858748580]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_e0mgh")
 anchors_preset = 15
@@ -741,7 +737,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fade" type="ColorRect" parent="Death screen"]
+[node name="Fade" type="ColorRect" parent="Death screen" unique_id=889306107]
 self_modulate = Color(0.0313726, 0.0313726, 0.0313726, 0)
 top_level = true
 layout_mode = 1
@@ -751,7 +747,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Death text" type="RichTextLabel" parent="Death screen"]
+[node name="Death text" type="RichTextLabel" parent="Death screen" unique_id=1767271889]
 unique_name_in_owner = true
 top_level = true
 z_index = 1
@@ -784,7 +780,7 @@ scroll_active = false
 autowrap_mode = 0
 visible_characters_behavior = 1
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Death screen"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Death screen" unique_id=252907841]
 unique_name_in_owner = true
 z_index = 1
 skew = -1.19555
@@ -796,25 +792,21 @@ speed_scale = 0.5
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_h1rr3")
 
-[node name="FadeAnimatoin" type="AnimationPlayer" parent="Death screen"]
+[node name="FadeAnimatoin" type="AnimationPlayer" parent="Death screen" unique_id=1766122865]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_mcjlx")
-}
+libraries/ = SubResource("AnimationLibrary_mcjlx")
 
-[node name="AnimationText" type="AnimationPlayer" parent="Death screen"]
+[node name="AnimationText" type="AnimationPlayer" parent="Death screen" unique_id=1884942466]
 unique_name_in_owner = true
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_n6mbo")
-}
+libraries/ = SubResource("AnimationLibrary_n6mbo")
 
-[node name="Death" type="AudioStreamPlayer" parent="Death screen"]
+[node name="Death" type="AudioStreamPlayer" parent="Death screen" unique_id=1290345307]
 unique_name_in_owner = true
 stream = ExtResource("5_q2q8x")
 pitch_scale = 0.5
 
-[node name="HUD" type="Control" parent="."]
+[node name="HUD" type="Control" parent="." unique_id=1082127591]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -823,7 +815,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HPbar" type="TextureProgressBar" parent="HUD"]
+[node name="HPbar" type="TextureProgressBar" parent="HUD" unique_id=714369120]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 8)
 layout_mode = 1
@@ -837,7 +829,7 @@ nine_patch_stretch = true
 texture_under = SubResource("GradientTexture1D_5itj6")
 texture_progress = SubResource("GradientTexture1D_ex5lv")
 
-[node name="HP" type="Label" parent="HUD/HPbar"]
+[node name="HP" type="Label" parent="HUD/HPbar" unique_id=785285466]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -854,7 +846,7 @@ pivot_offset = Vector2(36, 16)
 text = "100"
 label_settings = SubResource("LabelSettings_owavl")
 
-[node name="ExpCount" type="Control" parent="HUD"]
+[node name="ExpCount" type="Control" parent="HUD" unique_id=1315336433]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -863,7 +855,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="NewSkillLogo" type="Label" parent="HUD/ExpCount"]
+[node name="NewSkillLogo" type="Label" parent="HUD/ExpCount" unique_id=1474664609]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -880,7 +872,7 @@ text = "+"
 label_settings = SubResource("LabelSettings_owol0")
 visible_characters_behavior = 1
 
-[node name="HUDExpProgressBar" type="TextureProgressBar" parent="HUD/ExpCount"]
+[node name="HUDExpProgressBar" type="TextureProgressBar" parent="HUD/ExpCount" unique_id=986387885]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.780392)
 custom_minimum_size = Vector2(0, 5)
@@ -898,9 +890,8 @@ nine_patch_stretch = true
 texture_under = SubResource("GradientTexture1D_g14xb")
 texture_progress = SubResource("GradientTexture1D_l4rcg")
 
-[node name="Buttons" type="Control" parent="HUD"]
+[node name="Buttons" type="Control" parent="HUD" unique_id=90942877]
 custom_minimum_size = Vector2(0, 64)
-layout_direction = 3
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -913,8 +904,9 @@ offset_right = 86.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(86, 64)
+layout_direction = 3
 
-[node name="btn_Q" type="TextureButton" parent="HUD/Buttons"]
+[node name="btn_Q" type="TextureButton" parent="HUD/Buttons" unique_id=349531626]
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = 90.0
@@ -928,7 +920,7 @@ texture_pressed = ExtResource("9_jsp0a")
 texture_disabled = SubResource("ImageTexture_05l1s")
 stretch_mode = 5
 
-[node name="QuiltProgress" type="ProgressBar" parent="HUD/Buttons/btn_Q"]
+[node name="QuiltProgress" type="ProgressBar" parent="HUD/Buttons/btn_Q" unique_id=713769345]
 unique_name_in_owner = true
 modulate = Color(0, 0.811765, 0.705882, 1)
 texture_repeat = 2
@@ -945,7 +937,7 @@ step = 1.0
 fill_mode = 3
 show_percentage = false
 
-[node name="btn_E" type="TextureButton" parent="HUD/Buttons"]
+[node name="btn_E" type="TextureButton" parent="HUD/Buttons" unique_id=1609491764]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -959,7 +951,7 @@ texture_normal = ExtResource("10_yxntj")
 texture_pressed = ExtResource("11_xrigc")
 stretch_mode = 5
 
-[node name="QuiltProgress" type="ProgressBar" parent="HUD/Buttons/btn_E"]
+[node name="QuiltProgress" type="ProgressBar" parent="HUD/Buttons/btn_E" unique_id=986700567]
 modulate = Color(0, 0.811765, 0.705882, 1)
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_ff2v8")
@@ -979,7 +971,7 @@ step = 1.0
 fill_mode = 3
 show_percentage = false
 
-[node name="AnimaCount" type="Control" parent="HUD"]
+[node name="AnimaCount" type="Control" parent="HUD" unique_id=641686312]
 custom_minimum_size = Vector2(53, 60)
 layout_mode = 1
 anchors_preset = 2
@@ -991,14 +983,14 @@ offset_bottom = -79.9999
 grow_vertical = 0
 scale = Vector2(2.12441, 2.12441)
 
-[node name="QuiltDone" type="AudioStreamPlayer2D" parent="HUD/AnimaCount"]
+[node name="QuiltDone" type="AudioStreamPlayer2D" parent="HUD/AnimaCount" unique_id=68043819]
 unique_name_in_owner = true
 position = Vector2(26.5, 30)
 stream = ExtResource("12_clbgx")
 volume_db = 10.0
 pitch_scale = 0.95
 
-[node name="QuitCD" type="TextureProgressBar" parent="HUD/AnimaCount"]
+[node name="QuitCD" type="TextureProgressBar" parent="HUD/AnimaCount" unique_id=1828219734]
 visible = false
 layout_mode = 0
 offset_right = 40.0
@@ -1010,7 +1002,7 @@ radial_center_offset = Vector2(0.5, 6)
 texture_under = ExtResource("13_1p4el")
 texture_progress = ExtResource("14_mvy7j")
 
-[node name="Logo" type="AnimatedSprite2D" parent="HUD/AnimaCount"]
+[node name="Logo" type="AnimatedSprite2D" parent="HUD/AnimaCount" unique_id=1720021714]
 visible = false
 position = Vector2(26.5, 30)
 sprite_frames = SubResource("SpriteFrames_dwfrw")
@@ -1018,7 +1010,7 @@ animation = &"Skull"
 autoplay = "Skull"
 frame_progress = 0.330399
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="HUD/AnimaCount/Logo"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="HUD/AnimaCount/Logo" unique_id=1034840020]
 z_index = -1
 material = SubResource("CanvasItemMaterial_2dxoq")
 amount = 50
@@ -1027,7 +1019,7 @@ speed_scale = 0.3
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_thi4a")
 
-[node name="Anima" type="Label" parent="HUD/AnimaCount"]
+[node name="Anima" type="Label" parent="HUD/AnimaCount" unique_id=136343889]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 1
@@ -1045,7 +1037,7 @@ text = "5"
 label_settings = SubResource("LabelSettings_owol0")
 horizontal_alignment = 2
 
-[node name="GoldCount" type="Control" parent="HUD"]
+[node name="GoldCount" type="Control" parent="HUD" unique_id=1530961446]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(100, 36)
@@ -1056,14 +1048,14 @@ offset_top = 48.0
 offset_right = 132.0
 offset_bottom = 84.0
 
-[node name="Logo" type="TextureRect" parent="HUD/GoldCount"]
+[node name="Logo" type="TextureRect" parent="HUD/GoldCount" unique_id=621502397]
 layout_mode = 1
 offset_right = 64.0
 offset_bottom = 64.0
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("15_nxrt3")
 
-[node name="Gold" type="Label" parent="HUD/GoldCount"]
+[node name="Gold" type="Label" parent="HUD/GoldCount" unique_id=1022090939]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -1081,13 +1073,13 @@ pivot_offset = Vector2(0, 16)
 text = "19"
 label_settings = SubResource("LabelSettings_3pxu2")
 
-[node name="PickCoin" type="AudioStreamPlayer2D" parent="HUD/GoldCount"]
+[node name="PickCoin" type="AudioStreamPlayer2D" parent="HUD/GoldCount" unique_id=1521248004]
 unique_name_in_owner = true
 stream = ExtResource("20_nfhyi")
 volume_db = 10.0
 attenuation = 1.46409
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD" unique_id=2074063987]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -1106,7 +1098,7 @@ texture_under = ExtResource("20_03i26")
 texture_progress = ExtResource("21_bsms3")
 texture_progress_offset = Vector2(3, 4)
 
-[node name="Crosshair" type="TextureRect" parent="HUD"]
+[node name="Crosshair" type="TextureRect" parent="HUD" unique_id=1365432530]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.615686)
 layout_mode = 1
@@ -1120,7 +1112,7 @@ mouse_filter = 2
 texture = ExtResource("17_ljcf7")
 stretch_mode = 3
 
-[node name="EyeFilter" type="Control" parent="."]
+[node name="EyeFilter" type="Control" parent="." unique_id=814421792]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1129,7 +1121,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="EyeFilter"]
+[node name="TextureRect" type="TextureRect" parent="EyeFilter" unique_id=1640054090]
 self_modulate = Color(1, 1, 1, 0.0196078)
 layout_mode = 1
 anchors_preset = 15

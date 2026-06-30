@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://chw8awdqrmnvx"
-path="res://.godot/imported/d9cb00d636d2651.mp3-24adf02576fd892f7ee8af0c6e8cf0d4.mp3str"
+uid="uid://ev3xv0irlolx"
+path="res://.godot/imported/d9cb00d636d2651.mp3-d938ab4f8e73b5f3c69fc32b6a492a04.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Melee/d9cb00d636d2651.mp3"
-dest_files=["res://.godot/imported/d9cb00d636d2651.mp3-24adf02576fd892f7ee8af0c6e8cf0d4.mp3str"]
+source_file="res://sounds/weapon/melee/d9cb00d636d2651.mp3"
+dest_files=["res://.godot/imported/d9cb00d636d2651.mp3-d938ab4f8e73b5f3c69fc32b6a492a04.mp3str"]
 
 [params]
 

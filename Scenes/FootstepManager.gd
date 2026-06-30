@@ -3,10 +3,13 @@ extends Node3D
 
 @export var footstep_array : Array[AudioStreamWAV]
 @export var ground_pos : Marker3D
-@onready var player : CharacterBody3D = get_parent()
+@onready var player : Node = get_parent()
 
 func _ready():
-	player.step.connect(play_sound)
+	if player.has_signal("step"):
+		player.connect("step", Callable(self, "play_sound"))
+	else:
+		push_warning("Parent node has no 'step' signal; footsteps disabled.")
 	
 func play_sound():
 	var audio_player : AudioStreamPlayer3D = AudioStreamPlayer3D.new()

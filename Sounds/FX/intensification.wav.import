@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b8apg8vuaguqp"
-path="res://.godot/imported/intensification.wav-4bbb2659451c1e54a74c51439d36ed17.sample"
+uid="uid://nm415rem0syo"
+path="res://.godot/imported/intensification.wav-0eaa68ff7bf4c1307735c9e38101d4d5.sample"
 
 [deps]
 
-source_file="res://Sounds/FX/intensification.wav"
-dest_files=["res://.godot/imported/intensification.wav-4bbb2659451c1e54a74c51439d36ed17.sample"]
+source_file="res://sounds/fx/intensification.wav"
+dest_files=["res://.godot/imported/intensification.wav-0eaa68ff7bf4c1307735c9e38101d4d5.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

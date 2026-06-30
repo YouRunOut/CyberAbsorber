@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://cs8y58rw72rh7"
-path="res://.godot/imported/5.mp3-56d468bceae057f532569ec2f4612561.mp3str"
+uid="uid://bk163al7pvtmt"
+path="res://.godot/imported/5.mp3-deab1c0b10f2a3447b5db093cf420117.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/Rain/5.mp3"
-dest_files=["res://.godot/imported/5.mp3-56d468bceae057f532569ec2f4612561.mp3str"]
+source_file="res://sounds/atmo/rain/5.mp3"
+dest_files=["res://.godot/imported/5.mp3-deab1c0b10f2a3447b5db093cf420117.mp3str"]
 
 [params]
 

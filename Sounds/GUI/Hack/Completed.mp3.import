@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://bqi0ummon230s"
-path="res://.godot/imported/Completed.mp3-a9335517318adddffc60a8e216a4c278.mp3str"
+uid="uid://ciku4xob140bq"
+path="res://.godot/imported/Completed.mp3-cb5ac6b744b8b194b6a4d6843ffd0502.mp3str"
 
 [deps]
 
-source_file="res://Sounds/GUI/Hack/Completed.mp3"
-dest_files=["res://.godot/imported/Completed.mp3-a9335517318adddffc60a8e216a4c278.mp3str"]
+source_file="res://sounds/gui/hack/Completed.mp3"
+dest_files=["res://.godot/imported/Completed.mp3-cb5ac6b744b8b194b6a4d6843ffd0502.mp3str"]
 
 [params]
 

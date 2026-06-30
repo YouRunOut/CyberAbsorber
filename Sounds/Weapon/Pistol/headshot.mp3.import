@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://tercal7stefb"
-path="res://.godot/imported/headshot.mp3-268196c534fd9ab41e188116bd9c40a5.mp3str"
+uid="uid://rn8jd6hgtvm7"
+path="res://.godot/imported/headshot.mp3-c70144d494de5373d9e7e272a477cea1.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Pistol/headshot.mp3"
-dest_files=["res://.godot/imported/headshot.mp3-268196c534fd9ab41e188116bd9c40a5.mp3str"]
+source_file="res://sounds/weapon/pistol/headshot.mp3"
+dest_files=["res://.godot/imported/headshot.mp3-c70144d494de5373d9e7e272a477cea1.mp3str"]
 
 [params]
 

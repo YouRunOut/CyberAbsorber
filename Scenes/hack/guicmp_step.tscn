@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://25o46jfcsxnw"]
+
+[ext_resource type="Script" uid="uid://b0nseqy6q3iq0" path="res://Scripts/guicmp_step.gd" id="1_kwawn"]
+[ext_resource type="PackedScene" uid="uid://dvh3yj8dgsak3" path="res://Scenes/hack/guicmp_file_cell.tscn" id="2_uum03"]
+
+[node name="Step1" type="HBoxContainer" unique_id=969393817]
+theme_override_constants/separation = 30
+alignment = 1
+script = ExtResource("1_kwawn")
+cell_scene = ExtResource("2_uum03")

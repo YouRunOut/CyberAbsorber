@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dm2w3ljlkpq5v"
-path="res://.godot/imported/Equip.wav-0b72b2631aeda8e715db3272cfa9f7d9.sample"
+uid="uid://clug6atn7r2k4"
+path="res://.godot/imported/Equip.wav-340cb9c3e648c97e38c372ef527de1d5.sample"
 
 [deps]
 
-source_file="res://Sounds/Weapon/Pistol/Equip.wav"
-dest_files=["res://.godot/imported/Equip.wav-0b72b2631aeda8e715db3272cfa9f7d9.sample"]
+source_file="res://sounds/weapon/pistol/Equip.wav"
+dest_files=["res://.godot/imported/Equip.wav-340cb9c3e648c97e38c372ef527de1d5.sample"]
 
 [params]
 
@@ -21,4 +21,4 @@ edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=2

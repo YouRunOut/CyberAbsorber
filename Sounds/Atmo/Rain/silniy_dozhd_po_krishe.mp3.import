@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://cnm2j8pw25ex3"
-path="res://.godot/imported/silniy_dozhd_po_krishe.mp3-65f19aa51b2200b9c4a55b3a51aec385.mp3str"
+uid="uid://c8wq6ugmu8g8h"
+path="res://.godot/imported/silniy_dozhd_po_krishe.mp3-d208c5456315f679abc792f6feb549db.mp3str"
 
 [deps]
 
-source_file="res://Sounds/Atmo/Rain/silniy_dozhd_po_krishe.mp3"
-dest_files=["res://.godot/imported/silniy_dozhd_po_krishe.mp3-65f19aa51b2200b9c4a55b3a51aec385.mp3str"]
+source_file="res://sounds/atmo/rain/silniy_dozhd_po_krishe.mp3"
+dest_files=["res://.godot/imported/silniy_dozhd_po_krishe.mp3-d208c5456315f679abc792f6feb549db.mp3str"]
 
 [params]
 
