@@ -44,6 +44,7 @@ alwaysApply: true
 - Refactor in small batches per domain (`hack`, `ui`, `player`, `enemy`).
 - Do not mix behavior changes with structural file moves in one step.
 - After each batch, run a smoke check for boot, level transition, and core loop.
+- Never modify files under `addons/` during gameplay refactor batches unless explicitly requested by the user.
 
 ## Diagnostics
 - Treat missing resource warnings as blockers before continuing.
