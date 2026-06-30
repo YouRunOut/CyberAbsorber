@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@onready var template = preload("res://Scenes/Hack/File-Cell.tscn")
+@export var cell_scene: PackedScene
 
 func _ready():
 	create_cells()
@@ -20,7 +20,7 @@ func create_cells():
 
 func add_child_to_tree(number, trigger, parent):
 	#print("The cell number: ", number)
-	var cell = template.instantiate() #создает экземпляр
+	var cell = cell_scene.instantiate() #создает экземпляр
 	if number == trigger:
 		cell.trigger = true
 	else:

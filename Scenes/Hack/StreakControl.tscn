@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy820qstfymgo"]
+[gd_scene load_steps=5 format=3 uid="uid://dy820qstfymgo"]
 
 [ext_resource type="Script" uid="uid://cflub6i3y31fd" path="res://Scripts/StreakControl.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_dnkph"]
 [ext_resource type="AudioStream" uid="uid://bqi0ummon230s" path="res://Sounds/GUI/Hack/Completed.mp3" id="3_audio"]
+[ext_resource type="PackedScene" path="res://Scenes/Hack/Step.tscn" id="4_step"]
 
 [node name="StreakControl" type="Control"]
 z_index = 1
@@ -13,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
+step_scene = ExtResource("4_step")
 
 [node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
@@ -24,6 +26,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -46,6 +49,7 @@ theme_override_font_sizes/font_size = 50
 text = "Hacking completed"
 
 [node name="StreakTree" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 1
 anchors_preset = 14
@@ -61,6 +65,7 @@ theme_override_constants/separation = 50
 alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("3_audio")
 volume_db = -7.0
 pitch_scale = 0.8

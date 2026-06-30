@@ -1,12 +1,12 @@
 extends TextureButton
-@onready var streak_control
-@onready var input_sound = $InputSound
-@onready var create_sound = $CreateSound
+@export var trigger_texture: Texture2D
+@export var accept_sound: AudioStream
+@export var decline_sound: AudioStream
 
+@onready var input_sound: AudioStreamPlayer = %InputSound
+@onready var create_sound: AudioStreamPlayer = %CreateSound
 
-const TRIGGER = preload("res://Textures/Cells/Trigger.png")
-
-const ACCEPT = preload("res://Sounds/GUI/Hack/Accept.wav")
+var streak_control: Control
 
 var trigger : bool = false
 
@@ -16,11 +16,11 @@ func _ready():
 	streak_control = get_parent().get_parent().get_parent()
 	if self.get_name() == "File-Сell": grab_focus()
 	
-	if trigger:
-		input_sound.set_stream(ACCEPT)
-		set_texture_hover(TRIGGER)
-		set_texture_focused(TRIGGER)
-		set_texture_disabled(TRIGGER)
+	if trigger and accept_sound and trigger_texture:
+		input_sound.set_stream(accept_sound)
+		set_texture_hover(trigger_texture)
+		set_texture_focused(trigger_texture)
+		set_texture_disabled(trigger_texture)
 
 
 func _on_pressed():

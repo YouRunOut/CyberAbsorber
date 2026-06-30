@@ -1,8 +1,9 @@
 extends Control
-@onready var tree = $StreakTree
-@onready var audio = $AudioStreamPlayer
+@export var step_scene: PackedScene
 
-const template = preload("res://Scenes/Hack/Step.tscn")
+@onready var tree: VBoxContainer = %StreakTree
+@onready var audio: AudioStreamPlayer = %AudioStreamPlayer
+@onready var completed_label: Label = %Label
 
 var access_value : int = 10
 var iter : int = 0
@@ -23,7 +24,7 @@ func create_step():
 		await get_tree().create_timer(1).timeout
 		delete_childs_from_tree_of_(tree)
 		await get_tree().create_timer(0.2).timeout
-		$Label.visible = true
+		completed_label.visible = true
 		#print("Done")
 		await get_tree().create_timer(1).timeout
 		queue_free()
@@ -31,7 +32,7 @@ func create_step():
 
 func add_child_to_tree(parent):
 	#print("The step number: ", iter)
-	var step = template.instantiate() #создает экземпляр
+	var step = step_scene.instantiate() #создает экземпляр
 	#parent.add_child(step) # добавляет на сцену
 	parent.call_deferred("add_child", step)
 	tree.position.y = 224

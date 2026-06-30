@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var label_3d = $Label3D
-@onready var screen = $PC/Screen
+@onready var label_3d: Label3D = %Label3D
+@onready var screen: MeshInstance3D = %Screen
 
 
 func _ready():
