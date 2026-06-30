@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://bscck1g6reg7a"]
+[gd_scene load_steps=25 format=3 uid="uid://bscck1g6reg7a"]
 
 [ext_resource type="Texture2D" uid="uid://3kptn570uvt2" path="res://Pics/MainMenu/skill_outline.png" id="1_hh6aq"]
+[ext_resource type="Texture2D" path="res://Pics/MainMenu/skill_active.png" id="1_active"]
 [ext_resource type="Texture2D" uid="uid://de335wb8m1egn" path="res://Pics/MainMenu/akill_hover.png" id="2_2ok7k"]
 [ext_resource type="Texture2D" uid="uid://cq26sms4okbf3" path="res://Pics/MainMenu/skill_btn.png" id="2_pl6en"]
 [ext_resource type="Script" uid="uid://dbbrg4wnqkr5m" path="res://Scripts/SkillBtn.gd" id="4_c7dwn"]
@@ -149,18 +150,22 @@ texture_hover = ExtResource("2_2ok7k")
 stretch_mode = 0
 flip_v = true
 script = ExtResource("4_c7dwn")
+active_texture = ExtResource("1_active")
 
 [node name="AudioUpgrade" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(74, 74)
 stream = ExtResource("5_13d3j")
 bus = &"GuiFX"
 
 [node name="AudioHover" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(74, 74)
 stream = ExtResource("6_mug7e")
 volume_db = 1.0
 
 [node name="Note" type="Control" parent="."]
+unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 top_level = true
 layout_mode = 1
@@ -176,6 +181,7 @@ texture = SubResource("GradientTexture1D_kxfbi")
 centered = false
 
 [node name="HoverSkillPic" type="Sprite2D" parent="Note"]
+unique_name_in_owner = true
 show_behind_parent = true
 z_index = 1
 texture_filter = 1
@@ -185,6 +191,7 @@ texture = SubResource("ImageTexture_5bfr2")
 offset = Vector2(74, 74)
 
 [node name="writeup" type="Label" parent="Note"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -201,12 +208,14 @@ label_settings = SubResource("LabelSettings_pdqeq")
 autowrap_mode = 2
 
 [node name="SkillPic" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
 texture = SubResource("ImageTexture_vvku4")
 offset = Vector2(74, 74)
 
 [node name="BtnName" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -226,6 +235,7 @@ theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/normal_font = ExtResource("8_154f5")
 
 [node name="BtnName2" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -245,6 +255,7 @@ theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/normal_font = ExtResource("8_154f5")
 
 [node name="BtnName3" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -263,11 +274,13 @@ theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/normal_font = ExtResource("8_154f5")
 
 [node name="AnimNote" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_duhdm")
 }
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_p5s2o")
 position = Vector2(73, 73)
 scale = Vector2(1.06261, 1.06261)

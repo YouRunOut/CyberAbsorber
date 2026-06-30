@@ -1,17 +1,17 @@
 extends Control
-@onready var exit_button = $MarginContainer/Body/ExitButton
-@onready var audio_hover = $MarginContainer/Body/ExitButton/AudioHover
-@onready var audio_pressed = $MarginContainer/Body/ExitButton/AudioPressed
+@onready var exit_button: Button = %ExitButton
+@onready var audio_hover: AudioStreamPlayer2D = %AudioHover
+@onready var audio_pressed: AudioStreamPlayer2D = %AudioPressed
 
-@onready var lvl_count = $MarginContainer/Body/Header/LVL/Count
-@onready var skill_point_count = $MarginContainer/Body/SkillPointCount
+@onready var lvl_count: Label = %Count
+@onready var skill_point_count: Label = %SkillPointCount
 
-@onready var exp_progress_bar = $MarginContainer/Body/ExpProgress/ExpProgressBar
-@onready var exp_count = $MarginContainer/Body/ExpProgress/ExpProgressBar/ExpCount
+@onready var exp_progress_bar: TextureProgressBar = %ExpProgressBar
+@onready var exp_count: Label = %ExpCount
 
-@onready var soundtrack = $Soundtrack
-@onready var background = $Background
-@onready var bg_particles = $Background/GPUParticles2D
+@onready var soundtrack: AudioStreamPlayer = %Soundtrack
+@onready var background: Control = %Background
+@onready var bg_particles: GPUParticles2D = %GPUParticles2D
 
 func _ready():
 	pass

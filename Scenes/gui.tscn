@@ -1,6 +1,7 @@
-[gd_scene load_steps=70 format=3 uid="uid://ckcgk0avkpa23"]
+[gd_scene load_steps=71 format=3 uid="uid://ckcgk0avkpa23"]
 
 [ext_resource type="Script" uid="uid://85tlfytxq80s" path="res://Scripts/GUI.gd" id="1_43poy"]
+[ext_resource type="PackedScene" path="res://Scenes/Hack/StreakControl.tscn" id="2_hackui"]
 [ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_52lof"]
 [ext_resource type="AudioStream" uid="uid://cqr0j1jtjfwk4" path="res://Sounds/SFX/Hurt/argh.mp3" id="4_2yeir"]
 [ext_resource type="PackedScene" uid="uid://bju1n8gyah3ov" path="res://Scenes/SkillTree.tscn" id="4_usmpq"]
@@ -634,12 +635,15 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("1_43poy")
+hack_ui_scene = ExtResource("2_hackui")
 
 [node name="SkillTree" parent="." instance=ExtResource("4_usmpq")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
 [node name="TreeAnimation" type="AnimationPlayer" parent="SkillTree"]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_xtrou")
 }
@@ -724,9 +728,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Death screen"]
+unique_name_in_owner = true
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Death screen/CanvasLayer"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_e0mgh")
 anchors_preset = 15
 anchor_right = 1.0
@@ -745,6 +751,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Death text" type="RichTextLabel" parent="Death screen"]
+unique_name_in_owner = true
 top_level = true
 z_index = 1
 clip_contents = false
@@ -777,6 +784,7 @@ autowrap_mode = 0
 visible_characters_behavior = 1
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Death screen"]
+unique_name_in_owner = true
 z_index = 1
 skew = -1.19555
 emitting = false
@@ -788,21 +796,25 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_h1rr3")
 
 [node name="FadeAnimatoin" type="AnimationPlayer" parent="Death screen"]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_mcjlx")
 }
 
 [node name="AnimationText" type="AnimationPlayer" parent="Death screen"]
+unique_name_in_owner = true
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_n6mbo")
 }
 
 [node name="Death" type="AudioStreamPlayer" parent="Death screen"]
+unique_name_in_owner = true
 stream = ExtResource("5_q2q8x")
 pitch_scale = 0.5
 
 [node name="HUD" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -811,6 +823,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HPbar" type="TextureProgressBar" parent="HUD"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 8)
 layout_mode = 1
 anchors_preset = 10
@@ -824,6 +837,7 @@ texture_under = SubResource("GradientTexture1D_5itj6")
 texture_progress = SubResource("GradientTexture1D_ex5lv")
 
 [node name="HP" type="Label" parent="HUD/HPbar"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -848,7 +862,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Logo" type="Label" parent="HUD/ExpCount"]
+[node name="NewSkillLogo" type="Label" parent="HUD/ExpCount"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -864,7 +879,8 @@ text = "+"
 label_settings = SubResource("LabelSettings_owol0")
 visible_characters_behavior = 1
 
-[node name="ExpProgressBar" type="TextureProgressBar" parent="HUD/ExpCount"]
+[node name="HUDExpProgressBar" type="TextureProgressBar" parent="HUD/ExpCount"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.780392)
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
@@ -898,6 +914,7 @@ grow_vertical = 0
 pivot_offset = Vector2(86, 64)
 
 [node name="btn_Q" type="TextureButton" parent="HUD/Buttons"]
+unique_name_in_owner = true
 layout_mode = 1
 offset_left = 90.0
 offset_right = 142.0
@@ -927,6 +944,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="btn_E" type="TextureButton" parent="HUD/Buttons"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 offset_left = 30.0
@@ -972,6 +990,7 @@ grow_vertical = 0
 scale = Vector2(2.12441, 2.12441)
 
 [node name="QuiltDone" type="AudioStreamPlayer2D" parent="HUD/AnimaCount"]
+unique_name_in_owner = true
 position = Vector2(26.5, 30)
 stream = ExtResource("12_clbgx")
 volume_db = 10.0
@@ -1007,6 +1026,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_thi4a")
 
 [node name="Anima" type="Label" parent="HUD/AnimaCount"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 1
 anchors_preset = 3
@@ -1024,6 +1044,7 @@ label_settings = SubResource("LabelSettings_owol0")
 horizontal_alignment = 2
 
 [node name="GoldCount" type="Control" parent="HUD"]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(100, 36)
 layout_mode = 1
@@ -1041,6 +1062,7 @@ scale = Vector2(0.55, 0.55)
 texture = ExtResource("15_nxrt3")
 
 [node name="Gold" type="Label" parent="HUD/GoldCount"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1058,6 +1080,7 @@ text = "19"
 label_settings = SubResource("LabelSettings_3pxu2")
 
 [node name="PickCoin" type="AudioStreamPlayer2D" parent="HUD/GoldCount"]
+unique_name_in_owner = true
 stream = ExtResource("20_nfhyi")
 volume_db = 10.0
 attenuation = 1.46409
@@ -1082,6 +1105,7 @@ texture_progress = ExtResource("21_bsms3")
 texture_progress_offset = Vector2(3, 4)
 
 [node name="Crosshair" type="TextureRect" parent="HUD"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.615686)
 layout_mode = 1
 anchors_preset = 15

@@ -1,23 +1,24 @@
 extends TextureButton
 
-@onready var audio_hover = $AudioHover
-@onready var audio_upgrade = $AudioUpgrade
-@onready var anim_note = $AnimNote
-@onready var particles = $GPUParticles2D
+@export var active_texture: Texture2D
 
-@onready var Lbtn_name = $BtnName
-@onready var Rbtn_name = $BtnName2
-@onready var Cbtn_name = $BtnName3
+@onready var audio_hover: AudioStreamPlayer2D = %AudioHover
+@onready var audio_upgrade: AudioStreamPlayer2D = %AudioUpgrade
+@onready var anim_note: AnimationPlayer = %AnimNote
+@onready var particles: GPUParticles2D = %GPUParticles2D
 
-@onready var skill_pic = $SkillPic
-@onready var hover_skill_pic = $Note/HoverSkillPic
-@onready var note = $Note
-@onready var writeup = $Note/writeup
+@onready var lbtn_name: RichTextLabel = %BtnName
+@onready var rbtn_name: RichTextLabel = %BtnName2
+@onready var cbtn_name: RichTextLabel = %BtnName3
 
-var active_pic = preload("res://Pics/MainMenu/skill_active.png")
+@onready var skill_pic: Sprite2D = %SkillPic
+@onready var hover_skill_pic: Sprite2D = %HoverSkillPic
+@onready var note: Control = %Note
+@onready var writeup: Label = %writeup
+
 var txt = '[{0}]'
 var NAME : String
-var skill_note : Array #aka [false, preload("res://Pics/MainMenu/skill_pic/skill_L00.png"), "Энергия накапливается слегка быстрее"]
+var skill_note : Array # [is_unlocked, icon_texture, description]
 var side : String
 var skill_list = ['L00', 'R00', 'L01', 'R01', 'L10', 'R10', 'L11', 'R11', 'L20', 'R20', 'C00']
 
@@ -38,7 +39,7 @@ func _process(delta):
 	else: particles.visible = true
 	
 	if skill_note[0]:
-		self.set_texture_disabled(active_pic)
+		self.set_texture_disabled(active_texture)
 	skill_availability()
 
 func skill_availability():
@@ -117,14 +118,14 @@ func _on_mouse_exited():
 
 func vision():
 	if side == 'L':
-		Lbtn_name.visible = true
-		Lbtn_name.text = txt.format([NAME])
+		lbtn_name.visible = true
+		lbtn_name.text = txt.format([NAME])
 	elif side == 'R':
-		Rbtn_name.visible = true
-		Rbtn_name.text = txt.format([NAME])
+		rbtn_name.visible = true
+		rbtn_name.text = txt.format([NAME])
 	else:
-		Cbtn_name.visible = true
-		Cbtn_name.text = txt.format([NAME])
+		cbtn_name.visible = true
+		cbtn_name.text = txt.format([NAME])
 
 
 func _on_button_up():

@@ -1,49 +1,50 @@
 extends Control
 
-@onready var audio_quilt_done = $HUD/AnimaCount/QuiltDone
-@onready var audio_death = $"Death screen/Death"
-@onready var audio_pick_coin = $HUD/GoldCount/PickCoin
+@export var hack_ui_scene: PackedScene
 
-@onready var crosshair = $HUD/Crosshair
+@onready var audio_quilt_done: AudioStreamPlayer2D = %QuiltDone
+@onready var audio_death: AudioStreamPlayer = %Death
+@onready var audio_pick_coin: AudioStreamPlayer2D = %PickCoin
 
-@onready var hud = $HUD
+@onready var crosshair: TextureRect = %Crosshair
 
-@onready var tree_animation = $SkillTree/TreeAnimation
-@onready var skill_tree = $SkillTree
+@onready var hud: Control = %HUD
+
+@onready var tree_animation: AnimationPlayer = %TreeAnimation
+@onready var skill_tree: Control = %SkillTree
 @export var skill_tree_open : bool
 
-@onready var hp_bar = $HUD/HPbar
-@onready var hp_percentage = $HUD/HPbar/HP
+@onready var hp_bar: TextureProgressBar = %HPbar
+@onready var hp_percentage: Label = %HP
 
-@onready var anima_count = $HUD/AnimaCount/Anima
-@onready var exp_progress_bar = $HUD/ExpCount/ExpProgressBar
-@onready var new_skill = $HUD/ExpCount/Logo
+@onready var anima_count: Label = %Anima
+@onready var exp_progress_bar: TextureProgressBar = %HUDExpProgressBar
+@onready var new_skill: Label = %NewSkillLogo
 
-@onready var gold_ui = $HUD/GoldCount
-@onready var gold_count = $HUD/GoldCount/Gold
+@onready var gold_ui: Control = %GoldCount
+@onready var gold_count: Label = %Gold
 
-@onready var btn_q = $HUD/Buttons/btn_Q
-@onready var btn_e = $HUD/Buttons/btn_E
+@onready var btn_q: TextureButton = %btn_Q
+@onready var btn_e: TextureButton = %btn_E
 
-@onready var death_screen = $"Death screen"
-@onready var death_particles = $"Death screen/GPUParticles2D"
+@onready var death_particles: GPUParticles2D = %GPUParticles2D
 
-@onready var death_text = $"Death screen/Death text"
-@onready var fade_animation = $"Death screen/FadeAnimatoin"
-@onready var text_animation = $'Death screen/AnimationText'
-
-const STREAK_CONTROL = preload("res://Scenes/Hack/StreakControl.tscn")
-
+@onready var death_text: RichTextLabel = %AnimationText.get_parent().get_node("Death text")
+@onready var fade_animation: AnimationPlayer = %FadeAnimatoin
+@onready var text_animation: AnimationPlayer = %AnimationText
+@onready var death_canvas_layer: CanvasLayer = %CanvasLayer
+@onready var death_screen: Control = fade_animation.get_parent()
+@onready var death_color_rect: ColorRect = %ColorRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print_debug($"Death screen/CanvasLayer/ColorRect".material.shader)
+	print_debug(death_color_rect.material.shader)
 	hp_bar.value
 	Main.player_dead = false
 	death_text.visible = false
 	skill_tree_open = false
 	death_screen.visible = false
-	$"Death screen/CanvasLayer".visible = false
+	death_canvas_layer.visible = false
 
 func changescene():
 	if Main.kills == 15 and Main.can_next_lvl:
@@ -111,7 +112,7 @@ func _on_player_death():
 	death_particles.restart()
 	death_particles.emitting = true
 	death_screen.visible = true
-	$"Death screen/CanvasLayer".visible = true
+	death_canvas_layer.visible = true
 	fade_animation.play("fade")
 	text_animation.play("death_begin")
 
@@ -152,7 +153,7 @@ func is_hacking_active() -> bool:
 func show_hacking() -> void:
 	if is_hacking_active():
 		return
-	var scene = STREAK_CONTROL.instantiate()
+	var scene = hack_ui_scene.instantiate()
 	scene.name = "StreakControl"
 	add_child(scene)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

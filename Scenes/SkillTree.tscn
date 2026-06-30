@@ -105,6 +105,7 @@ grow_vertical = 2
 script = ExtResource("1_qe7bx")
 
 [node name="Background" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,6 +144,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.258824)
 position = Vector2(576, 324)
 scale = Vector2(5.5, 3)
@@ -167,6 +169,7 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 
 [node name="SkillPointCount" type="Label" parent="MarginContainer/Body"]
+unique_name_in_owner = true
 layout_mode = 1
 offset_right = 142.0
 offset_bottom = 32.0
@@ -192,6 +195,7 @@ flip_h = true
 flip_v = true
 
 [node name="Count" type="Label" parent="MarginContainer/Body/Header/LVL"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -404,6 +408,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ExpProgressBar" type="TextureProgressBar" parent="MarginContainer/Body/ExpProgress"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.780392)
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
@@ -421,6 +426,7 @@ texture_under = SubResource("GradientTexture1D_acrpe")
 texture_progress = SubResource("GradientTexture1D_ysu4t")
 
 [node name="ExpCount" type="Label" parent="MarginContainer/Body/ExpProgress/ExpProgressBar"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -442,6 +448,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ExitButton" type="Button" parent="MarginContainer/Body"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(153, 50)
 layout_mode = 1
 anchors_preset = 1
@@ -460,15 +467,18 @@ toggle_mode = true
 text = "Leave the game"
 
 [node name="AudioHover" type="AudioStreamPlayer2D" parent="MarginContainer/Body/ExitButton"]
+unique_name_in_owner = true
 stream = ExtResource("8_xcjk1")
 bus = &"GuiFX"
 
 [node name="AudioPressed" type="AudioStreamPlayer2D" parent="MarginContainer/Body/ExitButton"]
+unique_name_in_owner = true
 stream = ExtResource("9_1immg")
 volume_db = 10.0
 bus = &"GuiFX"
 
 [node name="Soundtrack" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("7_6knrx")
 volume_db = -5.0
 
