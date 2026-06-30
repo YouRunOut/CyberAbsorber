@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3 uid="uid://cut2e8soev4ty"]
+
+[ext_resource type="AudioStream" uid="uid://dtkujgxsh1rab" path="res://assets/sounds/weapon/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3" id="1_0c40o"]
+
+[sub_resource type="GDScript" id="GDScript_tfidx"]
+script/source = "extends Node3D
+
+@onready var animation: AnimationPlayer = %AnimationPlayer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#animation.play(\"idle\")
+	animation.play(\"worked\")
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _physics_process(delta):
+#	animation.play(\"worked\")
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exvj7"]
+albedo_color = Color(0.388235, 0.270588, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3fsyv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wb2ip"]
+albedo_color = Color(0.431373, 0.431373, 0.431373, 1)
+metallic = 0.21
+metallic_specular = 1.0
+metallic_texture_channel = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1cmms"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wqouy"]
+points = PackedVector3Array(-0.214183, -0.948028, -0.451129, 0.0227317, 0.952146, 0.498887, 0.171488, 0.951995, 0.469018, -0.125934, 0.952684, -0.483291, 0.499663, -0.953674, -0.00688883, -0.387646, -0.93796, 0.315653, -0.483292, 0.952686, -0.12593, 0.375097, 0.940128, -0.329816, 0.171488, -0.951995, 0.469018, 0.140783, -0.945485, -0.479579, 0.469014, 0.952011, 0.171499, -0.387646, 0.93796, 0.315653, -0.483292, -0.952686, -0.12593, -0.183511, -0.943076, 0.464698, 0.407412, -0.946994, 0.288983, 0.375097, -0.940128, -0.329816, -0.395154, 0.955761, -0.305523, -0.479555, 0.945437, 0.14088, 0.464698, 0.943099, -0.183512, 0.140783, 0.945485, -0.479579, -0.243203, 0.945955, 0.436491, -0.479555, -0.945437, 0.14088, 0.288971, 0.946988, 0.407421, -0.395154, -0.955761, -0.305523, -0.0069906, -0.953641, 0.499658, 0.499663, 0.953674, -0.00688883, -0.271948, 0.943071, -0.419217, 0.464698, -0.943099, -0.183512, -0.125934, -0.952684, -0.483291, 0.315648, 0.937973, -0.387651, 0.469014, -0.952011, 0.171499, 0.407412, 0.946994, 0.288983)
+
+[sub_resource type="Animation" id="Animation_pk4al"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("holder_point:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.959931)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_krpnp"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("holder_point:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.959931)]
+}
+
+[sub_resource type="Animation" id="Animation_llf0h"]
+resource_name = "worked"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("holder_point:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.959931), Vector3(0, 0, 0.959931), Vector3(0, 0, -0.959931)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ue56w"]
+_data = {
+&"RESET": SubResource("Animation_pk4al"),
+&"idle": SubResource("Animation_krpnp"),
+&"worked": SubResource("Animation_llf0h")
+}
+
+[node name="Saw" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+script = SubResource("GDScript_tfidx")
+
+[node name="holder" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.276652, 0, 0, 0, 0.0902592, 0, 0, 0, 0.0674908, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_exvj7")
+mesh = SubResource("BoxMesh_3fsyv")
+
+[node name="holder_point" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.573576, 0.819152, 0, -0.819152, 0.573577, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="plank" type="MeshInstance3D" parent="holder_point"]
+transform = Transform3D(0.0767999, 6.41848e-17, -3.46945e-18, 9.1073e-18, 0.6, 0, 0, 0, 0.04, 0, -0.3, 0)
+material_override = SubResource("StandardMaterial3D_exvj7")
+mesh = SubResource("BoxMesh_3fsyv")
+skeleton = NodePath("../..")
+
+[node name="blade" type="MeshInstance3D" parent="holder_point/plank"]
+transform = Transform3D(5.46876, 6.01462e-10, -1.89876e-13, -7.77156e-16, -5.52973e-09, -0.700153, -2.60646e-08, 0.126196, -1.49012e-07, 4.1787e-16, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_wb2ip")
+mesh = SubResource("CylinderMesh_1cmms")
+skeleton = NodePath("../../..")
+
+[node name="Area3D" type="Area3D" parent="holder_point/plank/blade" groups=["saw"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="holder_point/plank/blade/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 2.77556e-17, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_wqouy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ue56w")
+}
+unique_name_in_owner = true
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_0c40o")
+volume_db = -1.0
+unit_size = 2.0
+max_distance = 10.0
+bus = &"WeaponFX"

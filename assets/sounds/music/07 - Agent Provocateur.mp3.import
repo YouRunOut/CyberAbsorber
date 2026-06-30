@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cyjf8tulu2owc"
+path="res://.godot/imported/07 - Agent Provocateur.mp3-b5455d72fda28e3301b8f79af391a784.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/music/07 - Agent Provocateur.mp3"
+dest_files=["res://.godot/imported/07 - Agent Provocateur.mp3-b5455d72fda28e3301b8f79af391a784.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

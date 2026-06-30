@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ml1ov2ki7tlc"]
+
+[ext_resource type="Script" uid="uid://d3o0cc3jl622l" path="res://assets/game_settings/components/_misc_components/reset_btn/reset_btn.gd" id="1_pchyd"]
+
+[node name="ResetBtn" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pchyd")

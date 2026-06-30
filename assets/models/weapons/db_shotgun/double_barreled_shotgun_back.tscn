@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://iqy7lfxkhn0a"]
+
+[ext_resource type="PackedScene" uid="uid://c4hdjrjwy3el0" path="res://assets/models/weapons/double-barreled_shotgun_back.fbx" id="1_ugpmp"]
+[ext_resource type="Texture2D" uid="uid://dqrkedjlhanwi" path="res://assets/models/weapons/textures/double-barreled_shotgun_back.png" id="2_8chl1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2mlt"]
+albedo_texture = ExtResource("2_8chl1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4nu4"]
+albedo_color = Color(0.223103, 0.223103, 0.223103, 1)
+metallic = 0.39
+roughness = 0.32
+
+[node name="double-barreled_shotgun_back" instance=ExtResource("1_ugpmp")]
+
+[node name="mergedBlocks" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_h2mlt")
+surface_material_override/1 = SubResource("StandardMaterial3D_n4nu4")

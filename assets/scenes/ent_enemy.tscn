@@ -1,0 +1,1159 @@
+[gd_scene format=3 uid="uid://l8e32gluy7q"]
+
+[ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://assets/scenes/ent_pistol.tscn" id="1_00hoo"]
+[ext_resource type="Script" uid="uid://bd7lmpleo7fb3" path="res://src/scripts/entclass_pistol.gd" id="1_pistolscript"]
+[ext_resource type="Texture2D" uid="uid://cmotp5cdssy35" path="res://assets/pics/other/nearest.png" id="1_1at3o"]
+[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="2_jthxq"]
+[ext_resource type="AudioStream" uid="uid://cqr0j1jtjfwk4" path="res://assets/sounds/sfx/hurt/argh.mp3" id="3_xab3u"]
+[ext_resource type="AudioStream" uid="uid://b3ulof2hj64la" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="4_25us8"]
+[ext_resource type="PackedScene" uid="uid://dx4u8o33byjuq" path="res://assets/scenes/ent_flesh_hit.tscn" id="5_mg6rx"]
+[ext_resource type="PackedScene" uid="uid://jhhvo1kle8ah" path="res://assets/scenes/ent_material_hit.tscn" id="6_7r81m"]
+
+[sub_resource type="GDScript" id="GDScript_b4iq0"]
+script/source = "extends CharacterBody3D
+
+var CombatMode : bool
+
+@onready var audio_hurt: AudioStreamPlayer3D = %Hurt
+@onready var audio_fist: AudioStreamPlayer3D = %Fist
+
+@onready var hp_label: Label3D = %S
+@onready var attack_zone: Area3D = %AttackZone
+
+@onready var search_cover: Area3D = %SearchCover
+@onready var agr_area: Area3D = %AgrArea
+@onready var agr_timer: Timer = %AgrTimer
+@onready var view_line: RayCast3D = %ViewLine
+
+var Nearest_cover = null
+var CoverPosition : Vector3
+var CoverType : int
+
+@onready var anim: AnimationPlayer = %AnimationPlayer
+@onready var hit_box: Area3D = %HitBox
+@onready var visuals: Node3D = %visuals
+@onready var near_quilt: Sprite3D = %NearQuilt
+@onready var agent: NavigationAgent3D = %NavigationAgent3D
+@onready var blood: GPUParticles3D = %GPUParticles3D
+
+@onready var pistol = %Pistol
+
+@export var flesh_hit_scene: PackedScene
+@export var material_hit_scene: PackedScene
+var hit_point
+
+var delay = false
+
+signal shoot
+signal reload
+signal equip_weapon
+signal hide_weapon
+
+@export var State : int = IDLE
+enum{ # состояния врага
+	STUN,# 0
+	IDLE, # 1
+	PATROL, # 2
+	ALERT, # 3
+	CHASE, # 4
+	ATTACK, # 5
+	TAKE_COVER, # 6
+	COVER # 7
+	}
+var last_State : int
+var stun_time : float
+
+var bodies
+var alerted : bool = false
+var alarm_object
+
+var hiting = false
+var player
+
+var SPEED = WALK
+const WALK = 1.5
+const SPRINT = 3.0
+const JUMP_VELOCITY = 3.0
+
+var hp = 100
+
+var direction = Vector3()
+var lerp_speed = 3.5
+var lerp_walk_speed = 8.5 
+var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+var target : Vector3
+
+func Death():
+	Main.Exp += 100
+	Main.kills += 1
+	Main.player_hp += 9
+	queue_free()
+
+func _ready():
+	pistol.who_take = \"Enemy\"
+	CombatMode = false
+	
+func _process(delta):
+	
+	hp_label.text = str(State)
+	if hp <= 0:
+		Death()
+	
+
+func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
+	weapon_action()
+	
+	# Если ИскИн ближайший к игроку - отображает это
+	nearest_from_player() 
+	
+	
+	# Действует в соответсвии с состояниями
+	match State: 
+		STUN: when_stun()#		  0
+		IDLE: when_idle()#		  1
+		PATROL: when_patrol()#	  2
+		ALERT: when_alert()#	  3
+		CHASE: when_chase()#	  4
+		ATTACK: when_attack()#    5
+		TAKE_COVER: find_cover()# 6
+		COVER: when_cover(delta)# 7
+	
+	move_and_slide()
+
+func get_damage(damage):
+	audio_hurt.play()
+	hp -= damage
+	
+	if not CombatMode:
+		CombatMode = true
+		alerted = true
+		State = ALERT
+		
+	if State != COVER and hp <= 50 and State != ALERT:
+		State = TAKE_COVER
+	
+	# Запоминает предыдущее состояние, перед станом
+	if State != STUN: last_State = State 
+	State = STUN
+
+# Подает сигнал, если в зоне кто-то есть
+func body_detected(area):
+	for body in area.get_overlapping_bodies():
+		if str(body).left(6) == \"Player\":
+			alarm_object = body
+			player = body
+			return true
+
+# Подает сигнал, если на линии обзора есть объект
+func is_see_player():
+	if str(view_line.get_collider()) != \"<Object#null>\": # КОСТЫЛЬ, если без него рэйкастить в пустоту - выдает ошибку
+		if view_line.get_collider().is_in_group(\"Player\"):
+			#print(\"See: \"+ str(view_line.get_collider()))
+			return true
+
+# Получает позицию, строит до нее маршрут и движется туда
+func find_and_move_to(position_point : Vector3):
+	anim.play(\"idle\")
+	agent.target_position = position_point
+	look_at(position_point, Vector3.UP)
+	direction = (agent.get_next_path_position() - global_position).normalized()
+	velocity = direction * SPEED
+func stop():
+	velocity = Vector3(0,0,0)
+	agent.target_position = Vector3(0,0,0)
+
+
+
+#region Methods of action for different States
+
+# 0 Состояние ошеломления
+func when_stun():
+	stop()
+	await get_tree().create_timer(stun_time).timeout
+	State = last_State
+
+# 1 Состояние Смирно
+func when_idle():
+	SPEED = WALK
+	if not body_detected(agr_area):
+		stop()
+		if pistol.equiped:
+			emit_signal(\"hide_weapon\")
+		if is_on_floor():
+			anim.play(\"idle\")
+	else:
+		alerted = true
+		State = ALERT
+
+# 2 Состояние вольное
+func when_patrol():
+	SPEED = WALK
+	if not body_detected(agr_area):
+		if pistol.equiped:
+			emit_signal(\"hide_weapon\")
+		if is_on_floor():
+			anim.play(\"idle\")
+	else:
+		alerted = true
+		State = ALERT
+
+# 3 Состояние тревоги
+func when_alert():
+	
+	if alerted:
+		agr_timer.start()
+		alerted = false
+	else:
+		# Экипирует оружие
+		if !pistol.equiped:
+			anim.play(\"BattlePose\")
+			emit_signal(\"equip_weapon\")
+		else:
+			# Смотрит на цель, вызвавшую тревогу
+			if !alarm_object: look_at(Main.player_position) #, Vector3.MODEL_TOP
+			else: look_at(alarm_object.position) #, Vector3.MODEL_TOP
+	
+	 #return
+
+# 4 Состояние преследования
+func when_chase():
+	if body_detected(attack_zone):
+		SPEED = WALK
+		State = ATTACK
+	else:
+		SPEED = SPRINT
+		if !alarm_object: find_and_move_to(Main.player_position)
+		else: find_and_move_to(alarm_object.position)
+
+# 5 Состояние атаки
+func when_attack():
+	SPEED = WALK
+	anim.play(\"BattlePose\")
+	
+	# Экипирует оружие
+	if !pistol.equiped:
+		emit_signal(\"equip_weapon\")
+	else:
+	
+		if !Main.player_dead:
+		
+			# Смотрит в сторону своей цели
+			if !alarm_object: look_at(Main.player_position) #, Vector3.MODEL_TOP
+			else: look_at(alarm_object.position) #, Vector3.MODEL_TOP
+		
+			# Если видит цель - стреляет
+			if is_see_player():
+				if pistol.AMMO != 0:
+					if !delay:
+						stop()
+						delay = true
+						
+						# Рандомное время задержки между выстрелами
+						var rand : float = randf_range(0.8, 1.2)
+						await get_tree().create_timer(rand).timeout
+						emit_signal(\"shoot\")
+						delay = false
+				else: emit_signal(\"reload\")
+			
+			# Ближний бой
+			#if body_detected(attack_zone):
+			#	stop()
+			#	anim.play(\"attack\")
+			else: State = CHASE
+
+# 6 Состояние, при котором ИскИн ищет и двигается к ближайшему доступному укрытию
+# 	В противном случае атакует
+func find_cover():
+	nearest_cover()
+	#print(Nearest_cover)
+	if Nearest_cover != null:
+		if global_position != CoverPosition:
+			#print(CoverPosition)
+			find_and_move_to(CoverPosition)
+		else: State = COVER
+	else:
+		#print(\"No cover\")
+		State = ATTACK
+
+# 7 Состояние, когда достиг зоны укрытия и позиция закрепляется на позиции укрытия
+func when_cover(delta):
+	match CoverType:
+			2: anim.play(\"idle\")
+			1: anim.play(\"Crouch\")
+	#print(Nearest_cover.get_parent().PlaceAvailable)
+	if Nearest_cover.get_parent().PlaceAvailable:
+		stop()
+		global_position = lerp(global_position, CoverPosition, delta * 3)
+	else:
+		#global_position = global_position
+		State = TAKE_COVER
+#endregion
+
+
+func nearest_from_player():
+	if self == Main.nearest_enemy and hp <= 50:
+		stun_time = 1.5
+		State = STUN
+		
+		near_quilt.visible = true
+		if Main.quilt_done:
+			blood.emitting = true
+			hp = 0
+			Main.increase_anima()
+			Main.quilt_done = false
+	else:
+		stun_time = 0.4
+		near_quilt.visible = false
+
+
+func nearest_cover():
+	Nearest_cover = null # Обнуляет данные о ближайшем укрытии
+	
+	var Covers = search_cover.get_overlapping_areas() # Список всех зон внутри своей зоны поиска
+	
+	if not Covers: return
+	else:
+		Nearest_cover = Covers[0] # Исходная точка перебора
+		for cover in Covers:
+			
+			# Если зона(cover) не похожа на другие такие же зоны(других ИскИнов),
+			# которые также называются, иначе ближашая точка обнуляется
+			if str(cover).left(6) != \"Search\":
+				
+				# Проверяет: если вектор от Объекта исходной точки до позиции ИскИна
+				# меньше вектора объекта, учавствовашего в переборе, до позиции ИИ,
+				# то назначает его, как ближайший объект от позиции ИИ
+				if cover.global_position.distance_to(global_position) < Nearest_cover.global_position.distance_to(global_position):
+					Nearest_cover = cover
+					CoverPosition = cover.global_position
+				
+			else: return#Nearest_cover = null
+
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == \"attack\":
+		hiting = false
+		if Main.player_dead: State = IDLE
+
+func _on_agr_timer_timeout():
+	if is_see_player():
+		CombatMode = true
+		emit_signal(\"equip_weapon\")
+		State = CHASE
+	else:
+		State = IDLE #PATROL
+
+
+func hit_player():
+	if not hiting:
+		hiting = true
+		if body_detected(attack_zone):
+			if not Main.player_dead and player.has_method(\"get_damage\"):
+				player.get_damage(10)
+				audio_fist.play()
+
+func spawn_hit_point(hit_cords):
+	var hit_point_inst = hit_point.instantiate() #создает экземпляр
+	hit_point_inst.global_position = hit_cords # назначает координаты (точку в пространстве)
+	get_parent().add_child(hit_point_inst) # добавляет экземпляр на сцену мира
+
+func weapon_action():
+	
+	# в зависимости по какому материалу попал - подгружает нужную сцену партиклов
+	if pistol.damage_point != Vector3(0,0,0):
+		if pistol.flesh:
+			hit_point = flesh_hit_scene
+		else:
+			hit_point = material_hit_scene
+		# спавнит точку попадания по координатам
+		spawn_hit_point(pistol.damage_point)
+		pistol.damage_point = Vector3(0,0,0)
+
+func in_cover(pos, type):
+	State = COVER
+	CoverPosition = pos
+	CoverType = type
+	
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v2cee"]
+radius = 0.38
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gju87"]
+radius = 0.38
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3tgpc"]
+radius = 9.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0cifv"]
+radius = 10.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_basjt"]
+size = Vector3(2.91998, 1.65298, 10.341)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7j1c"]
+albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hnsoy"]
+material = SubResource("StandardMaterial3D_l7j1c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6nfi"]
+albedo_color = Color(0.756863, 0.756863, 0.756863, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_i6er1"]
+material = SubResource("StandardMaterial3D_y6nfi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08i6s"]
+albedo_color = Color(0.227451, 0.0235294, 0.0745098, 1)
+emission_energy_multiplier = 16.0
+rim_tint = 0.72
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tp1dm"]
+albedo_color = Color(0.686275, 0.160784, 0.286275, 1)
+emission_enabled = true
+emission_energy_multiplier = 16.0
+rim_enabled = true
+rim_tint = 0.72
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4op7p"]
+albedo_color = Color(0.215686, 0.376471, 0.352941, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ufq1b"]
+material = SubResource("StandardMaterial3D_4op7p")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m44et"]
+material = SubResource("StandardMaterial3D_4op7p")
+
+[sub_resource type="Animation" id="Animation_0o76x"]
+resource_name = "BattlePose"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/R_arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.333333, 1.44195, -0.243652)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/R_arm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5258, 2.95037, 1.27593)]
+}
+
+[sub_resource type="Animation" id="Animation_troxr"]
+resource_name = "Crouch"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.602537, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/L_arm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.77636e-15, 0.502537, 0.3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("visuals/R_arm:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.77636e-15, 0.502537, -0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_0hm5g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/body:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.35, 0.4, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("visuals/body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.2, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("visuals/L_arm:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.1, 0.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("visuals/L_arm:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0872664, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("visuals/L_arm:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.4, 0.1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("visuals/R_arm:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.1, -0.3)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("visuals/R_arm:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0872664, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("visuals/R_arm:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.4, 0.1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("visuals/L_leg:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.482239, 0.1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("visuals/L_leg:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("visuals/L_leg:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.13, 0.48, 0.13)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("visuals/R_leg:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.482, -0.1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("visuals/R_leg:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.76102e-09, 0, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("visuals/R_leg:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.13, 0.48, 0.13)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("AttackZone:monitorable")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3wo6p"]
+resource_name = "attack"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/R_arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1.62451, 1.86607, 1),
+"update": 0,
+"values": [Vector3(0, 1.1, -0.3), Vector3(-1.45705e-08, 1.35, -0.633333), Vector3(-0.333333, 1.35, -0.195978), Vector3(0, 1.1, -0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/R_arm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1.62451, 1.86607, 1),
+"update": 0,
+"values": [Vector3(0.0872664, 0, 0), Vector3(1.39626, -2.07054e-07, -2.43146e-07), Vector3(1.39626, 1.8326, -2.43146e-07), Vector3(0.0872664, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackZone:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit_player"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_d67lv"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals/body:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.35, 0.4, 0.5), Vector3(0.35, 0.39, 0.5), Vector3(0.35, 0.4, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals/body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("visuals/body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.2, 0), Vector3(0, 1.19, 0), Vector3(0, 1.2, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("visuals/L_arm:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.1, 0.3), Vector3(0, 1.09, 0.3), Vector3(0, 1.1, 0.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("visuals/L_arm:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0872664, 0, 0), Vector3(-0.0872664, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("visuals/L_arm:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.4, 0.1), Vector3(0.1, 0.4, 0.1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("visuals/R_arm:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.1, -0.3), Vector3(0, 1.09, -0.3), Vector3(0, 1.1, -0.3)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("visuals/R_arm:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0872664, 0, 0), Vector3(0.0872664, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("visuals/R_arm:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.4, 0.1), Vector3(0.1, 0.4, 0.1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("visuals/L_leg:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.482239, 0.1), Vector3(0, 0.482239, 0.1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("visuals/L_leg:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("visuals/L_leg:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.13, 0.48, 0.13), Vector3(0.13, 0.48, 0.13)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("visuals/R_leg:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.482, -0.1), Vector3(0, 0.482, -0.1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("visuals/R_leg:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.76102e-09, 0, 0), Vector3(-7.76102e-09, 0, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("visuals/R_leg:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.13, 0.48, 0.13), Vector3(0.13, 0.48, 0.13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6meqx"]
+_data = {
+&"BattlePose": SubResource("Animation_0o76x"),
+&"Crouch": SubResource("Animation_troxr"),
+&"RESET": SubResource("Animation_0hm5g"),
+&"attack": SubResource("Animation_3wo6p"),
+&"idle": SubResource("Animation_d67lv")
+}
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_nsh8d"]
+albedo_color = Color(0.745098, 0.0823529, 0.207843, 1)
+emission = Color(0.196078, 0.196078, 0.196078, 1)
+normal_scale = 14.78
+clearcoat_enabled = true
+clearcoat = 0.54
+clearcoat_roughness = 1.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+subsurf_scatter_strength = 0.75
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 0.5
+distance_fade_min_distance = 20.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0jemk"]
+angle_max = 11.0
+radial_velocity_min = 2.0
+radial_velocity_max = 5.0
+scale_min = 0.05
+scale_max = 0.05
+turbulence_enabled = true
+collision_mode = 1
+collision_friction = 0.26
+collision_bounce = 0.66
+collision_use_scale = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_af2i5"]
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy_human"]]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+collision_layer = 21
+script = SubResource("GDScript_b4iq0")
+flesh_hit_scene = ExtResource("5_mg6rx")
+material_hit_scene = ExtResource("6_7r81m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.698141, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_v2cee")
+
+[node name="HitBox" type="Area3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.697534, 0, 0, 0)
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gju87")
+
+[node name="AgrArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AgrArea"]
+shape = SubResource("SphereShape3D_3tgpc")
+
+[node name="SearchCover" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+unique_name_in_owner = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SearchCover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_0cifv")
+
+[node name="AttackZone" type="Area3D" parent="." groups=["Enemy_melee"]]
+monitorable = false
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05504, -0.519588)
+visible = false
+shape = SubResource("BoxShape3D_basjt")
+
+[node name="ShootingRange" type="CollisionShape3D" parent="AttackZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141205, 1.05504, -5.38936)
+shape = SubResource("BoxShape3D_basjt")
+
+[node name="visuals" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+unique_name_in_owner = true
+
+[node name="body" type="CSGMesh3D" parent="visuals"]
+transform = Transform3D(0.35, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 0, 1.2, 0)
+mesh = SubResource("CapsuleMesh_hnsoy")
+
+[node name="head" type="CSGMesh3D" parent="visuals/body"]
+transform = Transform3D(1.14286, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 1.5, 0)
+mesh = SubResource("SphereMesh_i6er1")
+
+[node name="mouth" type="CSGCylinder3D" parent="visuals/body/head"]
+transform = Transform3D(0.00121926, 0.999995, -0.00163241, -0.999988, 0.00121149, -0.00474832, -0.00474633, 0.00163818, 0.999987, -0.439506, -0.179837, 1.92115e-08)
+operation = 2
+radius = 0.0499628
+height = 0.1
+sides = 15
+smooth_faces = false
+material = SubResource("StandardMaterial3D_08i6s")
+
+[node name="eye" type="CSGCylinder3D" parent="visuals/body/head"]
+transform = Transform3D(-8.74228e-08, 1, 4.37115e-08, -2, -4.37114e-08, 4.37115e-08, 8.7423e-08, -4.37115e-08, 1, -0.442953, 0.0307722, -0.146737)
+operation = 2
+radius = 0.04
+height = 0.1
+sides = 15
+smooth_faces = false
+material = SubResource("StandardMaterial3D_tp1dm")
+
+[node name="eye2" type="CSGCylinder3D" parent="visuals/body/head"]
+transform = Transform3D(-8.74228e-08, 1, 4.37115e-08, -2, -4.37114e-08, 4.37115e-08, 8.7423e-08, -4.37115e-08, 1, -0.457245, 0.0312257, 0.147)
+operation = 2
+radius = 0.04
+height = 0.1
+sides = 15
+smooth_faces = false
+material = SubResource("StandardMaterial3D_tp1dm")
+
+[node name="ViewLine" type="RayCast3D" parent="visuals/body/head"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, 0, -40)
+collision_mask = 5
+unique_name_in_owner = true
+
+[node name="Pistol" parent="visuals/body" instance=ExtResource("1_00hoo")]
+transform = Transform3D(0.0184681, 0, -1.09984, 0, 1.1, 0, 1.09984, 0, 0.0184681, -1.88749, 0.475014, -0.410301)
+script = ExtResource("1_pistolscript")
+unique_name_in_owner = true
+
+[node name="L_arm" type="CSGMesh3D" parent="visuals"]
+transform = Transform3D(0.1, 0, 0, 0, 0.398478, 0.00871557, 0, -0.0348623, 0.0996195, 0, 1.1, 0.3)
+mesh = SubResource("CapsuleMesh_ufq1b")
+
+[node name="R_arm" type="CSGMesh3D" parent="visuals"]
+transform = Transform3D(0.1, 0, 0, 0, 0.398478, -0.00871557, 0, 0.0348623, 0.0996195, 0, 1.1, -0.3)
+mesh = SubResource("CapsuleMesh_m44et")
+
+[node name="L_leg" type="CSGMesh3D" parent="visuals"]
+transform = Transform3D(0.13, 0, 0, 0, 0.48, 0, 0, 0, 0.13, 0, 0.482239, 0.1)
+mesh = SubResource("CapsuleMesh_ufq1b")
+
+[node name="R_leg" type="CSGMesh3D" parent="visuals"]
+transform = Transform3D(0.13, 0, 0, 0, 0.48, 1.00893e-09, 0, -3.72529e-09, 0.13, 0, 0.482, -0.1)
+mesh = SubResource("CapsuleMesh_ufq1b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6meqx")
+}
+playback_default_blend_time = 0.6
+unique_name_in_owner = true
+
+[node name="NearQuilt" type="Sprite3D" parent="."]
+transform = Transform3D(0.541269, 0, 0, 0, 0.541269, 0, 0, 0, 1, 0, 2.37925, 0)
+modulate = Color(0.717647, 0.717647, 0.717647, 0.658824)
+billboard = 1
+double_sided = false
+texture_filter = 0
+texture = ExtResource("1_1at3o")
+unique_name_in_owner = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+height = 2.0
+radius = 1.0
+neighbor_distance = 5.0
+max_neighbors = 20
+time_horizon_obstacles = 1.0
+use_3d_avoidance = true
+debug_enabled = true
+unique_name_in_owner = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.706346, 0, 0, 0, 0.706346, 0, 0, 0, 0.706346, 0, 1.4, 0)
+material_override = SubResource("ORMMaterial3D_nsh8d")
+emitting = false
+amount = 60
+lifetime = 0.1
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+visibility_aabb = AABB(-1.80639, -1.61512, -1.74341, 3.61279, 3.23025, 3.48682)
+process_material = SubResource("ParticleProcessMaterial_0jemk")
+draw_pass_1 = SubResource("SphereMesh_af2i5")
+unique_name_in_owner = true
+
+[node name="S" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11881, 0)
+billboard = 2
+modulate = Color(0.847059, 0.247059, 0.219608, 1)
+text = "0"
+font = ExtResource("2_jthxq")
+outline_size = 4
+unique_name_in_owner = true
+
+[node name="Hurt" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
+stream = ExtResource("3_xab3u")
+unit_size = 5.0
+max_db = 0.0
+pitch_scale = 1.05
+max_distance = 10.0
+unique_name_in_owner = true
+
+[node name="AgrTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+unique_name_in_owner = true
+
+[node name="Fist" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
+stream = ExtResource("4_25us8")
+max_db = 0.0
+max_distance = 3.0
+unique_name_in_owner = true
+
+[connection signal="equip_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_equip_weapon"]
+[connection signal="hide_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_hide_weapon"]
+[connection signal="reload" from="." to="visuals/body/Pistol" method="_on_enemy_reload"]
+[connection signal="shoot" from="." to="visuals/body/Pistol" method="_on_enemy_shoot"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="AgrTimer" to="." method="_on_agr_timer_timeout"]

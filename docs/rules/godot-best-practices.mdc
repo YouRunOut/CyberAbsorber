@@ -1,0 +1,51 @@
+---
+description: Godot gameplay and architecture best practices
+alwaysApply: true
+---
+
+# Godot Best Practices
+
+## Naming
+- Use `snake_case` for file names, script names, variables, functions, and input action identifiers.
+- Keep naming consistent across scenes/scripts; do not mix styles for the same domain concept.
+- Scene files for locations must use `scn_` prefix (for example `scn_first_level.tscn`).
+- GUI script files must use `gui_` prefix.
+- GUI component script files must use `guicmp_` prefix.
+- Entity scene files must use `ent_` prefix.
+- Entity script files must use `entclass_` prefix.
+
+## Architecture
+- Keep `Player`, `Enemy`, `UI`, and `World` responsibilities separated.
+- Prefer scene composition over large monolithic scripts.
+- Keep autoloads small and focused on shared state/services only.
+
+## Scenes and Nodes
+- Use clear node names; avoid ambiguous names like `Node3D`, `Control2`.
+- Keep scene trees shallow where possible; extract reusable sub-scenes.
+- Use groups for broad interaction categories and signals for explicit workflows.
+
+## Scripts
+- Keep one script focused on one system concern.
+- Prefer typed GDScript (`: int`, `: float`, `: Node3D`) for critical paths.
+- Avoid deep `get_parent().get_parent()` chains; use exported node refs or signals.
+- In `@onready`, do not use `$` node access; use unique node names (`%NodeName`) or exported node references.
+
+## Resources and Loading
+- Prefer exported `PackedScene`/`Resource` references over hardcoded runtime paths.
+- Do not add direct `res://...` paths in gameplay code without explicit approval.
+- Do not add `preload(...)` in gameplay code without explicit approval.
+
+## Input and UX
+- Input actions must come from Input Map names, not raw keys in logic.
+- Any prompt text (for example action hints) must match actual bindings.
+- If UI captures interaction, ensure mouse mode/state is restored on close.
+
+## Refactor Discipline
+- Refactor in small batches per domain (`hack`, `ui`, `player`, `enemy`).
+- Do not mix behavior changes with structural file moves in one step.
+- After each batch, run a smoke check for boot, level transition, and core loop.
+- Never modify files under `addons/` during gameplay refactor batches unless explicitly requested by the user.
+
+## Diagnostics
+- Treat missing resource warnings as blockers before continuing.
+- If behavior differs from baseline, stop and confirm intent before proceeding.

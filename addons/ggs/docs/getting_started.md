@@ -35,7 +35,7 @@ A valid category name is:
 2. Does not start with an underscore (`_`) or a dot (`.`). Underscores are used to tell GGS to ignore a directory. Dots do the same but for Godot's file system.
 3. While not necessary, I recommend using snake_case to follow Godot's recommended styling guidelines.
 
-After doing that, you may notice a folder is added to the settings directory (`res://game_settings/settings` by default) in the file system. All folders that are *direct* children of the settings directory will be considered categories. If you want GGS to ignore a folder, add an underline to the beginning of its name (e.g. `_ignore_this`).
+After doing that, you may notice a folder is added to the settings directory (`res://assets/game_settings/settings` by default) in the file system. All folders that are *direct* children of the settings directory will be considered categories. If you want GGS to ignore a folder, add an underline to the beginning of its name (e.g. `_ignore_this`).
 
 ## Renaming Categories
 
@@ -68,7 +68,7 @@ There are times when a type of setting must be used multiple times. The easiest 
 
 This is where templates come into play. You can add settings from templates to create multiple settings with the same logic and properties that can be changed via the inspector.
 
-To add a setting from a template, use the `+` button. This will open a window that shows all the available templates located in the templates directory (`res://game_settings/templates` by default). Simply double-click a template, give the setting a valid name, and press ENTER or press the *Add* button.
+To add a setting from a template, use the `+` button. This will open a window that shows all the available templates located in the templates directory (`res://assets/game_settings/templates` by default). Simply double-click a template, give the setting a valid name, and press ENTER or press the *Add* button.
 
 This method is essentially the same as the first one when it comes to the actual creation process, except that instead of assigning a blank script to the resource, it assigns the specific template script that you selected.
 
