@@ -1,59 +1,54 @@
 extends CharacterBody3D
 
 #region All imports
-@onready var hp_timer = $HpTimer
+@export var flesh_hit_scene: PackedScene
+@export var material_hit_scene: PackedScene
 
-@onready var animation = $Visuals/nek/head/eyes/AnimationPlayer
-@onready var hand_anim = $Visuals/nek/head/LeftHand/HandAnim
-@onready var time_to_take = $Visuals/nek/head/LeftHand/TimeToTake
+@onready var hp_timer: Timer = %HpTimer
+
+@onready var animation: AnimationPlayer = %AnimationPlayer
+@onready var hand_anim: AnimationPlayer = %HandAnim
+@onready var time_to_take: Timer = %TimeToTake
 var taking = false
-@onready var ray_push = $Visuals/nek/head/LeftHand/Hand/RayPush
+@onready var ray_push: RayCast3D = %RayPush
 
-@onready var audio = $LVLUP
-@onready var audio_foot_landing = $AudioFootLanding
+@onready var audio: AudioStreamPlayer = %LVLUP
+@onready var audio_foot_landing: AudioStreamPlayer3D = %AudioFootLanding
 
-@onready var flash_light = $Visuals/nek/head/FlashLight
+@onready var flash_light: Node3D = %FlashLight
 
-@onready var right_hand = $Visuals/nek/head/RightHand
+@onready var right_hand: Node3D = %RightHand
 
-@onready var pistol = $Visuals/nek/head/RightHand/RFist/Pistol
+@onready var pistol: Node3D = %Pistol
 
 var hit_point
-@onready var flesh_hit = preload("res://Scenes/Flesh_Hit.tscn")
-@onready var material_hit = preload("res://Scenes/Material_Hit.tscn")
 
-@onready var gui = $Visuals/nek/head/eyes/Camera3D/GUI
-@onready var damage_animation = $Visuals/nek/head/eyes/Camera3D/GUI/DamageScreen/DamageAnimation
+@onready var gui: Control = %GUI
 
-@onready var crosshair = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Crosshair
+@onready var qtimer: Timer = %qTimer
+@onready var q3timer: Timer = %q3Timer
 
-@onready var btn_q = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Buttons/btn_Q
-@onready var quilt_progress = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Buttons/btn_Q/QuiltProgress
+@onready var quilt_area: Area3D = %Quilt_area
+@onready var visuals: Node3D = %Visuals
 
-@onready var qtimer = $qTimer
-@onready var q3timer = $q3Timer
-
-@onready var quilt_area = $Quilt_area
-@onready var visuals = $Visuals
-
-@onready var nek = $Visuals/nek
-@onready var head = $Visuals/nek/head
-@onready var eyes = $Visuals/nek/head/eyes
-@onready var camera = $Visuals/nek/head/eyes/Camera3D
+@onready var nek: Node3D = %nek
+@onready var head: Node3D = %head
+@onready var eyes: Node3D = %eyes
+@onready var camera: Camera3D = %Camera3D
 
 
 
-@onready var standing_collision = $Standing_collision
-@onready var HB_stand = $HitBox/Stand
-@onready var crouching_collision = $Crouching_collision
-@onready var HB_crouch = $HitBox/Crouch
-@onready var hit_box = $HitBox
+@onready var standing_collision: CollisionShape3D = %Standing_collision
+@onready var HB_stand: CollisionShape3D = %Stand
+@onready var crouching_collision: CollisionShape3D = %Crouching_collision
+@onready var HB_crouch: CollisionShape3D = %Crouch
+@onready var hit_box: Area3D = %HitBox
 
-@onready var slide_timer = $SlideTimer
+@onready var slide_timer: Timer = %SlideTimer
 
-@onready var above_check = $AboveCheck
+@onready var above_check: RayCast3D = %AboveCheck
 
-@onready var agent = $NavigationAgent3D
+@onready var agent: NavigationAgent3D = %NavigationAgent3D
 #endregion
 
 #region All signals
@@ -185,7 +180,7 @@ func _physics_process(delta):
 	steps(t_step)
 	
 	if not Main.player_dead:
-		if !gui.skill_tree_open and not gui.is_hacking_active():
+		if !gui.is_skill_tree_open() and not gui.is_hacking_active():
 			#pushing()
 			aiming_state(delta)
 			movements(delta)
@@ -195,7 +190,7 @@ func _physics_process(delta):
 			weapon_sway(delta)
 
 func _input(event):
-	if !gui.skill_tree_open and not gui.is_hacking_active():
+	if !gui.is_skill_tree_open() and not gui.is_hacking_active():
 		_is_on_action_buttons()
 		
 		# camera motion
@@ -292,15 +287,15 @@ func Quilt_level():
 				q3timer.stop()
 
 func Quilt():
-	quilt_progress.value = q
+	gui.set_quilt_progress(q)
 	Main.nearest_enemy = Nearest_enemy
 	#print(Main.nearest_enemy)
 	if Nearest_enemy and !reboot_quilt:
-		btn_q.visible = true
+		gui.set_quilt_button_visible(true)
 		if not Main.player_dead:
 			Quilt_level()
 	else:
-		btn_q.visible = false
+		gui.set_quilt_button_visible(false)
 	if q >= q_max:
 		Main.quilt_done = true
 		emit_signal("gathered")
@@ -308,7 +303,7 @@ func Quilt():
 		reboot_quilt = true
 		await get_tree().create_timer(Main.q_down).timeout
 		reboot_quilt = false
-		btn_q.visible = true
+		gui.set_quilt_button_visible(true)
 
 func Quilt_degrease():
 	if q > 0:
@@ -399,9 +394,9 @@ func weapon_actions(delta):
 		# в зависимости по какому материалу попал - подгружает нужную сцену партиклов
 		if pistol.damage_point != Vector3(0,0,0):
 			if pistol.flesh:
-				hit_point = flesh_hit
+				hit_point = flesh_hit_scene
 			else:
-				hit_point = material_hit
+				hit_point = material_hit_scene
 			# спавнит точку попадания по координатам
 			spawn_hit_point(pistol.damage_point)
 			pistol.damage_point = Vector3(0,0,0)
@@ -421,7 +416,7 @@ func get_damage(damage):
 		if not Main.player_dead:
 			Death()
 			return
-	damage_animation.play("vis")
+	gui.play_damage_feedback()
 	
 	
 
@@ -572,18 +567,18 @@ func aiming_state(delta):
 			pistol.AIMING = true
 			weapon_holder.position = lerp(weapon_holder.position, pistol_aiming_shooting, delta * 10)
 			if !Input.is_action_pressed("Forward") or !Input.is_action_pressed("Backward") or !Input.is_action_pressed("Left") or !Input.is_action_pressed("Right"):
-				crosshair.visible = false
-			else: crosshair.visible = true
+				gui.set_crosshair_visible(false)
+			else: gui.set_crosshair_visible(true)
 			if is_on_floor():
 				SPEED = SLOW
 		else:
 			camera.fov = lerp(camera.fov, 75.0, delta * 10)
 			sens_aiming = 1.0
-			crosshair.visible = true
+			gui.set_crosshair_visible(true)
 			pistol.AIMING = false
 			weapon_holder.position = lerp(weapon_holder.position, pistol_hip_shooting, delta * 10)
 	else:
-		crosshair.visible = false
+		gui.set_crosshair_visible(false)
 
 func spawn_hit_point(hit_cords):
 	var hit_point_inst = hit_point.instantiate() #создает экземпляр

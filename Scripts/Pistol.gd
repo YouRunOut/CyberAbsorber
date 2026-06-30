@@ -1,18 +1,18 @@
 extends Node3D
 
-@onready var audio_enemy_hit = $EnemyHit
+@onready var audio_enemy_hit: AudioStreamPlayer3D = %EnemyHit
 
-@onready var animation = $AnimationPlayer
-@onready var muzzle = $Full/Hole/MuzzleFlash
-@onready var fire = $Full/Hole/fire
-@onready var load = $Full/Load
+@onready var animation: AnimationPlayer = %AnimationPlayer
+@onready var muzzle: MeshInstance3D = %MuzzleFlash
+@onready var fire: GPUParticles3D = %fire
+@onready var load: MeshInstance3D = %Load
 
-@onready var reload_timer = $ReloadTimer
-@onready var ammo_count = $Full/Load/HoloPlace/Holo/AmmoCount
+@onready var reload_timer: Timer = %ReloadTimer
+@onready var ammo_count: Label3D = %AmmoCount
 
 @export var who_take : String
 
-@onready var kill_line = $Full/Hole/KillLine
+@onready var kill_line: RayCast3D = %KillLine
 
 @export var DAMAGE : float = 25.0
 @export var firing_range : float = 300.0

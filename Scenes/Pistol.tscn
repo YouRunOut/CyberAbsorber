@@ -613,6 +613,7 @@ material_override = SubResource("StandardMaterial3D_hyg8w")
 mesh = SubResource("CylinderMesh_fi2fd")
 
 [node name="KillLine" type="RayCast3D" parent="Full/Hole"]
+unique_name_in_owner = true
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74227e-08, -1, -8.88178e-16, 0, 1.42109e-14, 1, 0, 1.11007, -4.95911e-05)
 target_position = Vector3(0, -300, 0)
 collision_mask = 4294967295
@@ -627,6 +628,7 @@ max_distance = 20.0
 bus = &"WeaponFX"
 
 [node name="MuzzleFlash" type="MeshInstance3D" parent="Full/Hole"]
+unique_name_in_owner = true
 transform = Transform3D(-0.7071069, 1.5310382e-06, -0.70710665, -2.5351817e-06, -0.999999, 3.69965e-07, -0.70710665, 2.0542466e-06, 0.7071069, 0, 1.11007, -1.71661e-05)
 visible = false
 layers = 1048575
@@ -653,6 +655,7 @@ mesh = SubResource("PlaneMesh_rm44p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03431, -1.90735e-06)
 
 [node name="fire" type="GPUParticles3D" parent="Full/Hole"]
+unique_name_in_owner = true
 transform = Transform3D(-0.468362, 1.5121e-06, 0.883536, -2.53518e-06, -0.999999, 3.67519e-07, 0.883536, -2.06779e-06, 0.468362, 0, 1.11007, -1.81198e-05)
 layers = 1048575
 emitting = false
@@ -673,6 +676,7 @@ mesh = SubResource("BoxMesh_7ly5t")
 skeleton = NodePath("../..")
 
 [node name="Load" type="MeshInstance3D" parent="Full"]
+unique_name_in_owner = true
 transform = Transform3D(0.0601027, 0, 0, 0, 0.0716271, 0, 0, 0, 0.454108, 0, 0.319821, 0.2)
 layers = 1048575
 material_override = SubResource("StandardMaterial3D_oor6c")
@@ -691,6 +695,7 @@ layers = 1048575
 texture = SubResource("GradientTexture1D_8fnyn")
 
 [node name="AmmoCount" type="Label3D" parent="Full/Load/HoloPlace/Holo"]
+unique_name_in_owner = true
 transform = Transform3D(-9.42419, 0, -1.92241e-06, 0, 0.0499207, 0, 2.62268e-08, 0, -0.7, -1.04779, 0.0010295, -0.00288701)
 layers = 1048575
 modulate = Color(0.745098, 0.0823529, 0.207843, 1)
@@ -787,11 +792,13 @@ max_distance = 3.0
 bus = &"WeaponFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_cs4vw")
 }
 
 [node name="ReloadTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 1.3
 one_shot = true
 
@@ -808,6 +815,7 @@ stream = ExtResource("7_1jajc")
 bus = &"WeaponFX"
 
 [node name="EnemyHit" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("9_dfu4m")
 volume_db = -16.147
 bus = &"WeaponFX"

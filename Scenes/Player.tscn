@@ -1,6 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://c2633u3s5olnb"]
+[gd_scene load_steps=28 format=3 uid="uid://c2633u3s5olnb"]
 
 [ext_resource type="Script" uid="uid://caf5u47cnrtm6" path="res://Scripts/Player.gd" id="1_j8hcs"]
+[ext_resource type="PackedScene" path="res://Scenes/Flesh_Hit.tscn" id="1_fleshhit"]
+[ext_resource type="PackedScene" path="res://Scenes/Material_Hit.tscn" id="1_materialhit"]
 [ext_resource type="AudioStream" uid="uid://nh774vetufu1" path="res://Sounds/FX/lvlup.wav" id="2_3s7rw"]
 [ext_resource type="PackedScene" uid="uid://ckcgk0avkpa23" path="res://Scenes/gui.tscn" id="3_38y5p"]
 [ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://Scenes/Pistol.tscn" id="3_megsn"]
@@ -352,6 +354,8 @@ size = Vector3(5, 1.9, 3.3)
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder") groups=["Player"]]
 collision_layer = 13
 script = ExtResource("1_j8hcs")
+flesh_hit_scene = ExtResource("1_fleshhit")
+material_hit_scene = ExtResource("1_materialhit")
 SLOW = 2.0
 WALK = 2.5
 SPRINT = 6.0
@@ -369,32 +373,41 @@ weapon_rotation_amount = 0.1
 cam_rotation_amount = 0.1
 
 [node name="LVLUP" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("2_3s7rw")
 volume_db = -5.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
 
 [node name="AboveCheck" type="RayCast3D" parent="."]
+unique_name_in_owner = true
 target_position = Vector3(0, 2, 0)
 
 [node name="Standing_collision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7swnu")
 
 [node name="Crouching_collision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_02vo3")
 disabled = true
 
 [node name="Visuals" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="nek" type="Node3D" parent="Visuals"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="head" type="Node3D" parent="Visuals/nek"]
+unique_name_in_owner = true
 
 [node name="RightHand" type="Node3D" parent="Visuals/nek/head"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.277, -0.393, 0)
 
 [node name="RFist" type="Node3D" parent="Visuals/nek/head/RightHand"]
@@ -405,11 +418,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100614)
 target_position = Vector3(0, 0, -0.33)
 
 [node name="Pistol" parent="Visuals/nek/head/RightHand/RFist" instance=ExtResource("3_megsn")]
+unique_name_in_owner = true
 
 [node name="LeftHand" type="Node3D" parent="Visuals/nek/head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.463009, 0)
 
 [node name="HandAnim" type="AnimationPlayer" parent="Visuals/nek/head/LeftHand"]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_vndkg")
 }
@@ -424,15 +439,18 @@ transform = Transform3D(0.978858, 0.204378, 0.00819117, -0.189232, 0.920062, -0.
 mesh = SubResource("BoxMesh_jq7ve")
 
 [node name="RayPush" type="RayCast3D" parent="Visuals/nek/head/LeftHand/Hand"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.788011, -0.615662, 0, 0.615662, 0.788011, 0, 0, 0)
 exclude_parent = false
 target_position = Vector3(0, -0.5, 0)
 
 [node name="TimeToTake" type="Timer" parent="Visuals/nek/head/LeftHand"]
+unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
 
 [node name="FlashLight" type="Node3D" parent="Visuals/nek/head"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, -0.631187)
 visible = false
 
@@ -447,35 +465,43 @@ spot_attenuation = 0.517632
 spot_angle = 25.0
 
 [node name="eyes" type="Node3D" parent="Visuals/nek/head"]
+unique_name_in_owner = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals/nek/head/eyes"]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_ncji1")
 }
 
 [node name="Camera3D" type="Camera3D" parent="Visuals/nek/head/eyes"]
+unique_name_in_owner = true
 current = true
 
 [node name="GUI" parent="Visuals/nek/head/eyes/Camera3D" instance=ExtResource("3_38y5p")]
+unique_name_in_owner = true
 
 [node name="Body" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_nlo0w")
 
 [node name="HitBox" type="Area3D" parent="." groups=["player_hitbox"]]
+unique_name_in_owner = true
 collision_layer = 3
 collision_mask = 3
 
 [node name="Stand" type="CollisionShape3D" parent="HitBox"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7swnu")
 
 [node name="Crouch" type="CollisionShape3D" parent="HitBox"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_02vo3")
 disabled = true
 
 [node name="Quilt_area" type="Area3D" parent="." groups=["Quilt_area"]]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.76837e-07)
 collision_layer = 0
 collision_mask = 16
@@ -486,16 +512,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.969196, -2.25)
 shape = SubResource("BoxShape3D_ah2qt")
 
 [node name="SlideTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.66
 one_shot = true
 
 [node name="qTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.05
 autostart = true
 
 [node name="q3Timer" type="Timer" parent="."]
+unique_name_in_owner = true
 
 [node name="HpTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
@@ -508,6 +538,7 @@ ground_pos = NodePath("../GroundPos")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0131803, 0)
 
 [node name="AudioFootLanding" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("8_388ir")
 
 [node name="AudioJumping" type="AudioStreamPlayer3D" parent="."]

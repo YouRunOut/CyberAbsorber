@@ -26,6 +26,7 @@ extends Control
 
 @onready var btn_q: TextureButton = %btn_Q
 @onready var btn_e: TextureButton = %btn_E
+@onready var quilt_progress: ProgressBar = %QuiltProgress
 
 @onready var death_particles: GPUParticles2D = %GPUParticles2D
 
@@ -163,3 +164,23 @@ func show_hacking() -> void:
 func _on_hack_finished() -> void:
 	if not skill_tree_open:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func is_skill_tree_open() -> bool:
+	return skill_tree_open
+
+
+func play_damage_feedback() -> void:
+	%DamageAnimation.play("vis")
+
+
+func set_crosshair_visible(is_visible: bool) -> void:
+	crosshair.visible = is_visible
+
+
+func set_quilt_button_visible(is_visible: bool) -> void:
+	btn_q.visible = is_visible
+
+
+func set_quilt_progress(value: float) -> void:
+	quilt_progress.value = value
