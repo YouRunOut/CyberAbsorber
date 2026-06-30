@@ -75,6 +75,7 @@ collision_base_size = 0.1
 visibility_aabb = AABB(-60.9543, -130.012, -54.8471, 121.909, 260.024, 109.694)
 process_material = SubResource("ParticleProcessMaterial_jxktx")
 draw_pass_1 = SubResource("SphereMesh_maub8")
+unique_name_in_owner = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

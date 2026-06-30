@@ -1,23 +1,23 @@
 extends Node3D
-@onready var distance = $Distance
+@onready var distance: Area3D = %Distance
 
 # дебаг кубы, чтобы было видно какой режим укрытия сейчас
-@onready var stand_debug = $StandSensor
-@onready var crouch_debug = $CrouchSensor
+@onready var stand_debug: CSGBox3D = %StandSensor
+@onready var crouch_debug: CSGBox3D = %CrouchSensor
 
 # материалы для дебаг кубов
-const GREEN = preload("res://Textures/Materials/Debug/Green.tres")
-const RED = preload("res://Textures/Materials/Debug/Red.tres")
+@export var green_material: Material
+@export var red_material: Material
 
 # рэйкасты
-@onready var StandSightLine = $StandSensor/StandSightLine
-@onready var CrouchSightLine = $CrouchSensor/CrouchSightLine
+@onready var stand_sight_line: RayCast3D = %StandSightLine
+@onready var crouch_sight_line: RayCast3D = %CrouchSightLine
 
 var Target #= Main.player_position
 @export var MAX_DISTANCE : float
 
 # зона, обнаруживаемая ИскИнами и наоборот
-@onready var CoverArea = $CoverArea
+@onready var cover_area: Area3D = %CoverArea
 
 var PlayerNearby : bool = false
 
@@ -27,7 +27,7 @@ var PlaceAvailable : bool
 # Какой тип укрытия
 var CoverType : int
 
-@onready var label_3d = $Label3D
+@onready var label_3d: Label3D = %Label3D
 
 var CoverPosition : Vector3
 
@@ -46,8 +46,8 @@ func _physics_process(delta):
 		register_cover_type()
 		
 		# Кто находится на месте укрытия
-		if CoverArea.monitoring:
-			for body in CoverArea.get_overlapping_bodies():
+		if cover_area.monitoring:
+			for body in cover_area.get_overlapping_bodies():
 				if body.is_in_group("Player"):
 					PlaceAvailable = false
 					
@@ -58,19 +58,19 @@ func _physics_process(delta):
 							print("Cover")
 							body.in_cover(CoverPosition, CoverType)
 					else:
-						CoverArea.monitorable = false
+						cover_area.monitorable = false
 
 
 func is_the_place_available() -> bool:
 	# Если доступен - враги видят это укрытие
 	if PlaceAvailable:
-		CoverArea.visible = true
-		CoverArea.monitoring = true
-		CoverArea.monitorable = true
+		cover_area.visible = true
+		cover_area.monitoring = true
+		cover_area.monitorable = true
 	else:
-		CoverArea.visible = false
-		CoverArea.monitoring = false
-		CoverArea.monitorable = false
+		cover_area.visible = false
+		cover_area.monitoring = false
+		cover_area.monitorable = false
 		
 		crouch_debug.visible = false
 		stand_debug.visible = false
@@ -79,14 +79,14 @@ func is_the_place_available() -> bool:
 
 func register_cover_type():
 	# Если не видно игрока из позиции сидя, то укрытие доступно
-	if not is_the_player_visible(CrouchSightLine):
-		crouch_debug.material = GREEN
+	if not is_the_player_visible(crouch_sight_line):
+		crouch_debug.material = green_material
 		crouch_debug.visible = true
 		PlaceAvailable = true
 		# После
 		# Проверяет видимость из положения стоя, если не игрока видно, то укрытие доступно в положении стоя
-		if not is_the_player_visible(StandSightLine):
-			stand_debug.material = GREEN
+		if not is_the_player_visible(stand_sight_line):
+			stand_debug.material = green_material
 			stand_debug.visible = true
 			CoverType = STAND
 		

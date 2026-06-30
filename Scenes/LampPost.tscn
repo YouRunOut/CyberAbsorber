@@ -103,6 +103,7 @@ collision_base_size = 0.1
 visibility_aabb = AABB(-2.92857, -30.8787, -2.5186, 5.85754, 61.7574, 5.03701)
 process_material = SubResource("ParticleProcessMaterial_4vkq4")
 draw_pass_1 = SubResource("SphereMesh_jtruh")
+unique_name_in_owner = true
 
 [node name="Area3D" type="Area3D" parent="Lamp" groups=["Glass"]]
 transform = Transform3D(0.4, 0, 0, 0, 0.1, 0, 0, 0, 0.780475, 0, 0, 0)
@@ -115,6 +116,7 @@ transform = Transform3D(-0.398478, -0.0348623, 0, 0.00871558, -0.0996194, 0, 0, 
 material_override = SubResource("StandardMaterial3D_uft31")
 mesh = SubResource("PlaneMesh_lc1yu")
 skeleton = NodePath("")
+unique_name_in_owner = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Lamp/glass"]
 transform = Transform3D(-0.996195, -0.0857954, 0.0153389, -0.0871558, 0.980646, -0.175323, -1.02445e-07, -0.175992, -0.984392, -0.0667868, 0.763382, -0.0560817)
@@ -134,6 +136,7 @@ stream = ExtResource("2_gdolv")
 volume_db = 80.0
 unit_size = 25.0
 max_distance = 25.0
+unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(6.31115, 0, 0, 0, 1, 0, 0, 0, 6.105, 0, 0, 6)

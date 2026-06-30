@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var timer = $Timer
+@onready var timer: Timer = %Timer
 
 const SPEED = 45.0
 

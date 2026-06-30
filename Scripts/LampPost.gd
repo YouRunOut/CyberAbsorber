@@ -1,8 +1,8 @@
 extends Node3D
-@onready var audio = $Lamp/AudioStreamPlayer3D
+@onready var audio: AudioStreamPlayer3D = %AudioStreamPlayer3D
 
-@onready var glass = $Lamp/glass
-@onready var sparks = $Lamp/Sparks
+@onready var glass: MeshInstance3D = %glass
+@onready var sparks: GPUParticles3D = %Sparks
 var destroyed = false
 
 func destroy():

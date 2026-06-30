@@ -46,6 +46,7 @@ script = ExtResource("1_6k8k0")
 wait_time = 0.4
 one_shot = true
 autostart = true
+unique_name_in_owner = true
 
 [node name="Blood" type="GPUParticles3D" parent="."]
 transform = Transform3D(1.87681, 0, 0, 0, 1.87681, 0, 0, 0, 1.87681, -0.000101197, -0.000627794, -7.11473e-05)
@@ -60,6 +61,7 @@ fixed_fps = 60
 visibility_aabb = AABB(-45.778, -43.8222, -44.5129, 91.5559, 96.0751, 89.0257)
 process_material = SubResource("ParticleProcessMaterial_gic01")
 draw_pass_1 = SubResource("BoxMesh_bjeal")
+unique_name_in_owner = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 15.0

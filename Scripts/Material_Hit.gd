@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var sparks = $Sparks
+@onready var sparks: GPUParticles3D = %Sparks
 
 var blast
 

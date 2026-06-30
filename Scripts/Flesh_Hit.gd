@@ -1,7 +1,7 @@
 extends Node3D
-@onready var life_timer = $LifeTimer
+@onready var life_timer: Timer = %LifeTimer
 
-@onready var blood = $Blood
+@onready var blood: GPUParticles3D = %Blood
 
 var blast
 

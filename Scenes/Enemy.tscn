@@ -5,38 +5,40 @@
 [ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://Fonts/FRM325x8.ttf" id="2_jthxq"]
 [ext_resource type="AudioStream" uid="uid://cqr0j1jtjfwk4" path="res://Sounds/SFX/Hurt/argh.mp3" id="3_xab3u"]
 [ext_resource type="AudioStream" uid="uid://b3ulof2hj64la" path="res://Sounds/Weapon/Pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="4_25us8"]
+[ext_resource type="PackedScene" uid="uid://dx4u8o33byjuq" path="res://Scenes/Flesh_Hit.tscn" id="5_mg6rx"]
+[ext_resource type="PackedScene" uid="uid://jhhvo1kle8ah" path="res://Scenes/Material_Hit.tscn" id="6_7r81m"]
 
 [sub_resource type="GDScript" id="GDScript_b4iq0"]
 script/source = "extends CharacterBody3D
 
 var CombatMode : bool
 
-@onready var audio_hurt = $Hurt
-@onready var audio_fist = $Fist
+@onready var audio_hurt: AudioStreamPlayer3D = %Hurt
+@onready var audio_fist: AudioStreamPlayer3D = %Fist
 
-@onready var HP = $S
-@onready var attack_zone = $AttackZone
+@onready var hp_label: Label3D = %S
+@onready var attack_zone: Area3D = %AttackZone
 
-@onready var search_cover = $SearchCover
-@onready var agr_area = $AgrArea
-@onready var agr_timer = $AgrTimer
-@onready var view_line = $visuals/body/head/ViewLine
+@onready var search_cover: Area3D = %SearchCover
+@onready var agr_area: Area3D = %AgrArea
+@onready var agr_timer: Timer = %AgrTimer
+@onready var view_line: RayCast3D = %ViewLine
 
 var Nearest_cover = null
 var CoverPosition : Vector3
 var CoverType : int
 
-@onready var anim = $AnimationPlayer
-@onready var hit_box = $HitBox
-@onready var visuals = $visuals
-@onready var near_quilt = $NearQuilt
-@onready var agent = $NavigationAgent3D
-@onready var blood = $GPUParticles3D
+@onready var anim: AnimationPlayer = %AnimationPlayer
+@onready var hit_box: Area3D = %HitBox
+@onready var visuals: Node3D = %visuals
+@onready var near_quilt: Sprite3D = %NearQuilt
+@onready var agent: NavigationAgent3D = %NavigationAgent3D
+@onready var blood: GPUParticles3D = %GPUParticles3D
 
-@onready var pistol = $visuals/body/Pistol
+@onready var pistol: Node3D = %Pistol
 
-@onready var flesh_hit = preload(\"res://Scenes/Flesh_Hit.tscn\")
-@onready var material_hit = preload(\"res://Scenes/Material_Hit.tscn\")
+@export var flesh_hit_scene: PackedScene
+@export var material_hit_scene: PackedScene
 var hit_point
 
 var delay = false
@@ -92,7 +94,7 @@ func _ready():
 	
 func _process(delta):
 	
-	HP.text = str(State)
+	hp_label.text = str(State)
 	if hp <= 0:
 		Death()
 	
@@ -363,9 +365,9 @@ func weapon_action():
 	# в зависимости по какому материалу попал - подгружает нужную сцену партиклов
 	if pistol.damage_point != Vector3(0,0,0):
 		if pistol.flesh:
-			hit_point = flesh_hit
+			hit_point = flesh_hit_scene
 		else:
-			hit_point = material_hit
+			hit_point = material_hit_scene
 		# спавнит точку попадания по координатам
 		spawn_hit_point(pistol.damage_point)
 		pistol.damage_point = Vector3(0,0,0)
@@ -969,6 +971,8 @@ collision_use_scale = true
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 collision_layer = 21
 script = SubResource("GDScript_b4iq0")
+flesh_hit_scene = ExtResource("5_mg6rx")
+material_hit_scene = ExtResource("6_7r81m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.698141, 0, 1, 0)
@@ -976,12 +980,14 @@ shape = SubResource("CapsuleShape3D_v2cee")
 
 [node name="HitBox" type="Area3D" parent="." groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.697534, 0, 0, 0)
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gju87")
 
 [node name="AgrArea" type="Area3D" parent="."]
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AgrArea"]
 shape = SubResource("SphereShape3D_3tgpc")
@@ -989,6 +995,7 @@ shape = SubResource("SphereShape3D_3tgpc")
 [node name="SearchCover" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 4
+unique_name_in_owner = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="SearchCover"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -996,6 +1003,7 @@ shape = SubResource("CylinderShape3D_0cifv")
 
 [node name="AttackZone" type="Area3D" parent="." groups=["Enemy_melee"]]
 monitorable = false
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05504, -0.519588)
@@ -1008,6 +1016,7 @@ shape = SubResource("BoxShape3D_basjt")
 
 [node name="visuals" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+unique_name_in_owner = true
 
 [node name="body" type="CSGMesh3D" parent="visuals"]
 transform = Transform3D(0.35, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 0, 1.2, 0)
@@ -1048,9 +1057,11 @@ material = SubResource("StandardMaterial3D_tp1dm")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, 0, -40)
 collision_mask = 5
+unique_name_in_owner = true
 
 [node name="Pistol" parent="visuals/body" instance=ExtResource("1_00hoo")]
 transform = Transform3D(0.0184681, 0, -1.09984, 0, 1.1, 0, 1.09984, 0, 0.0184681, -1.88749, 0.475014, -0.410301)
+unique_name_in_owner = true
 
 [node name="L_arm" type="CSGMesh3D" parent="visuals"]
 transform = Transform3D(0.1, 0, 0, 0, 0.398478, 0.00871557, 0, -0.0348623, 0.0996195, 0, 1.1, 0.3)
@@ -1073,6 +1084,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_6meqx")
 }
 playback_default_blend_time = 0.6
+unique_name_in_owner = true
 
 [node name="NearQuilt" type="Sprite3D" parent="."]
 transform = Transform3D(0.541269, 0, 0, 0, 0.541269, 0, 0, 0, 1, 0, 2.37925, 0)
@@ -1081,6 +1093,7 @@ billboard = 1
 double_sided = false
 texture_filter = 0
 texture = ExtResource("1_1at3o")
+unique_name_in_owner = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 height = 2.0
@@ -1090,6 +1103,7 @@ max_neighbors = 20
 time_horizon_obstacles = 1.0
 use_3d_avoidance = true
 debug_enabled = true
+unique_name_in_owner = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.706346, 0, 0, 0, 0.706346, 0, 0, 0, 0.706346, 0, 1.4, 0)
@@ -1103,6 +1117,7 @@ explosiveness = 1.0
 visibility_aabb = AABB(-1.80639, -1.61512, -1.74341, 3.61279, 3.23025, 3.48682)
 process_material = SubResource("ParticleProcessMaterial_0jemk")
 draw_pass_1 = SubResource("SphereMesh_af2i5")
+unique_name_in_owner = true
 
 [node name="S" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11881, 0)
@@ -1111,6 +1126,7 @@ modulate = Color(0.847059, 0.247059, 0.219608, 1)
 text = "0"
 font = ExtResource("2_jthxq")
 outline_size = 4
+unique_name_in_owner = true
 
 [node name="Hurt" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
@@ -1119,16 +1135,19 @@ unit_size = 5.0
 max_db = 0.0
 pitch_scale = 1.05
 max_distance = 10.0
+unique_name_in_owner = true
 
 [node name="AgrTimer" type="Timer" parent="."]
 wait_time = 1.2
 one_shot = true
+unique_name_in_owner = true
 
 [node name="Fist" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
 stream = ExtResource("4_25us8")
 max_db = 0.0
 max_distance = 3.0
+unique_name_in_owner = true
 
 [connection signal="equip_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_equip_weapon"]
 [connection signal="hide_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_hide_weapon"]
