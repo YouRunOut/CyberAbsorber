@@ -32,6 +32,8 @@ extends Control
 @onready var fade_animation = $"Death screen/FadeAnimatoin"
 @onready var text_animation = $'Death screen/AnimationText'
 
+const STREAK_CONTROL = preload("res://Scenes/Hack/StreakControl.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -141,3 +143,22 @@ func aspect_ratio():
 func _on_tree_animation_animation_finished(anim_name):
 	if anim_name == "open":
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func is_hacking_active() -> bool:
+	return get_node_or_null("StreakControl") != null
+
+
+func show_hacking() -> void:
+	if is_hacking_active():
+		return
+	var scene = STREAK_CONTROL.instantiate()
+	scene.name = "StreakControl"
+	add_child(scene)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	scene.tree_exited.connect(_on_hack_finished)
+
+
+func _on_hack_finished() -> void:
+	if not skill_tree_open:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

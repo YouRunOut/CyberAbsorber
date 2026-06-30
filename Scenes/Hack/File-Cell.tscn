@@ -1,44 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvh3yj8dgsak3"]
+[gd_scene load_steps=8 format=3 uid="uid://dvh3yj8dgsak3"]
 
-[sub_resource type="Resource" id="Resource_ptost"]
-metadata/__load_path__ = "res://Textures/Cells/Normal.png"
-
-[sub_resource type="Resource" id="Resource_lprv6"]
-metadata/__load_path__ = "res://Textures/Cells/NoTrigger.png"
-
-[sub_resource type="Resource" id="Resource_8pgll"]
-metadata/__load_path__ = "res://Textures/Cells/NoTrigger.png"
-
-[sub_resource type="Resource" id="Resource_d1x4q"]
-metadata/__load_path__ = "res://Textures/Cells/NoTrigger.png"
-
-[sub_resource type="Resource" id="Resource_7bera"]
-metadata/__load_path__ = "res://Textures/Cells/NoTrigger.png"
-
-[sub_resource type="Resource" id="Resource_x8550"]
-metadata/__load_path__ = "res://Scripts/File-Cell.gd"
-
-[sub_resource type="Resource" id="Resource_10b0d"]
-metadata/__load_path__ = "res://Sounds/GUI/Hack/Cancel.wav"
-
-[sub_resource type="Resource" id="Resource_wgq5o"]
-metadata/__load_path__ = "res://Sounds/GUI/Hack/Creating_Short.wav"
+[ext_resource type="Texture2D" uid="uid://bked38urla28h" path="res://Textures/Cells/Normal.png" id="1_normal"]
+[ext_resource type="Texture2D" uid="uid://cqn2c1kftld6d" path="res://Textures/Cells/NoTrigger.png" id="2_notrigger"]
+[ext_resource type="Script" uid="uid://82ni1ug5jsqd" path="res://Scripts/File-Cell.gd" id="3_script"]
+[ext_resource type="AudioStream" uid="uid://cgqk2goe6cpew" path="res://Sounds/GUI/Hack/Cancel.wav" id="4_cancel"]
+[ext_resource type="AudioStream" uid="uid://ci21o2xnq26h3" path="res://Sounds/GUI/Hack/Creating_Short.wav" id="5_create"]
 
 [node name="File-Сell" type="TextureButton"]
 custom_minimum_size = Vector2(50, 200)
-texture_normal = SubResource("Resource_ptost")
-texture_pressed = SubResource("Resource_lprv6")
-texture_hover = SubResource("Resource_8pgll")
-texture_disabled = SubResource("Resource_d1x4q")
-texture_focused = SubResource("Resource_7bera")
-script = SubResource("Resource_x8550")
+texture_normal = ExtResource("1_normal")
+texture_pressed = ExtResource("2_notrigger")
+texture_hover = ExtResource("2_notrigger")
+texture_disabled = ExtResource("2_notrigger")
+texture_focused = ExtResource("2_notrigger")
+script = ExtResource("3_script")
 
 [node name="InputSound" type="AudioStreamPlayer" parent="."]
-stream = SubResource("Resource_10b0d")
+stream = ExtResource("4_cancel")
 volume_db = -10.0
 pitch_scale = 0.9
 
 [node name="CreateSound" type="AudioStreamPlayer" parent="."]
-stream = SubResource("Resource_wgq5o")
+stream = ExtResource("5_create")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

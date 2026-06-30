@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://caf5u47cnrtm6" path="res://Scripts/Player.gd" id="1_j8hcs"]
 [ext_resource type="AudioStream" uid="uid://nh774vetufu1" path="res://Sounds/FX/lvlup.wav" id="2_3s7rw"]
 [ext_resource type="PackedScene" uid="uid://ckcgk0avkpa23" path="res://Scenes/gui.tscn" id="3_38y5p"]
-[ext_resource type="PackedScene" uid="uid://cuqisevnnw8qv" path="res://Models/Weapons/DBShotgun/DBshotgun.tscn" id="3_megsn"]
+[ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://Scenes/Pistol.tscn" id="3_megsn"]
 [ext_resource type="Script" uid="uid://5tgtcwlk2amc" path="res://Scenes/FootstepManager.gd" id="5_16iq7"]
 [ext_resource type="AudioStream" uid="uid://dpm74ncms5xwt" path="res://Sounds/SFX/Footsteps/step1.wav" id="6_jntir"]
 [ext_resource type="AudioStream" uid="uid://cg8n6c5pkr2ym" path="res://Sounds/SFX/Footsteps/step2.wav" id="7_27bqs"]
@@ -404,8 +404,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00317836, -0.0529027, -0.52
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100614)
 target_position = Vector3(0, 0, -0.33)
 
-[node name="DoubleBarreledShotgun" parent="Visuals/nek/head/RightHand/RFist" instance=ExtResource("3_megsn")]
-transform = Transform3D(-0.5, 0, 1.2675908e-06, 0, 0.5, 0, -1.2675908e-06, 0, -0.5, 0, 0, 0)
+[node name="Pistol" parent="Visuals/nek/head/RightHand/RFist" instance=ExtResource("3_megsn")]
 
 [node name="LeftHand" type="Node3D" parent="Visuals/nek/head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.463009, 0)
@@ -416,7 +415,7 @@ libraries = {
 }
 
 [node name="Hand" type="MeshInstance3D" parent="Visuals/nek/head/LeftHand"]
-transform = Transform3D(1, 0, 0, 0, 0.6120239, -0.7908391, 0, 0.7908391, 0.6120239, -0.238417, 0, -0.422743)
+transform = Transform3D(1, 0, 0, 0, 0.61202383, -0.7908391, 0, 0.7908391, 0.61202383, -0.238417, 0, -0.422743)
 visible = false
 mesh = SubResource("BoxMesh_jpk48")
 
@@ -518,7 +517,11 @@ volume_db = -20.0
 [connection signal="alive" from="." to="Visuals/nek/head/eyes/Camera3D/GUI" method="_on_player_alive"]
 [connection signal="coin_here" from="." to="Visuals/nek/head/eyes/Camera3D/GUI" method="_on_player_coin_here"]
 [connection signal="death" from="." to="Visuals/nek/head/eyes/Camera3D/GUI" method="_on_player_death"]
+[connection signal="equip_weapon" from="." to="Visuals/nek/head/RightHand/RFist/Pistol" method="_on_player_equip_weapon"]
 [connection signal="gathered" from="." to="Visuals/nek/head/eyes/Camera3D/GUI" method="_on_player_gathered"]
+[connection signal="hide_weapon" from="." to="Visuals/nek/head/RightHand/RFist/Pistol" method="_on_player_hide_weapon"]
+[connection signal="reload" from="." to="Visuals/nek/head/RightHand/RFist/Pistol" method="_on_player_reload"]
+[connection signal="shoot" from="." to="Visuals/nek/head/RightHand/RFist/Pistol" method="_on_player_shoot"]
 [connection signal="animation_finished" from="Visuals/nek/head/LeftHand/HandAnim" to="." method="_on_hand_anim_animation_finished"]
 [connection signal="timeout" from="Visuals/nek/head/LeftHand/TimeToTake" to="." method="_on_time_to_take_timeout"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cmuysd2vrddxy"]
+[gd_scene load_steps=54 format=3 uid="uid://cmuysd2vrddxy"]
 
 [ext_resource type="PackedScene" uid="uid://c2633u3s5olnb" path="res://Scenes/Player.tscn" id="1_r5heq"]
 [ext_resource type="AudioStream" uid="uid://cmjrmflbgmc32" path="res://Sounds/Music/Cyberpunk 2077 Gate K9.mp3" id="1_w2koy"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://chktdt1i652pj" path="res://addons/devblocks/textures/green/texture_01.png" id="10_mwne4"]
 [ext_resource type="Texture2D" uid="uid://drnd1qwscd2g8" path="res://addons/devblocks/textures/dark/texture_06.png" id="11_b1i2t"]
 [ext_resource type="AudioStream" uid="uid://frh0usdd7fg6" path="res://Sounds/Atmo/Door/open.mp3" id="12_c2672"]
+[ext_resource type="Script" uid="uid://o6si0jaxcb53" path="res://Scripts/living_house.gd" id="12_j2ehn"]
 [ext_resource type="PackedScene" uid="uid://l8e32gluy7q" path="res://Scenes/Enemy.tscn" id="13_wwlk1"]
 [ext_resource type="FontFile" uid="uid://ta82dsir1jky" path="res://Fonts/Zlusa _font.ttf" id="14_7rarr"]
 [ext_resource type="PackedScene" uid="uid://d23jvp04cebg5" path="res://Scenes/PickObj.tscn" id="15_se00e"]
@@ -82,6 +83,10 @@ adjustment_brightness = 0.93
 adjustment_contrast = 1.45
 adjustment_saturation = 0.7
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i25ct"]
+albedo_color = Color(0.9254902, 1, 1, 0.5176471)
+albedo_texture = ExtResource("1_wyx44")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i1r06"]
 emission_shape = 3
 emission_box_extents = Vector3(50, 1, 50)
@@ -89,11 +94,12 @@ direction = Vector3(0, -1, 0)
 spread = 5.0
 initial_velocity_min = 15.0
 initial_velocity_max = 15.0
-scale_min = 0.4
+scale_min = 0.099999994
 scale_max = 0.5
 collision_mode = 1
 collision_friction = 0.69
 collision_bounce = 0.06
+collision_use_scale = true
 
 [sub_resource type="Curve" id="Curve_vpacc"]
 _limits = [0.0, 0.1, 0.0, 1.0]
@@ -213,7 +219,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_iq0qg"]
 resource_name = "open"
-length = 32.0
+length = 15.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -221,7 +227,7 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30, 31.8),
+"times": PackedFloat32Array(0, 12, 13.799999),
 "transitions": PackedFloat32Array(1, 0.63728, 1),
 "update": 0,
 "values": [Vector3(-4.81195, -12.5774, -8.44182), Vector3(-4.81195, -12.5774, -8.44182), Vector3(-7.08946, -12.5774, -8.44182)]
@@ -233,7 +239,7 @@ tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(30),
+"times": PackedFloat32Array(12),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -325,7 +331,7 @@ bus = &"Music"
 transform = Transform3D(-0.75772, -0.536455, 0.371586, -0.280511, 0.781868, 0.556772, -0.589215, 0.317644, -0.742919, 0, 0, 0)
 layers = 524289
 light_color = Color(0.839216, 0.803922, 0.639216, 1)
-light_energy = 1.2
+light_energy = 1.8
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Weather"]
@@ -333,7 +339,7 @@ environment = SubResource("Environment_6upbj")
 
 [node name="Storm" type="GPUParticles3D" parent="Weather"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.1954, -19.0249)
-cast_shadow = 0
+material_override = SubResource("StandardMaterial3D_i25ct")
 amount = 10000
 lifetime = 2.0
 speed_scale = 2.0
@@ -461,6 +467,7 @@ material = SubResource("StandardMaterial3D_fqr4y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14976, 14.0145, 40.3692)
 size = Vector3(23.4784, 28.029, 18.3844)
 material = SubResource("StandardMaterial3D_kvto4")
+script = ExtResource("12_j2ehn")
 
 [node name="GPUParticlesAttractorBox3D" type="GPUParticlesAttractorBox3D" parent="NavigationRegion3D/BigBuldings/LivingHouse"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.037, 0)
@@ -592,7 +599,7 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -29.5433, -0.00500036, 
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -25.8196, -0.00499989, -1.19949)
 
 [node name="LabelControl" type="Label3D" parent="."]
-transform = Transform3D(1.83526, 0, 0.491756, 0, 1.9, 0, -0.491756, 0, 1.83526, -2.94949, 1.80556, 35.6128)
+transform = Transform3D(1.8352591, 0, 0.49175584, 0, 1.9, 0, -0.49175584, 0, 1.8352591, -2.94949, 1.80556, 35.6128)
 transparency = 1.0
 double_sided = false
 modulate = Color(0.796078, 1, 0.886275, 0.964706)
@@ -620,7 +627,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="LabelRule" type="Label3D" parent="."]
-transform = Transform3D(1.83526, 0, -0.491756, 0, 1.9, 0, 0.491756, 0, 1.83526, 3.48549, 2.03638, 35.6128)
+transform = Transform3D(1.8352591, 0, -0.49175584, 0, 1.9, 0, 0.49175584, 0, 1.8352591, 3.48549, 2.03638, 35.6128)
 transparency = 1.0
 double_sided = false
 modulate = Color(0.796078, 1, 0.886275, 0.964706)
@@ -644,7 +651,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="LabelHP" type="Label3D" parent="."]
-transform = Transform3D(1.9, 0, 0, 0, 1.83526, -0.491756, 0, 0.491756, 1.83526, 0.229896, 3.3151, 36.7343)
+transform = Transform3D(1.9, 0, 0, 0, 1.8352591, -0.49175584, 0, 0.49175584, 1.8352591, 0.229896, 3.3151, 36.7343)
 transparency = 1.0
 double_sided = false
 modulate = Color(0.796078, 1, 0.886275, 0.964706)
@@ -662,7 +669,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="LabelMedKit" type="Label3D" parent="."]
-transform = Transform3D(1.9, 0, 0, 0, 1.64545, 0.949998, 0, -0.949998, 1.64545, 0.152105, 0.296413, 35.6049)
+transform = Transform3D(1.9, 0, 0, 0, 1.6454495, 0.94999784, 0, -0.94999784, 1.6454495, 0.152105, 0.296413, 35.6049)
 transparency = 1.0
 double_sided = false
 modulate = Color(0.796078, 1, 0.886275, 0.964706)
@@ -698,3 +705,16 @@ transform = Transform3D(0.45, 0, 0, 0, 0.484922, 0, 0, 0, 0.45, -35.2505, 0.0095
 
 [node name="PickObj6" parent="." instance=ExtResource("15_se00e")]
 transform = Transform3D(0.45, 0, 0, 0, 0.484922, 0, 0, 0, 0.45, -35.2505, 0.00957489, 9.21827)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(2.5397835, 0, 0, 0, 2.5397835, 0, 0, 0, 1, 0.40786615, 3.2724004, 32.612503)
+modulate = Color(1, 0, 0.41568628, 1)
+text = "00:32"
+font = ExtResource("14_7rarr")
+font_size = 64
+outline_size = 6
+
+[node name="Timer" type="Timer" parent="Label3D"]
+wait_time = 12.0
+one_shot = true
+autostart = true

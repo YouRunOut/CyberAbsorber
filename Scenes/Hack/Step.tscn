@@ -1,9 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://25o46jfcsxnw"]
 
-[sub_resource type="Resource" id="Resource_3kqw4"]
-metadata/__load_path__ = "res://Scripts/StepGenerateCells.gd"
+[ext_resource type="Script" uid="uid://b0nseqy6q3iq0" path="res://Scripts/StepGenerateCells.gd" id="1_script"]
 
 [node name="Step1" type="HBoxContainer"]
 theme_override_constants/separation = 30
 alignment = 1
-script = SubResource("Resource_3kqw4")
+script = ExtResource("1_script")

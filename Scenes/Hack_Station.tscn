@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://dpggb6j4d7sgl"]
+
+[ext_resource type="Script" uid="uid://buw45j2evgfqm" path="res://Scenes/Hack/HackStation.gd" id="1_6ypyj"]
+[ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_4dsvt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqjx7"]
+albedo_color = Color(0.351563, 0.351563, 0.351563, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uflw"]
+albedo_color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yoyhr"]
+material = SubResource("StandardMaterial3D_8uflw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ha4ax"]
+albedo_color = Color(0.905882, 0, 0.145098, 1)
+rim_enabled = true
+rim = 0.8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ardfj"]
+material = SubResource("StandardMaterial3D_ha4ax")
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdn61"]
+material = SubResource("StandardMaterial3D_8uflw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xueey"]
+size = Vector3(0.419495, 1.50342, 1.26807)
+
+[sub_resource type="Animation" id="Animation_d42xb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0767548, 0.971386, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t6sh3"]
+resource_name = "idle"
+length = 1.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.077, 0.895, 0), Vector3(0.077, 0.915, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1457g"]
+_data = {
+&"RESET": SubResource("Animation_d42xb"),
+&"idle": SubResource("Animation_t6sh3")
+}
+
+[node name="HackStation" type="Node3D" unique_id=1997930430]
+script = ExtResource("1_6ypyj")
+
+[node name="Table" type="CSGBox3D" parent="." unique_id=974783838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244141, 0.406958, 0.00170898)
+use_collision = true
+size = Vector3(0.5, 0.787354, 1.31494)
+material = SubResource("StandardMaterial3D_uqjx7")
+
+[node name="PC" type="MeshInstance3D" parent="." unique_id=1803063105]
+transform = Transform3D(0.0849178, -0.0358176, 0, 0.00844299, 0.360246, 0, 0, 0, 0.525823, -0.125945, 1.00649, 0)
+mesh = SubResource("BoxMesh_yoyhr")
+
+[node name="Screen" type="MeshInstance3D" parent="PC" unique_id=283668794]
+transform = Transform3D(7.45058e-08, 1.04974, 0, -0.441825, -3.35276e-08, 0, 0, 0, 0.431843, 0.534658, 0.00608015, 0)
+mesh = SubResource("PlaneMesh_ardfj")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="PC/Screen" unique_id=2043292793]
+transform = Transform3D(0.9969089, -0.055511355, -0.055597547, -0.055511557, 0.0030910277, -0.99845326, 0.05559735, 0.99845326, -4.8824454e-08, -0.00343847, -0.0617551, 0)
+light_color = Color(0.905882, 0, 0.145098, 1)
+light_indirect_energy = 5.0
+spot_range = 1.21433
+spot_angle = 89.99
+
+[node name="leg" type="MeshInstance3D" parent="." unique_id=232819920]
+transform = Transform3D(0.341149, 0, 0, 0, 0.0227956, 0, 0, 0, 0.45759, -0.00876401, 0.814618, 0)
+mesh = SubResource("BoxMesh_hdn61")
+skeleton = NodePath("../PC")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=878432939 groups=["Hacking"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1435515328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.459259, 0.751709, 0.0187988)
+shape = SubResource("BoxShape3D_xueey")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1672812075]
+transform = Transform3D(0.0562223, 0, 0.998418, 0, 1, 0, -0.998418, 0, 0.0562223, 0.0767548, 0.971386, 0)
+billboard = 1
+text = "Press [F] or LMB"
+font = ExtResource("2_4dsvt")
+font_size = 16
+outline_size = 5
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label3D" unique_id=1456489670]
+libraries/ = SubResource("AnimationLibrary_1457g")
+autoplay = &"idle"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

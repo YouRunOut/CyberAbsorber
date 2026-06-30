@@ -16,7 +16,7 @@ var taking = false
 
 @onready var right_hand = $Visuals/nek/head/RightHand
 
-@onready var pistol = $Visuals/nek/head/RightHand/RFist/DoubleBarreledShotgun
+@onready var pistol = $Visuals/nek/head/RightHand/RFist/Pistol
 
 var hit_point
 @onready var flesh_hit = preload("res://Scenes/Flesh_Hit.tscn")
@@ -25,7 +25,7 @@ var hit_point
 @onready var gui = $Visuals/nek/head/eyes/Camera3D/GUI
 @onready var damage_animation = $Visuals/nek/head/eyes/Camera3D/GUI/DamageScreen/DamageAnimation
 
-@onready var crosshair = $Visuals/nek/head/eyes/Camera3D/GUI/Crosshair
+@onready var crosshair = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Crosshair
 
 @onready var btn_q = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Buttons/btn_Q
 @onready var quilt_progress = $Visuals/nek/head/eyes/Camera3D/GUI/HUD/Buttons/btn_Q/QuiltProgress
@@ -131,7 +131,7 @@ const free_looking_tilt_amount = 0.3
 @export var sens_aiming = 1.0
 
 @export var pistol_hip_shooting : Vector3 = Vector3(0.277, -0.393, 0) # стрельба от бедра
-@export var pistol_aiming_shooting : Vector3 = Vector3(0, -0.245, 0) # прицельная стрельба
+@export var pistol_aiming_shooting : Vector3 = Vector3(0, -0.313, 0) # прицельная стрельба
 
 var mouse_input : Vector2
 var def_weapon_holder_pos : Vector3
@@ -185,7 +185,7 @@ func _physics_process(delta):
 	steps(t_step)
 	
 	if not Main.player_dead:
-		if !gui.skill_tree_open:
+		if !gui.skill_tree_open and not gui.is_hacking_active():
 			#pushing()
 			aiming_state(delta)
 			movements(delta)
@@ -195,7 +195,7 @@ func _physics_process(delta):
 			weapon_sway(delta)
 
 func _input(event):
-	if !gui.skill_tree_open:
+	if !gui.skill_tree_open and not gui.is_hacking_active():
 		_is_on_action_buttons()
 		
 		# camera motion
@@ -337,12 +337,14 @@ func _is_on_action_buttons():
 	if Input.is_action_pressed("Action"):
 		taking = true
 		print(time_to_take.time_left)'''
-	if Input.is_action_just_pressed("Action") and not hand_anim.is_playing():
-		#print("pUSH")
-		#taking = false
-		#time_to_take.stop()
-		hand_anim.play("take")
-		#ray_push.enabled = true
+	if Input.is_action_just_pressed("Action"):
+		for area in hit_box.get_overlapping_areas():
+			if area.is_in_group("Hacking"):
+				gui.show_hacking()
+				return
+		if not hand_anim.is_playing():
+			hand_anim.play("take")
+			#ray_push.enabled = true
 	
 		
 	
@@ -380,7 +382,13 @@ func _on_slide_timer_timeout():
 	SLIDING = false
 
 func weapon_actions(delta):
+	if gui.is_hacking_active():
+		return
 	if Input.is_action_just_pressed("Attack1"):
+		for area in hit_box.get_overlapping_areas():
+			if area.is_in_group("Hacking"):
+				gui.show_hacking()
+				return
 		emit_signal("shoot")
 		
 		# отдача

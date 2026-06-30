@@ -526,7 +526,7 @@ colors = PackedColorArray(0.745098, 0.0823529, 0.207843, 0.160784, 0.745098, 0.0
 gradient = SubResource("Gradient_kcgcx")
 
 [sub_resource type="Gradient" id="Gradient_1ay52"]
-colors = PackedColorArray(0.745098, 0.0823529, 0.207843, 0.835294, 0.745098, 0.0980392, 0.207843, 0.572549)
+colors = PackedColorArray(0.74509805, 0.08235294, 0.20784314, 0.78431374, 0.745098, 0.0980392, 0.207843, 0.572549)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ex5lv"]
 gradient = SubResource("Gradient_1ay52")
@@ -634,19 +634,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("1_43poy")
-
-[node name="Crosshair" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.615686)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(20, 21)
-mouse_filter = 2
-texture = ExtResource("17_ljcf7")
-stretch_mode = 3
 
 [node name="SkillTree" parent="." instance=ExtResource("4_usmpq")]
 visible = false
@@ -777,9 +764,9 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(105, 30)
 theme_override_colors/default_color = Color(0.745098, 0.0823529, 0.207843, 1)
 theme_override_colors/font_shadow_color = Color(0.152941, 1, 0.466667, 0.286275)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_outline_size = 13
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/normal_font = ExtResource("2_52lof")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
@@ -824,11 +811,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HPbar" type="TextureProgressBar" parent="HUD"]
-custom_minimum_size = Vector2(1, 12)
+custom_minimum_size = Vector2(1, 8)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 12.0
+offset_bottom = 8.0
 grow_horizontal = 2
 value = 20.0
 fill_mode = 6
@@ -837,6 +824,7 @@ texture_under = SubResource("GradientTexture1D_5itj6")
 texture_progress = SubResource("GradientTexture1D_ex5lv")
 
 [node name="HP" type="Label" parent="HUD/HPbar"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -952,7 +940,6 @@ texture_pressed = ExtResource("11_xrigc")
 stretch_mode = 5
 
 [node name="QuiltProgress" type="ProgressBar" parent="HUD/Buttons/btn_E"]
-visible = false
 modulate = Color(0, 0.811765, 0.705882, 1)
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_ff2v8")
@@ -1093,6 +1080,19 @@ value = 128.0
 texture_under = ExtResource("20_03i26")
 texture_progress = ExtResource("21_bsms3")
 texture_progress_offset = Vector2(3, 4)
+
+[node name="Crosshair" type="TextureRect" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0.615686)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 21)
+mouse_filter = 2
+texture = ExtResource("17_ljcf7")
+stretch_mode = 3
 
 [node name="EyeFilter" type="Control" parent="."]
 layout_mode = 1

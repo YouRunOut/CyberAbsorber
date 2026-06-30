@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c4pwg7lhukqb8"]
+[gd_resource type="Theme" format=3 uid="uid://c4pwg7lhukqb8"]
 
 [ext_resource type="Script" uid="uid://7tkc1qvciqx3" path="res://addons/ggs/editor/_theme/ggs_theme.gd" id="1_3cm4d"]
 
