@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://douetcpw0f15j"]
 
-[ext_resource type="Script" uid="uid://dn6qfdjqpo5y7" path="res://Scripts/CoverSensor.gd" id="1_1u8xy"]
+[ext_resource type="Script" uid="uid://dn6qfdjqpo5y7" path="res://Scripts/cover_sensor.gd" id="1_1u8xy"]
 [ext_resource type="Material" uid="uid://dfd3frksjmf3s" path="res://Textures/Materials/Debug/Green.tres" id="2_wqscs"]
 [ext_resource type="Material" path="res://Textures/Materials/Debug/Red.tres" id="3_p8jef"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuqisevnnw8qv"]
+[gd_scene format=3 uid="uid://cuqisevnnw8qv"]
 
 [ext_resource type="Script" uid="uid://btrbo8u2ax4fw" path="res://Models/Weapons/DBShotgun/db_shotgun.gd" id="1_3gj2v"]
 [ext_resource type="PackedScene" uid="uid://iqy7lfxkhn0a" path="res://Models/Weapons/DBShotgun/double_barreled_shotgun_back.tscn" id="1_c1omn"]

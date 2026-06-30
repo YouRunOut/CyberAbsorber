@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dx4u8o33byjuq"]
 
-[ext_resource type="Script" uid="uid://c6ds03k6x00iu" path="res://Scripts/Flesh_Hit.gd" id="1_6k8k0"]
+[ext_resource type="Script" uid="uid://c6ds03k6x00iu" path="res://Scripts/flesh_hit.gd" id="1_6k8k0"]
 [ext_resource type="AudioStream" uid="uid://b3ulof2hj64la" path="res://Sounds/Weapon/Pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="2_aec78"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8vjso"]

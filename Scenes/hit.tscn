@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://uc4mooriq4xd"]
 
-[ext_resource type="Script" uid="uid://c6ds03k6x00iu" path="res://Scripts/Flesh_Hit.gd" id="1_o7gk6"]
+[ext_resource type="Script" uid="uid://c6ds03k6x00iu" path="res://Scripts/flesh_hit.gd" id="1_o7gk6"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8vjso"]
 albedo_color = Color(0.831373, 0, 0.254902, 1)

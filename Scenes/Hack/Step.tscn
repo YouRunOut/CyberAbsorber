@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://25o46jfcsxnw"]
 
-[ext_resource type="Script" uid="uid://b0nseqy6q3iq0" path="res://Scripts/StepGenerateCells.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b0nseqy6q3iq0" path="res://Scripts/step_generate_cells.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://Scenes/Hack/File-Cell.tscn" id="2_cell"]
 
 [node name="Step1" type="HBoxContainer"]

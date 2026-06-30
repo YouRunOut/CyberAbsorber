@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dy820qstfymgo"]
 
-[ext_resource type="Script" uid="uid://cflub6i3y31fd" path="res://Scripts/StreakControl.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cflub6i3y31fd" path="res://Scripts/streak_control.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://Fonts/FRM3216x16.ttf" id="2_dnkph"]
 [ext_resource type="AudioStream" uid="uid://bqi0ummon230s" path="res://Sounds/GUI/Hack/Completed.mp3" id="3_audio"]
 [ext_resource type="PackedScene" path="res://Scenes/Hack/Step.tscn" id="4_step"]

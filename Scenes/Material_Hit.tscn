@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://jhhvo1kle8ah"]
 
-[ext_resource type="Script" uid="uid://bn5jas5btixb0" path="res://Scripts/Material_Hit.gd" id="1_tccba"]
+[ext_resource type="Script" uid="uid://bn5jas5btixb0" path="res://Scripts/material_hit.gd" id="1_tccba"]
 [ext_resource type="AudioStream" uid="uid://c627clatjwrns" path="res://Sounds/Weapon/Pistol/onWall.mp3" id="2_jjcv8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuyyu"]

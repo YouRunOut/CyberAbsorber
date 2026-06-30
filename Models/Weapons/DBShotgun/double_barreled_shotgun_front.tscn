@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://br5io0pm8w13p"]
+[gd_scene format=3 uid="uid://br5io0pm8w13p"]
 
 [ext_resource type="PackedScene" uid="uid://dukwegpvuhnqn" path="res://Models/Weapons/double-barreled_shotgun_front.fbx" id="1_w4b5f"]
 [ext_resource type="Texture2D" uid="uid://dpwh1n7naa67j" path="res://Models/Weapons/Textures/double-barreled shotgun.png" id="2_pxgce"]
