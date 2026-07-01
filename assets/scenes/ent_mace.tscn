@@ -3,53 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://ci37r6psqcdkw" path="res://assets/sounds/weapon/Melee/gluhoy-zvuk-zamaha.mp3" id="2_opmpg"]
 [ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="2_pr8kc"]
 [ext_resource type="AudioStream" uid="uid://5yqeuoiubrs" path="res://assets/sounds/weapon/Melee/smash.wav" id="3_3jyo6"]
-
-[sub_resource type="GDScript" id="GDScript_8uyua"]
-script/source = "extends Node3D
-
-@onready var mace: Node3D = %Mace
-@onready var hit_box: Area3D = %HitBox
-@onready var label: Label3D = %Label3D
-@onready var particles: GPUParticles3D = %GPUParticles3D
-
-@onready var audio_stroke: AudioStreamPlayer3D = %Stroke
-@onready var audio_smash: AudioStreamPlayer3D = %Smash
-
-var equiped : bool
-var stroke : bool
-var attacking = true
-
-func _ready():
-	equiped = false
-	stroke = false
-	
-func _physics_process(delta):
-	stroke = true if Main.attack else false
-	hit_box.monitorable = true if stroke else false
-	hit_box.monitoring = true if stroke else false
-	
-func _process(delta):
-	label.text = str(attacking)
-	equiped = true if Main.equiped_weapon == 'mace' else false
-	self.visible = true if equiped else false
-	
-	if stroke:
-		#particles.visible = true
-		particles.emitting = true
-		if attacking:
-			attacking = false
-			audio_stroke.play()
-	#else: particles.visible = false
-
-func _on_hit_box_area_entered(area):
-	if area.is_in_group('Enemy'):
-		audio_smash.play()
-
-
-func _on_stroke_finished():
-	await get_tree().create_timer(0.3).timeout
-	attacking = true
-"
+[ext_resource type="Script" path="res://src/scripts/entclass_mace.gd" id="4_mace_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpuu6"]
 albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
@@ -82,7 +36,7 @@ size = Vector3(0.01, 0.01, 0.01)
 albedo_color = Color(0.235294, 0.172549, 0.113725, 1)
 
 [node name="Mace" type="Node3D"]
-script = SubResource("GDScript_8uyua")
+script = ExtResource("4_mace_script")
 unique_name_in_owner = true
 
 [node name="Head" type="CSGBox3D" parent="."]

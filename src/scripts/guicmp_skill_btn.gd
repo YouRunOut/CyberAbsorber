@@ -21,6 +21,7 @@ var NAME : String
 var skill_note : Array # [is_unlocked, icon_texture, description]
 var side : String
 var skill_list = ['L00', 'R00', 'L01', 'R01', 'L10', 'R10', 'L11', 'R11', 'L20', 'R20', 'C00']
+var upgrade_applied := false
 
 func _ready():
 	self.disabled = true
@@ -32,6 +33,7 @@ func _ready():
 	skill_pic.set_texture(skill_note[1]) # второй объект
 	writeup.text = skill_note[2]
 	side = NAME[0]
+	upgrade_applied = bool(skill_note[0])
 	#skill_list = Main.skill_book.keys()
 	
 @warning_ignore("unused_parameter")
@@ -49,11 +51,15 @@ func skill_availability():
 		# да, первый
 		if skill_note[0]:# Активный?
 			if side == 'L' and Main.L_first_enter:# левая ветка
-				Main.upgrade(NAME)
+				if not upgrade_applied:
+					Main.upgrade(NAME)
+					upgrade_applied = true
 				Main.runnerL += 2
 				Main.L_first_enter = false
 			elif side == 'R' and Main.R_first_enter: # правая ветка
-				Main.upgrade(NAME)
+				if not upgrade_applied:
+					Main.upgrade(NAME)
+					upgrade_applied = true
 				Main.runnerR += 2
 				Main.R_first_enter = false
 			else: self.disabled = true
@@ -67,7 +73,9 @@ func skill_availability():
 						# да, равен
 						if skill_note[0]: # активен?
 							# да, активен
-							Main.upgrade(NAME)
+							if not upgrade_applied:
+								Main.upgrade(NAME)
+								upgrade_applied = true
 							Main.runnerL += 2
 							self.disabled = true
 						else: # нет, не активен
@@ -80,7 +88,9 @@ func skill_availability():
 						# да, равен
 						if skill_note[0]: # активен?
 							# да, активен
-							Main.upgrade(NAME)
+							if not upgrade_applied:
+								Main.upgrade(NAME)
+								upgrade_applied = true
 							Main.runnerR += 2
 							self.disabled = true
 						else: # нет, не активен
@@ -93,7 +103,9 @@ func skill_availability():
 					if skill_note[0]: # активен?
 						# да, активен
 						if Main.C_first_enter:
-							Main.upgrade(NAME)
+							if not upgrade_applied:
+								Main.upgrade(NAME)
+								upgrade_applied = true
 							self.disabled = true
 							Main.C_first_enter = false
 					else: # нет, не активен
@@ -106,6 +118,8 @@ func skill_availability():
 func _on_pressed():
 	Main.skill_point -= 1
 	Main.skill_book[NAME][0] = true
+	Main.upgrade(NAME)
+	upgrade_applied = true
 	audio_upgrade.play()
 	self.disabled = true
 

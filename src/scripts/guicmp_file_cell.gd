@@ -7,13 +7,17 @@ extends TextureButton
 @onready var create_sound: AudioStreamPlayer = %CreateSound
 
 var streak_control: Control
+@export var streak_control_path: NodePath
 
 var trigger : bool = false
 
 
 func _ready():
 	create_sound.play()
-	streak_control = get_parent().get_parent().get_parent()
+	if streak_control_path != NodePath(""):
+		streak_control = get_node_or_null(streak_control_path)
+	else:
+		streak_control = get_parent().get_parent().get_parent()
 	if self.get_name() == "File-Сell": grab_focus()
 	
 	if trigger and accept_sound and trigger_texture:
