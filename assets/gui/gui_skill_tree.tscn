@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://bju1n8gyah3ov"]
 
-[ext_resource type="Script" uid="uid://bcodumfa7lwlx" path="res://src/scripts/gui_skill_tree.gd" id="1_qe7bx"]
-[ext_resource type="Shader" uid="uid://b6kap6ap1l7sx" path="res://assets/shaders/Grain.gdshader" id="1_r0g4a"]
+[ext_resource type="Script" uid="uid://d16ixrpe1se00" path="res://src/gui/gui_skill_tree.gd" id="1_qe7bx"]
+[ext_resource type="Shader" uid="uid://ddalfk0h73lh3" path="res://assets/shaders/Grain.gdshader" id="1_r0g4a"]
 [ext_resource type="Texture2D" uid="uid://dmoxbu0ulihdb" path="res://assets/pics/main_menu/skilltree.png" id="2_qhoan"]
-[ext_resource type="PackedScene" uid="uid://bscck1g6reg7a" path="res://assets/scenes/guicmp_skill_btn.tscn" id="3_rsogl"]
+[ext_resource type="PackedScene" uid="uid://bscck1g6reg7a" path="res://assets/gui/guicmp_skill_btn.tscn" id="3_rsogl"]
 [ext_resource type="Texture2D" uid="uid://wipgypmg2wbq" path="res://assets/pics/main_menu/skill_lvl2.png" id="4_448xh"]
-[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="4_mwwih"]
-[ext_resource type="AudioStream" uid="uid://d3t50fcdeysyv" path="res://assets/sounds/music/AmbientMusic.mp3" id="7_6knrx"]
-[ext_resource type="FontFile" uid="uid://ta82dsir1jky" path="res://assets/fonts/Zlusa _font.ttf" id="7_7q6t8"]
+[ext_resource type="FontFile" uid="uid://bnjuryb240pil" path="res://assets/fonts/FRM325x8.ttf" id="4_mwwih"]
+[ext_resource type="AudioStream" uid="uid://bpgyxfekpu05c" path="res://assets/sounds/music/AmbientMusic.mp3" id="7_6knrx"]
+[ext_resource type="FontFile" uid="uid://nl5eckdqt6cu" path="res://assets/fonts/Zlusa _font.ttf" id="7_7q6t8"]
 [ext_resource type="Theme" uid="uid://mmtwwe3undae" path="res://assets/themes/new_theme.tres" id="8_53pwk"]
-[ext_resource type="AudioStream" uid="uid://cofvg2wbb53r" path="res://assets/sounds/fx/btn_hover.wav" id="8_xcjk1"]
-[ext_resource type="AudioStream" uid="uid://b8apg8vuaguqp" path="res://assets/sounds/fx/intensification.wav" id="9_1immg"]
+[ext_resource type="AudioStream" uid="uid://xnqyc62s76bk" path="res://assets/sounds/fx/btn_hover.wav" id="8_xcjk1"]
+[ext_resource type="AudioStream" uid="uid://nm415rem0syo" path="res://assets/sounds/fx/intensification.wav" id="9_1immg"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u6bun"]
 

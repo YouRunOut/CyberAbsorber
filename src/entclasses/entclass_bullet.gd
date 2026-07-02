@@ -22,7 +22,10 @@ func _on_area_3d_body_entered(body):
 		if battle_manager:
 			battle_manager.apply_damage(body, damage, self)
 		else:
-			var combatant := body as MF_BaseCombatant
-			if combatant:
-				combatant.get_damage(damage)
+			if body.has_method("receive_gas_damage"):
+				body.receive_gas_damage(float(damage), self)
+			else:
+				var combatant := body as MF_BaseCombatant
+				if combatant:
+					combatant.get_damage(damage)
 		destroy()

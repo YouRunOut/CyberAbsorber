@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://d3bt07iffsxk7"]
 
-[ext_resource type="Script" uid="uid://daby4kacibamf" path="res://src/scripts/entclass_lamp_post.gd" id="1_vx5wv"]
-[ext_resource type="AudioStream" uid="uid://gy3au73ceqg6" path="res://assets/sounds/sfx/damaged/glass.mp3" id="2_gdolv"]
+[ext_resource type="Script" uid="uid://b77cfs38vtef7" path="res://src/entclasses/entclass_lamp_post.gd" id="1_vx5wv"]
+[ext_resource type="AudioStream" uid="uid://byjvcy6c7wgjv" path="res://assets/sounds/sfx/damaged/glass.mp3" id="2_gdolv"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_suun0"]
 albedo_color = Color(0.333333, 0.333333, 0.333333, 1)

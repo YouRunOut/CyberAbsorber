@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://mmtwwe3undae"]
 
-[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="2_ixy8k"]
+[ext_resource type="FontFile" uid="uid://bnjuryb240pil" path="res://assets/fonts/FRM325x8.ttf" id="2_ixy8k"]
 [ext_resource type="StyleBox" uid="uid://beu25xxmsv004" path="res://assets/themes/buttons/new_style_box_flat.tres" id="2_m6nke"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_du2mx"]

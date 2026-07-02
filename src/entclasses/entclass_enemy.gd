@@ -64,8 +64,8 @@ var hiting = false
 var player
 
 var SPEED = WALK
-const WALK = 1.5
-const SPRINT = 3.0
+const WALK = 2.5
+const SPRINT = 6.0
 
 var direction = Vector3()
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")

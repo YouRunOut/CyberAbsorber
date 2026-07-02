@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cut2e8soev4ty"]
+[gd_scene format=3 uid="uid://cut2e8soev4ty"]
 
-[ext_resource type="AudioStream" uid="uid://dtkujgxsh1rab" path="res://assets/sounds/weapon/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3" id="1_0c40o"]
-[ext_resource type="Script" path="res://src/scripts/entclass_saw.gd" id="2_saw_script"]
+[ext_resource type="AudioStream" uid="uid://cdbubwqkigy0o" path="res://assets/sounds/weapon/neslyishnyiy-silnyiy-zamah-na-protivnika.mp3" id="1_0c40o"]
+[ext_resource type="Script" uid="uid://d0pumlgndcevm" path="res://src/entclasses/entclass_saw.gd" id="2_saw_script"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exvj7"]
 albedo_color = Color(0.388235, 0.270588, 0.188235, 1)

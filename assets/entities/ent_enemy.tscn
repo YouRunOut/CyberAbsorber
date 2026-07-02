@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://l8e32gluy7q"]
 
-[ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://assets/scenes/ent_pistol.tscn" id="1_00hoo"]
-[ext_resource type="Script" uid="uid://bd7lmpleo7fb3" path="res://src/scripts/entclass_pistol.gd" id="1_pistolscript"]
-[ext_resource type="Script" path="res://src/scripts/entclass_enemy.gd" id="1_enemy_script"]
-[ext_resource type="Texture2D" uid="uid://cmotp5cdssy35" path="res://assets/pics/other/nearest.png" id="1_1at3o"]
-[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="2_jthxq"]
-[ext_resource type="AudioStream" uid="uid://cqr0j1jtjfwk4" path="res://assets/sounds/sfx/hurt/argh.mp3" id="3_xab3u"]
-[ext_resource type="AudioStream" uid="uid://b3ulof2hj64la" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="4_25us8"]
-[ext_resource type="PackedScene" uid="uid://dx4u8o33byjuq" path="res://assets/scenes/ent_flesh_hit.tscn" id="5_mg6rx"]
-[ext_resource type="PackedScene" uid="uid://jhhvo1kle8ah" path="res://assets/scenes/ent_material_hit.tscn" id="6_7r81m"]
+[ext_resource type="PackedScene" uid="uid://bt04smo4g0fkr" path="res://assets/entities/ent_pistol.tscn" id="1_00hoo"]
+[ext_resource type="Texture2D" uid="uid://7exlwomt7ftn" path="res://assets/pics/other/nearest.png" id="1_1at3o"]
+[ext_resource type="Script" uid="uid://b5yhr5mbqutwl" path="res://src/entclasses/entclass_enemy.gd" id="1_enemy_script"]
+[ext_resource type="FontFile" uid="uid://bnjuryb240pil" path="res://assets/fonts/FRM325x8.ttf" id="2_jthxq"]
+[ext_resource type="AudioStream" uid="uid://ctwh12gaowdyp" path="res://assets/sounds/sfx/hurt/argh.mp3" id="3_xab3u"]
+[ext_resource type="AudioStream" uid="uid://deysuyx6wvhvr" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="4_25us8"]
+[ext_resource type="PackedScene" uid="uid://dx4u8o33byjuq" path="res://assets/entities/ent_flesh_hit.tscn" id="5_mg6rx"]
+[ext_resource type="PackedScene" uid="uid://jhhvo1kle8ah" path="res://assets/entities/ent_material_hit.tscn" id="6_7r81m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v2cee"]
 radius = 0.38
@@ -598,66 +597,65 @@ collision_use_scale = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_af2i5"]
 
-[node name="Enemy" type="CharacterBody3D" groups=["Enemy_human"]]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+[node name="Enemy" type="CharacterBody3D" unique_id=523266840 groups=["Enemy_human"]]
 collision_layer = 21
 script = ExtResource("1_enemy_script")
 flesh_hit_scene = ExtResource("5_mg6rx")
 material_hit_scene = ExtResource("6_7r81m")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1530013287]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.698141, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_v2cee")
 
-[node name="HitBox" type="Area3D" parent="." groups=["Enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.697534, 0, 0, 0)
+[node name="HitBox" type="Area3D" parent="." unique_id=1180822756 groups=["Enemy"]]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.697534, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=57657811]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gju87")
 
-[node name="AgrArea" type="Area3D" parent="."]
+[node name="AgrArea" type="Area3D" parent="." unique_id=1085109227]
 unique_name_in_owner = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AgrArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AgrArea" unique_id=745860207]
 shape = SubResource("SphereShape3D_3tgpc")
 
-[node name="SearchCover" type="Area3D" parent="."]
+[node name="SearchCover" type="Area3D" parent="." unique_id=1733070517]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 4
-unique_name_in_owner = true
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="SearchCover"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SearchCover" unique_id=480358887]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_0cifv")
 
-[node name="AttackZone" type="Area3D" parent="." groups=["Enemy_melee"]]
-monitorable = false
+[node name="AttackZone" type="Area3D" parent="." unique_id=468332231 groups=["Enemy_melee"]]
 unique_name_in_owner = true
+monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone" unique_id=613842364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05504, -0.519588)
 visible = false
 shape = SubResource("BoxShape3D_basjt")
 
-[node name="ShootingRange" type="CollisionShape3D" parent="AttackZone"]
+[node name="ShootingRange" type="CollisionShape3D" parent="AttackZone" unique_id=1076319557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141205, 1.05504, -5.38936)
 shape = SubResource("BoxShape3D_basjt")
 
-[node name="visuals" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+[node name="visuals" type="Node3D" parent="." unique_id=2089368066]
 unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="body" type="CSGMesh3D" parent="visuals"]
+[node name="body" type="CSGMesh3D" parent="visuals" unique_id=1449113814]
 transform = Transform3D(0.35, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 0, 1.2, 0)
 mesh = SubResource("CapsuleMesh_hnsoy")
 
-[node name="head" type="CSGMesh3D" parent="visuals/body"]
+[node name="head" type="CSGMesh3D" parent="visuals/body" unique_id=271789146]
 transform = Transform3D(1.14286, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 1.5, 0)
 mesh = SubResource("SphereMesh_i6er1")
 
-[node name="mouth" type="CSGCylinder3D" parent="visuals/body/head"]
+[node name="mouth" type="CSGCylinder3D" parent="visuals/body/head" unique_id=868951213]
 transform = Transform3D(0.00121926, 0.999995, -0.00163241, -0.999988, 0.00121149, -0.00474832, -0.00474633, 0.00163818, 0.999987, -0.439506, -0.179837, 1.92115e-08)
 operation = 2
 radius = 0.0499628
@@ -666,7 +664,7 @@ sides = 15
 smooth_faces = false
 material = SubResource("StandardMaterial3D_08i6s")
 
-[node name="eye" type="CSGCylinder3D" parent="visuals/body/head"]
+[node name="eye" type="CSGCylinder3D" parent="visuals/body/head" unique_id=613744749]
 transform = Transform3D(-8.74228e-08, 1, 4.37115e-08, -2, -4.37114e-08, 4.37115e-08, 8.7423e-08, -4.37115e-08, 1, -0.442953, 0.0307722, -0.146737)
 operation = 2
 radius = 0.04
@@ -675,7 +673,7 @@ sides = 15
 smooth_faces = false
 material = SubResource("StandardMaterial3D_tp1dm")
 
-[node name="eye2" type="CSGCylinder3D" parent="visuals/body/head"]
+[node name="eye2" type="CSGCylinder3D" parent="visuals/body/head" unique_id=1053493655]
 transform = Transform3D(-8.74228e-08, 1, 4.37115e-08, -2, -4.37114e-08, 4.37115e-08, 8.7423e-08, -4.37115e-08, 1, -0.457245, 0.0312257, 0.147)
 operation = 2
 radius = 0.04
@@ -684,50 +682,48 @@ sides = 15
 smooth_faces = false
 material = SubResource("StandardMaterial3D_tp1dm")
 
-[node name="ViewLine" type="RayCast3D" parent="visuals/body/head"]
+[node name="ViewLine" type="RayCast3D" parent="visuals/body/head" unique_id=1466920464]
+unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, 0, -40)
 collision_mask = 5
-unique_name_in_owner = true
 
-[node name="Pistol" parent="visuals/body" instance=ExtResource("1_00hoo")]
+[node name="Pistol" parent="visuals/body" unique_id=884190336 instance=ExtResource("1_00hoo")]
+unique_name_in_owner = true
 transform = Transform3D(0.0184681, 0, -1.09984, 0, 1.1, 0, 1.09984, 0, 0.0184681, -1.88749, 0.475014, -0.410301)
-script = ExtResource("1_pistolscript")
-unique_name_in_owner = true
 
-[node name="L_arm" type="CSGMesh3D" parent="visuals"]
-transform = Transform3D(0.1, 0, 0, 0, 0.398478, 0.00871557, 0, -0.0348623, 0.0996195, 0, 1.1, 0.3)
+[node name="L_arm" type="CSGMesh3D" parent="visuals" unique_id=980177293]
+transform = Transform3D(0.1, 0, 0, 0, 0.39847788, 0.008715568, 0, -0.034862272, 0.09961947, 0, 1.1, 0.3)
 mesh = SubResource("CapsuleMesh_ufq1b")
 
-[node name="R_arm" type="CSGMesh3D" parent="visuals"]
-transform = Transform3D(0.1, 0, 0, 0, 0.398478, -0.00871557, 0, 0.0348623, 0.0996195, 0, 1.1, -0.3)
+[node name="R_arm" type="CSGMesh3D" parent="visuals" unique_id=470108356]
+transform = Transform3D(0.1, 0, 0, 0, 0.39847788, -0.008715568, 0, 0.034862272, 0.09961947, 0, 1.1, -0.3)
 mesh = SubResource("CapsuleMesh_m44et")
 
-[node name="L_leg" type="CSGMesh3D" parent="visuals"]
+[node name="L_leg" type="CSGMesh3D" parent="visuals" unique_id=1780203017]
 transform = Transform3D(0.13, 0, 0, 0, 0.48, 0, 0, 0, 0.13, 0, 0.482239, 0.1)
 mesh = SubResource("CapsuleMesh_ufq1b")
 
-[node name="R_leg" type="CSGMesh3D" parent="visuals"]
-transform = Transform3D(0.13, 0, 0, 0, 0.48, 1.00893e-09, 0, -3.72529e-09, 0.13, 0, 0.482, -0.1)
+[node name="R_leg" type="CSGMesh3D" parent="visuals" unique_id=2116899807]
+transform = Transform3D(0.13, 0, 0, 0, 0.48, 1.0089326e-09, 0, -3.7252896e-09, 0.13, 0, 0.482, -0.1)
 mesh = SubResource("CapsuleMesh_ufq1b")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_6meqx")
-}
-playback_default_blend_time = 0.6
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=119791339]
 unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_6meqx")
+playback_default_blend_time = 0.6
 
-[node name="NearQuilt" type="Sprite3D" parent="."]
+[node name="NearQuilt" type="Sprite3D" parent="." unique_id=1933030469]
+unique_name_in_owner = true
 transform = Transform3D(0.541269, 0, 0, 0, 0.541269, 0, 0, 0, 1, 0, 2.37925, 0)
 modulate = Color(0.717647, 0.717647, 0.717647, 0.658824)
 billboard = 1
 double_sided = false
 texture_filter = 0
 texture = ExtResource("1_1at3o")
-unique_name_in_owner = true
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=907729648]
+unique_name_in_owner = true
 height = 2.0
 radius = 1.0
 neighbor_distance = 5.0
@@ -735,9 +731,9 @@ max_neighbors = 20
 time_horizon_obstacles = 1.0
 use_3d_avoidance = true
 debug_enabled = true
-unique_name_in_owner = true
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1157993787]
+unique_name_in_owner = true
 transform = Transform3D(0.706346, 0, 0, 0, 0.706346, 0, 0, 0, 0.706346, 0, 1.4, 0)
 material_override = SubResource("ORMMaterial3D_nsh8d")
 emitting = false
@@ -749,37 +745,36 @@ explosiveness = 1.0
 visibility_aabb = AABB(-1.80639, -1.61512, -1.74341, 3.61279, 3.23025, 3.48682)
 process_material = SubResource("ParticleProcessMaterial_0jemk")
 draw_pass_1 = SubResource("SphereMesh_af2i5")
-unique_name_in_owner = true
 
-[node name="S" type="Label3D" parent="."]
+[node name="S" type="Label3D" parent="." unique_id=700901039]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11881, 0)
 billboard = 2
 modulate = Color(0.847059, 0.247059, 0.219608, 1)
 text = "0"
 font = ExtResource("2_jthxq")
 outline_size = 4
-unique_name_in_owner = true
 
-[node name="Hurt" type="AudioStreamPlayer3D" parent="."]
+[node name="Hurt" type="AudioStreamPlayer3D" parent="." unique_id=784972663]
+unique_name_in_owner = true
 transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
 stream = ExtResource("3_xab3u")
 unit_size = 5.0
 max_db = 0.0
 pitch_scale = 1.05
 max_distance = 10.0
-unique_name_in_owner = true
 
-[node name="AgrTimer" type="Timer" parent="."]
+[node name="AgrTimer" type="Timer" parent="." unique_id=330270945]
+unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
-unique_name_in_owner = true
 
-[node name="Fist" type="AudioStreamPlayer3D" parent="."]
+[node name="Fist" type="AudioStreamPlayer3D" parent="." unique_id=1948876485]
+unique_name_in_owner = true
 transform = Transform3D(0.833333, 0, 0, 0, 0.833333, 0, 0, 0, 0.833333, 0, 1.66667, 0)
 stream = ExtResource("4_25us8")
 max_db = 0.0
 max_distance = 3.0
-unique_name_in_owner = true
 
 [connection signal="equip_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_equip_weapon"]
 [connection signal="hide_weapon" from="." to="visuals/body/Pistol" method="_on_enemy_hide_weapon"]

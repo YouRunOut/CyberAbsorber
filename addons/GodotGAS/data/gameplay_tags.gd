@@ -9,11 +9,6 @@
 @tool
 class_name GameplayTags
 
-const Example_Ability_Heal_Triggered: StringName = &"Example.Ability.Heal.Triggered"
-const Example_Ability_Poison_Applied: StringName = &"Example.Ability.Poison.Applied"
-const Example_Ability_Poison_Cast: StringName = &"Example.Ability.Poison.Cast"
 const Example_Event_Damage_Critical: StringName = &"Example.Event.Damage.Critical"
 const Example_Event_Damage_Missed: StringName = &"Example.Event.Damage.Missed"
 const Example_Event_Damage_Normal: StringName = &"Example.Event.Damage.Normal"
-const Example_Event_Defend_Hit: StringName = &"Example.Event.Defend.Hit"
-const Example_State_Cooldown_Poison: StringName = &"Example.State.Cooldown.Poison"

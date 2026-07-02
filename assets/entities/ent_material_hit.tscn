@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://jhhvo1kle8ah"]
 
-[ext_resource type="Script" uid="uid://bn5jas5btixb0" path="res://src/scripts/entclass_material_hit.gd" id="1_tccba"]
-[ext_resource type="AudioStream" uid="uid://c627clatjwrns" path="res://assets/sounds/weapon/pistol/onWall.mp3" id="2_jjcv8"]
+[ext_resource type="Script" uid="uid://codwknstbu1pf" path="res://src/entclasses/entclass_material_hit.gd" id="1_tccba"]
+[ext_resource type="AudioStream" uid="uid://ygf8e5c6twm1" path="res://assets/sounds/weapon/pistol/onWall.mp3" id="2_jjcv8"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuyyu"]
 albedo_color = Color(0.984314, 0.635294, 0.603922, 1)

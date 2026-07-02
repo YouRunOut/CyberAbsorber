@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bt04smo4g0fkr"]
 
-[ext_resource type="Script" uid="uid://bd7lmpleo7fb3" path="res://src/scripts/entclass_pistol.gd" id="1_w3j0o"]
+[ext_resource type="Script" uid="uid://upgcloxunp7y" path="res://src/entclasses/entclass_pistol.gd" id="1_w3j0o"]
 [ext_resource type="FontFile" uid="uid://nl5eckdqt6cu" path="res://assets/fonts/Zlusa _font.ttf" id="2_2oy27"]
 [ext_resource type="AudioStream" uid="uid://cysvbsm4arl2c" path="res://assets/sounds/weapon/pistol/Shot.wav" id="3_ka4yw"]
 [ext_resource type="AudioStream" uid="uid://dg8ue35udvnqp" path="res://assets/sounds/weapon/pistol/Load.wav" id="4_o747p"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://clug6atn7r2k4" path="res://assets/sounds/weapon/pistol/Equip.wav" id="6_xerwq"]
 [ext_resource type="AudioStream" uid="uid://bl2x726ly852o" path="res://assets/sounds/weapon/pistol/Hide.wav" id="7_1jajc"]
 [ext_resource type="AudioStream" uid="uid://deysuyx6wvhvr" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="9_dfu4m"]
+
 
 
 [sub_resource type="Curve" id="Curve_l5o1s"]

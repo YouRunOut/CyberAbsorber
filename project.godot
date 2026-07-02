@@ -33,6 +33,7 @@ buses/default_bus_layout="uid://d4dqaa6tvwql0"
 [autoload]
 
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
+GameplayCueManager="*uid://b8r6xwkfsrxg3"
 Main="*res://src/scripts/main.gd"
 
 [display]

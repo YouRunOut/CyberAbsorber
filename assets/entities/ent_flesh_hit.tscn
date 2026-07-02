@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dx4u8o33byjuq"]
 
-[ext_resource type="Script" uid="uid://c6ds03k6x00iu" path="res://src/scripts/entclass_flesh_hit.gd" id="1_6k8k0"]
-[ext_resource type="AudioStream" uid="uid://b3ulof2hj64la" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="2_aec78"]
+[ext_resource type="Script" uid="uid://c8s4t6uioijbv" path="res://src/entclasses/entclass_flesh_hit.gd" id="1_6k8k0"]
+[ext_resource type="AudioStream" uid="uid://deysuyx6wvhvr" path="res://assets/sounds/weapon/pistol/pistoletnaya-pulya-porazivshaya-myakot.mp3" id="2_aec78"]
+
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8vjso"]
 albedo_color = Color(0.831373, 0, 0.254902, 1)

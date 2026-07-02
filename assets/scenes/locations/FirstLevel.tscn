@@ -1,25 +1,25 @@
 [gd_scene format=3 uid="uid://bwxnryiun6r1l"]
 
-[ext_resource type="AudioStream" uid="uid://vaxsuqa7kx1t" path="res://assets/sounds/music/AmbientMusic2.mp3" id="1_hrou4"]
-[ext_resource type="Texture2D" uid="uid://dlep4wcqcaupg" path="res://assets/textures/other/rain.png" id="1_levt7"]
+[ext_resource type="AudioStream" uid="uid://dyqmqnp8d37nc" path="res://assets/sounds/music/AmbientMusic2.mp3" id="1_hrou4"]
+[ext_resource type="Texture2D" uid="uid://oum6pl8dgf7b" path="res://assets/textures/other/rain.png" id="1_levt7"]
 [ext_resource type="Texture2D" uid="uid://cecxr5x0y0gnp" path="res://addons/devblocks/textures/dark/texture_01.png" id="2_er2fm"]
-[ext_resource type="PackedScene" uid="uid://c2633u3s5olnb" path="res://assets/scenes/ent_player.tscn" id="2_xyai6"]
-[ext_resource type="PackedScene" uid="uid://l8e32gluy7q" path="res://assets/scenes/ent_enemy.tscn" id="3_tu5ik"]
+[ext_resource type="PackedScene" uid="uid://c2633u3s5olnb" path="res://assets/entities/ent_player.tscn" id="2_xyai6"]
+[ext_resource type="PackedScene" uid="uid://l8e32gluy7q" path="res://assets/entities/ent_enemy.tscn" id="3_tu5ik"]
 [ext_resource type="Texture2D" uid="uid://ff52ogs4u18l" path="res://addons/devblocks/textures/dark/texture_08.png" id="3_uosbx"]
 [ext_resource type="Texture2D" uid="uid://c7qmh0g1qs76v" path="res://addons/devblocks/textures/dark/texture_03.png" id="4_2afki"]
-[ext_resource type="PackedScene" uid="uid://d23jvp04cebg5" path="res://assets/scenes/ent_pick_obj.tscn" id="4_kq344"]
+[ext_resource type="PackedScene" uid="uid://d23jvp04cebg5" path="res://assets/entities/ent_pick_obj.tscn" id="4_kq344"]
 [ext_resource type="Texture2D" uid="uid://b7n45i24cfnpe" path="res://addons/devblocks/textures/dark/texture_02.png" id="5_ijx0p"]
 [ext_resource type="Texture2D" uid="uid://sjunkhn8gqrq" path="res://addons/devblocks/textures/dark/texture_09.png" id="6_268os"]
 [ext_resource type="Texture2D" uid="uid://r5du7mjwk5eq" path="res://addons/devblocks/textures/dark/texture_11.png" id="7_4bbe8"]
-[ext_resource type="PackedScene" uid="uid://cut2e8soev4ty" path="res://assets/scenes/ent_saw.tscn" id="16_p7qrj"]
-[ext_resource type="PackedScene" uid="uid://d3bt07iffsxk7" path="res://assets/scenes/ent_lamp_post.tscn" id="16_r27e8"]
-[ext_resource type="PackedScene" uid="uid://douetcpw0f15j" path="res://assets/scenes/ent_cover_sensor.tscn" id="17_cyi20"]
-[ext_resource type="AudioStream" uid="uid://ck6x6n2mw1al6" path="res://assets/sounds/atmo/ambient_wind.mp3" id="18_jhn7r"]
+[ext_resource type="PackedScene" uid="uid://cut2e8soev4ty" path="res://assets/entities/ent_saw.tscn" id="16_p7qrj"]
+[ext_resource type="PackedScene" uid="uid://d3bt07iffsxk7" path="res://assets/entities/ent_lamp_post.tscn" id="16_r27e8"]
+[ext_resource type="PackedScene" uid="uid://douetcpw0f15j" path="res://assets/entities/ent_cover_sensor.tscn" id="17_cyi20"]
+[ext_resource type="AudioStream" uid="uid://3vfroto45sdv" path="res://assets/sounds/atmo/ambient_wind.mp3" id="18_jhn7r"]
 [ext_resource type="PackedScene" uid="uid://clmrvi7bett7n" path="res://assets/scenes/besedka.tscn" id="18_mqn3r"]
-[ext_resource type="PackedScene" uid="uid://dpggb6j4d7sgl" path="res://assets/scenes/ent_hack_station.tscn" id="19_r1l5e"]
-[ext_resource type="PackedScene" uid="uid://bodpyvtur8x5e" path="res://assets/scenes/ent_crate.tscn" id="19_rvr72"]
-[ext_resource type="AudioStream" uid="uid://bmcfhtlio1eih" path="res://assets/sounds/atmo/rain/silniy_dozhd_s_gromom.mp3" id="20_85chu"]
-[ext_resource type="Script" path="res://src/scripts/scn_first_level.gd" id="21_first_level_script"]
+[ext_resource type="PackedScene" uid="uid://dpggb6j4d7sgl" path="res://assets/entities/ent_hack_station.tscn" id="19_r1l5e"]
+[ext_resource type="PackedScene" uid="uid://bodpyvtur8x5e" path="res://assets/entities/ent_crate.tscn" id="19_rvr72"]
+[ext_resource type="AudioStream" uid="uid://vjegsmgik8kb" path="res://assets/sounds/atmo/rain/silniy_dozhd_s_gromom.mp3" id="20_85chu"]
+[ext_resource type="Script" uid="uid://clbfhc1su27b8" path="res://src/scn/scn_first_level.gd" id="21_first_level_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqn3r"]
 transparency = 1
@@ -297,7 +297,7 @@ libraries/ = SubResource("AnimationLibrary_lqlf5")
 speed_scale = 0.2
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2045965054]
-transform = Transform3D(0.9607789, 0.27731457, 0, -0.27731457, 0.9607789, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.9607787, 0.2773145, 0, -0.2773145, 0.9607787, 0, 0, 0, 1, 0, 0, 0)
 layers = 524289
 light_color = Color(0.839216, 0.803922, 0.639216, 1)
 light_energy = 1.2

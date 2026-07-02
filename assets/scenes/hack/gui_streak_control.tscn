@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dy820qstfymgo"]
 
-[ext_resource type="Script" uid="uid://cflub6i3y31fd" path="res://src/scripts/gui_streak_control.gd" id="1_script"]
-[ext_resource type="FontFile" uid="uid://wtm7q4qaof5r" path="res://assets/fonts/FRM3216x16.ttf" id="2_dnkph"]
-[ext_resource type="AudioStream" uid="uid://bqi0ummon230s" path="res://assets/sounds/gui/Hack/Completed.mp3" id="3_audio"]
+[ext_resource type="Script" uid="uid://meapbmkdobjq" path="res://src/gui/gui_streak_control.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://ccdunuish6v0l" path="res://assets/fonts/FRM3216x16.ttf" id="2_dnkph"]
+[ext_resource type="AudioStream" uid="uid://ciku4xob140bq" path="res://assets/sounds/gui/Hack/Completed.mp3" id="3_audio"]
 [ext_resource type="PackedScene" uid="uid://25o46jfcsxnw" path="res://assets/scenes/hack/guicmp_step.tscn" id="4_step"]
+
 
 [node name="StreakControl" type="Control"]
 z_index = 1

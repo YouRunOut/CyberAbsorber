@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://boohh13i7f272"]
+[gd_scene format=3 uid="uid://boohh13i7f272"]
 
-[ext_resource type="AudioStream" uid="uid://ci37r6psqcdkw" path="res://assets/sounds/weapon/Melee/gluhoy-zvuk-zamaha.mp3" id="2_opmpg"]
-[ext_resource type="FontFile" uid="uid://bvc6xdcffx8hh" path="res://assets/fonts/FRM325x8.ttf" id="2_pr8kc"]
-[ext_resource type="AudioStream" uid="uid://5yqeuoiubrs" path="res://assets/sounds/weapon/Melee/smash.wav" id="3_3jyo6"]
-[ext_resource type="Script" path="res://src/scripts/entclass_mace.gd" id="4_mace_script"]
+[ext_resource type="AudioStream" uid="uid://dw0syno3yg34b" path="res://assets/sounds/weapon/Melee/gluhoy-zvuk-zamaha.mp3" id="2_opmpg"]
+[ext_resource type="FontFile" uid="uid://bnjuryb240pil" path="res://assets/fonts/FRM325x8.ttf" id="2_pr8kc"]
+[ext_resource type="AudioStream" uid="uid://caxhs8lv5rww" path="res://assets/sounds/weapon/Melee/smash.wav" id="3_3jyo6"]
+[ext_resource type="Script" uid="uid://dj38rbvlkop7v" path="res://src/entclasses/entclass_mace.gd" id="4_mace_script"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpuu6"]
 albedo_color = Color(0.247059, 0.247059, 0.247059, 1)

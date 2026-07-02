@@ -108,9 +108,12 @@ func object_hit():
 		if battle_manager:
 			battle_manager.apply_damage(hit_object, int(DAMAGE), self)
 		else:
-			var combatant := hit_object as MF_BaseCombatant
-			if combatant:
-				combatant.get_damage(int(DAMAGE))
+			if hit_object.has_method("receive_gas_damage"):
+				hit_object.receive_gas_damage(float(DAMAGE), self)
+			else:
+				var combatant := hit_object as MF_BaseCombatant
+				if combatant:
+					combatant.get_damage(int(DAMAGE))
 		flesh = true
 	else:
 		flesh = false

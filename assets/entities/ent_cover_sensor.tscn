@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://douetcpw0f15j"]
 
-[ext_resource type="Script" uid="uid://dn6qfdjqpo5y7" path="res://src/scripts/entclass_cover_sensor.gd" id="1_1u8xy"]
+[ext_resource type="Script" uid="uid://23hjl55733yv" path="res://src/entclasses/entclass_cover_sensor.gd" id="1_1u8xy"]
 [ext_resource type="Material" uid="uid://dfd3frksjmf3s" path="res://assets/textures/materials/debug/Green.tres" id="2_wqscs"]
-[ext_resource type="Material" path="res://assets/textures/materials/debug/Red.tres" id="3_p8jef"]
+[ext_resource type="Material" uid="uid://dn77m3xylhgkb" path="res://assets/textures/materials/debug/Red.tres" id="3_p8jef"]
+
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p7inw"]
 
