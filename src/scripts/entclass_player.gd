@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends BaseCombatant
 
 #region All imports
 @export var flesh_hit_scene: PackedScene
@@ -49,6 +49,14 @@ var hit_point
 @onready var above_check: RayCast3D = %AboveCheck
 
 @onready var agent: NavigationAgent3D = %NavigationAgent3D
+
+var movement_module: Node
+var camera_module: Node
+var quilt_module: Node
+var ability_system_component: Node
+var player_health_component: HealthComponent
+var ga_quilt: GA_Quilt
+var ga_on_kill_heal: GA_OnKillHeal
 #endregion
 
 #region All signals
@@ -91,15 +99,8 @@ const  SLIDE_SPEED = 10.0
 const crouch_depth = 1.0
 var player_height = 1.8
 
-const max_hp = 100
-
 
 var reboot_quilt = false
-var q : float
-var quilt_lvl : int
-const q_max = 100.0
-
-var Nearest_enemy = null
 
 @export var lerp_speed: float = 2.3
 @export var air_lerp_speed: float = 0.8
@@ -154,12 +155,39 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 #endregion
 
 func _ready():
+	hp = max_hp
 	step_amp = WALK
 	pistol.who_take = "Player"
 	WEAPON_EQUIPED = false
 	SPEED = WALK
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	def_weapon_holder_pos = weapon_holder.position
+	movement_module = MovementModule.new()
+	camera_module = CameraModule.new()
+	quilt_module = QuiltModule.new()
+	add_child(movement_module)
+	add_child(camera_module)
+	add_child(quilt_module)
+	ability_system_component = AbilitySystemComponent.new()
+	ability_system_component.attributes = AttributeSet.new()
+	add_child(ability_system_component)
+	ga_quilt = GA_Quilt.new()
+	ga_on_kill_heal = GA_OnKillHeal.new()
+	ability_system_component.add_owned_ability(ga_quilt)
+	ability_system_component.add_owned_ability(ga_on_kill_heal)
+	player_health_component = HealthComponent.new()
+	player_health_component.name = "HealthComponent"
+	player_health_component.max_hp = max_hp
+	player_health_component.start_hp = max_hp
+	player_health_component.ability_component = ability_system_component
+	add_child(player_health_component)
+	health_component = player_health_component
+	hp = player_health_component.current_hp
+	quilt_module.configure(ability_system_component, quilt_area)
+	Main.get_battle_manager().combatant_died.connect(_on_battle_combatant_died)
+	movement_module.movement_tick.connect(_on_movement_module_tick)
+	camera_module.camera_tick.connect(_on_camera_module_tick)
+	quilt_module.quilt_tick.connect(_on_quilt_module_tick)
 
 @warning_ignore("unused_parameter")
 func _process(delta):
@@ -182,12 +210,23 @@ func _physics_process(delta):
 	if not Main.player_dead:
 		if !gui.is_skill_tree_open() and not gui.is_hacking_active():
 			#pushing()
-			aiming_state(delta)
-			movements(delta)
-			QNearestEnemy()
-			Quilt()
+			camera_module.tick(delta)
+			movement_module.tick(delta)
+			quilt_module.tick()
 			weapon_actions(delta)
 			weapon_sway(delta)
+
+
+func _on_movement_module_tick(delta: float) -> void:
+	movements(delta)
+
+
+func _on_camera_module_tick(delta: float) -> void:
+	aiming_state(delta)
+
+
+func _on_quilt_module_tick() -> void:
+	Quilt()
 
 func _input(event):
 	if !gui.is_skill_tree_open() and not gui.is_hacking_active():
@@ -263,7 +302,9 @@ func weapon_bob(vel: float, delta):
 func Reborn():
 	if Main.player_dead:
 		emit_signal("alive")
-		Main.player_hp = Main.MaxHp
+		if player_health_component:
+			player_health_component.reset_health()
+			hp = player_health_component.current_hp
 		Main.player_dead = false
 		visuals.visible = true
 
@@ -275,51 +316,43 @@ func Death():
 
 #region skill_QUILT
 func Quilt_level():
-	match Main.quilt_lvl:
-		0: # beginer
-			if Input.is_action_just_pressed("Quilt"):
-				q += Main.q_plus
-		1: # pro
-			if Input.is_action_pressed("Quilt"):
-				q3timer.start(Main.q_boost)
-				q += q3timer.wait_time
-			else:
-				q3timer.stop()
+	if ability_system_component == null or ability_system_component.attributes == null:
+		return
+	if ability_system_component.attributes.quilt_hold_mode_unlocked:
+		if Input.is_action_pressed("Quilt"):
+			q3timer.start()
+			quilt_module.tick_charge(true)
+		else:
+			q3timer.stop()
+	else:
+		if Input.is_action_just_pressed("Quilt"):
+			quilt_module.tick_charge(true)
 
 func Quilt():
-	gui.set_quilt_progress(q)
-	Main.nearest_enemy = Nearest_enemy
-	#print(Main.nearest_enemy)
-	if Nearest_enemy and !reboot_quilt:
+	QNearestEnemy()
+	gui.set_quilt_progress(quilt_module.charge_value)
+	if quilt_module.nearest_enemy and !reboot_quilt:
 		gui.set_quilt_button_visible(true)
 		if not Main.player_dead:
 			Quilt_level()
 	else:
 		gui.set_quilt_button_visible(false)
-	if q >= q_max:
-		Main.quilt_done = true
+	if quilt_module.quilt_ready_pending and !reboot_quilt:
 		emit_signal("gathered")
-		q = 0
 		reboot_quilt = true
-		await get_tree().create_timer(Main.q_down).timeout
+		var cooldown_sec: float = float(ability_system_component.attributes.quilt_cooldown_sec) if ability_system_component and ability_system_component.attributes else 4.0
+		await get_tree().create_timer(cooldown_sec).timeout
 		reboot_quilt = false
 		gui.set_quilt_button_visible(true)
 
 func Quilt_degrease():
-	if q > 0:
-		q -= Main.q_minus
+	quilt_module.tick_charge(false)
 
 func _on_q_timer_timeout():
 	Quilt_degrease()
 
 func QNearestEnemy():
-	Nearest_enemy = null
-	var Enemys = quilt_area.get_overlapping_bodies()
-	if !Enemys: return
-	Nearest_enemy = Enemys[0]
-	for enemy in Enemys:
-		if enemy.global_position.distance_to(global_position) < Nearest_enemy.global_position.distance_to(global_position):
-			Nearest_enemy = enemy
+	quilt_module.update_target(global_position)
 
 #endregion
 
@@ -359,14 +392,14 @@ func _is_on_action_buttons():
 	
 	# Change scene
 	if Input.is_action_just_released("1"):
-		get_tree().change_scene_to_file("res://assets/scenes/FirstLevel.tscn")
+		get_tree().change_scene_to_file("res://assets/scenes/locations/FirstLevel.tscn")
 	if Input.is_action_just_released("2"):
-		get_tree().change_scene_to_file("res://assets/scenes/SecondLevel.tscn")
+		get_tree().change_scene_to_file("res://assets/scenes/locations/SecondLevel.tscn")
 
 func _on_hit_box_area_entered(area):
 	if not Main.player_dead:
 		
-		if area.is_in_group('coin') and Main.player_hp != Main.MaxHp: # collision layer, mask = 2
+		if area.is_in_group('coin') and player_health_component and player_health_component.current_hp < player_health_component.max_hp:
 			emit_signal("coin_here")
 		
 		if area.is_in_group('saw'): # collision layer, mask = 1
@@ -410,13 +443,34 @@ func weapon_actions(delta):
 		else:
 			emit_signal("equip_weapon")
 
-func get_damage(damage):
-	Main.player_hp -= damage
-	if Main.player_hp <= 0:
+func get_damage(damage: int = 0) -> void:
+	take_damage(damage)
+	if hp <= 0:
 		if not Main.player_dead:
 			Death()
 			return
 	gui.play_damage_feedback()
+
+
+func get_current_hp() -> int:
+	return player_health_component.current_hp if player_health_component else hp
+
+
+func get_max_hp() -> int:
+	return player_health_component.max_hp if player_health_component else max_hp
+
+
+func try_consume_quilt_on_enemy(enemy: Node3D) -> bool:
+	return quilt_module.consume_ready_for_target(enemy)
+
+
+func is_quilt_target(enemy: Node3D) -> bool:
+	return quilt_module.nearest_enemy == enemy
+
+
+func _on_battle_combatant_died(combatant: Node) -> void:
+	if combatant and combatant.is_in_group("Enemy_human"):
+		ability_system_component.activate_ability_by_id(StringName("GA_OnKillHeal"))
 	
 	
 

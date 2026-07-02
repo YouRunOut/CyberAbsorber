@@ -8,6 +8,9 @@ alwaysApply: true
 ## Naming
 - Use `snake_case` for file names, script names, variables, functions, and input action identifiers.
 - Keep naming consistent across scenes/scripts; do not mix styles for the same domain concept.
+- Ability/GAS exception: gameplay ability scripts must use `GA_` prefix (for example `GA_Quilt.gd`), gameplay effect scripts must use `GE_` prefix (for example `GE_Heal.gd`).
+- Gameplay tag scripts/resources must use `GTag_` prefix in names.
+- Gameplay tag IDs must use strict format `GTag_[A-Z0-9_]+` (example: `GTag_STUN`, `GTag_QUILT_READY`).
 - Scene files for locations must use `scn_` prefix (for example `scn_first_level.tscn`).
 - GUI script files must use `gui_` prefix.
 - GUI component script files must use `guicmp_` prefix.
@@ -18,6 +21,11 @@ alwaysApply: true
 - Keep `Player`, `Enemy`, `UI`, and `World` responsibilities separated.
 - Prefer scene composition over large monolithic scripts.
 - Keep autoloads small and focused on shared state/services only.
+- Implement active/passive abilities through dedicated `GA_*` classes, not through autoload helper methods.
+- Implement gameplay stat changes (heal, lifesteal, buffs/debuffs, quilt-ready state, etc.) through `GE_*` effects and apply them via ability system.
+- Implement gameplay tags via dedicated tag class/resource (not raw strings scattered across gameplay code).
+- Tag placement/removal/checking must go through centralized container API with stacks and checks (`add_tag/remove_tag/has_tag/has_all/has_any`).
+- Do not keep combat attributes (`hp`, damage modifiers, quilt charge state) in `Main`; keep them on entity ability/health components.
 
 ## Scenes and Nodes
 - Use clear node names; avoid ambiguous names like `Node3D`, `Control2`.
@@ -29,6 +37,8 @@ alwaysApply: true
 - Prefer typed GDScript (`: int`, `: float`, `: Node3D`) for critical paths.
 - Avoid deep `get_parent().get_parent()` chains; use exported node refs or signals.
 - In `@onready`, do not use `$` node access; use unique node names (`%NodeName`) or exported node references.
+- Do not use dynamic method checks like `.has_method()` in gameplay code.
+- Prefer explicit contracts: typed references, base classes, groups, or dedicated signals/interfaces.
 
 ## Resources and Loading
 - Prefer exported `PackedScene`/`Resource` references over hardcoded runtime paths.

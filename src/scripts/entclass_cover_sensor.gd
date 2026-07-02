@@ -53,7 +53,7 @@ func _physics_process(delta):
 					
 				elif body.is_in_group("Enemy_human"):
 					if PlaceAvailable:
-						if body.has_method("in_cover") and body.State == 6:
+						if body.State == 6:
 							print(body)
 							print("Cover")
 							body.in_cover(CoverPosition, CoverType)

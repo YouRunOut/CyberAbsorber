@@ -1,11 +1,10 @@
-extends Node3D
+extends BaseVfxEntity
 
 @onready var sparks: GPUParticles3D = %Sparks
 
-var blast
-
-func _ready():
+func _on_activated() -> void:
 	sparks.emitting = true
 
+
 func _on_timer_timeout():
-	queue_free()
+	deactivate_vfx()

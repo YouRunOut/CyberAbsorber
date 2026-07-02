@@ -1,11 +1,11 @@
-extends Node3D
+extends BaseVfxEntity
 @onready var life_timer: Timer = %LifeTimer
 
 @onready var blood: GPUParticles3D = %Blood
 
 var blast
 
-func _ready():
+func _on_activated() -> void:
 	blast = false
 	blood.emitting = true
 	blood.draw_pass_1.size.y = 1
@@ -19,4 +19,4 @@ func _on_life_timer_timeout():
 	blast = true
 
 func _on_timer_timeout():
-	queue_free()
+	deactivate_vfx()

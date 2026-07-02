@@ -46,12 +46,15 @@ func _ready():
 	skill_tree_open = false
 	death_screen.visible = false
 	death_canvas_layer.visible = false
+	Main.exp_changed.connect(_on_main_exp_changed)
+	Main.get_gui_manager().set_skill_tree_open(skill_tree_open)
+	Main.get_gui_manager().set_hacking_active(false)
 
 func changescene():
 	if Main.kills == 15 and Main.can_next_lvl:
 		#anima_count.text = 'OK'
 		await get_tree().create_timer(2.0).timeout
-		get_tree().change_scene_to_file("res://assets/scenes/FirstLevel.tscn")#"res://assets/scenes/SecondLevel.tscn"
+		Main.get_scene_flow_manager().load_second_level()
 		Main.can_next_lvl = false
 	else: return
 
@@ -62,9 +65,11 @@ func _process(delta):
 	
 	aspect_ratio()
 	changescene()
-	exp_progress_bar.value = Main.Exp
-	hp_bar.value = Main.player_hp
-	hp_percentage.text = str(Main.player_hp)
+	var current_hp := Main.get_player_hp()
+	var max_hp := Main.get_player_max_hp()
+	hp_bar.max_value = max_hp
+	hp_bar.value = current_hp
+	hp_percentage.text = str(current_hp)
 	if Main.gold == 0:
 		gold_ui.visible = false
 	else:
@@ -132,10 +137,10 @@ func is_open_skilltree():
 			#skill_tree.visible = true
 			tree_animation.play("open")
 			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Main.get_gui_manager().set_skill_tree_open(skill_tree_open)
 
 func restart():
-	get_tree().change_scene_to_file("res://assets/scenes/FirstLevel.tscn")
-	Main.player_hp = Main.MaxHp
+	Main.get_scene_flow_manager().restart_current_run()
 
 func aspect_ratio():
 	# положение партиклов смерти
@@ -158,10 +163,12 @@ func show_hacking() -> void:
 	scene.name = "StreakControl"
 	add_child(scene)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Main.get_gui_manager().set_hacking_active(true)
 	scene.tree_exited.connect(_on_hack_finished)
 
 
 func _on_hack_finished() -> void:
+	Main.get_gui_manager().set_hacking_active(false)
 	if not skill_tree_open:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -184,3 +191,7 @@ func set_quilt_button_visible(is_visible: bool) -> void:
 
 func set_quilt_progress(value: float) -> void:
 	quilt_progress.value = value
+
+
+func _on_main_exp_changed(current_exp: int) -> void:
+	exp_progress_bar.value = current_exp
