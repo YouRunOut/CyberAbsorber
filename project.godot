@@ -48,7 +48,7 @@ movie_writer/fps=144
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ggs/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotGAS/plugin.cfg", "res://addons/ggs/plugin.cfg")
 
 [gui]
 
