@@ -1,5 +1,5 @@
-extends GameplayEffect
-class_name GE_Heal
+extends MF_GameplayEffect
+class_name MF_GE_Heal
 
 @export var heal_amount: float = 9.0
 
@@ -9,7 +9,7 @@ func _init():
 	health_delta = heal_amount
 
 
-func set_heal_amount(value: float) -> GE_Heal:
+func set_heal_amount(value: float) -> MF_GE_Heal:
 	heal_amount = value
 	health_delta = value
 	return self

@@ -1,5 +1,5 @@
 extends Node
-class_name HealthComponent
+class_name MF_HealthComponent
 
 signal health_changed(current_hp: int, max_hp: int)
 signal damaged(amount: int)
@@ -7,7 +7,7 @@ signal died
 
 @export var max_hp: int = 100
 @export var start_hp: int = 100
-@export var ability_component: AbilitySystemComponent
+@export var ability_component: MF_AbilitySystemComponent
 
 var current_hp: int
 
@@ -54,13 +54,13 @@ func _sync_to_ability() -> void:
 		ability_component.attributes.health = current_hp
 
 
-func _on_effect_applied(_effect: GameplayEffect) -> void:
+func _on_effect_applied(_effect: MF_GameplayEffect) -> void:
 	if ability_component == null or ability_component.attributes == null:
 		return
 	max_hp = int(ability_component.attributes.max_health)
 	current_hp = int(clamp(ability_component.attributes.health, 0.0, ability_component.attributes.max_health))
 	var combatant_owner := get_parent()
-	if combatant_owner is BaseCombatant:
+	if combatant_owner is MF_BaseCombatant:
 		combatant_owner.hp = current_hp
 	emit_signal("health_changed", current_hp, max_hp)
 	if current_hp == 0:

@@ -1,5 +1,5 @@
 extends Resource
-class_name GTag
+class_name MF_GTag
 
 @export var tag_name: StringName = StringName("GTag_UNSET")
 
@@ -15,6 +15,6 @@ func is_valid() -> bool:
 	return regex.search(tag_text) != null
 
 
-func set_tag_name(value: StringName) -> GTag:
+func set_tag_name(value: StringName) -> MF_GTag:
 	tag_name = value
 	return self

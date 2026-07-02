@@ -1,4 +1,4 @@
-extends BaseWeapon
+extends MF_BaseWeapon
 
 @onready var load: MeshInstance3D = %Load
 @onready var ammo_count: Label3D = %AmmoCount

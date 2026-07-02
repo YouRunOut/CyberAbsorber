@@ -1,5 +1,5 @@
 extends Resource
-class_name AttributeSet
+class_name MF_AttributeSet
 
 @export var max_health: float = 100.0
 @export var health: float = 100.0

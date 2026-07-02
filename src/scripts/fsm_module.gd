@@ -1,5 +1,5 @@
 extends Node
-class_name FsmModule
+class_name MF_FsmModule
 
 @export var current_state: StringName = &"idle"
 signal state_changed(new_state: StringName)

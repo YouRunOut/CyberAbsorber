@@ -1,5 +1,5 @@
 extends Node
-class_name GTagContainer
+class_name MF_GTagContainer
 
 signal tag_added(tag_name: StringName)
 signal tag_removed(tag_name: StringName)
@@ -8,7 +8,7 @@ signal tag_stack_changed(tag_name: StringName, stack_count: int)
 var _tag_stacks: Dictionary = {}
 
 
-func add_tag(tag: GTag, stacks: int = 1) -> void:
+func add_tag(tag: MF_GTag, stacks: int = 1) -> void:
 	if tag == null or not tag.is_valid() or stacks <= 0:
 		return
 	var tag_name := tag.tag_name
@@ -20,7 +20,7 @@ func add_tag(tag: GTag, stacks: int = 1) -> void:
 	emit_signal("tag_stack_changed", tag_name, new_count)
 
 
-func remove_tag(tag: GTag, stacks: int = 1) -> void:
+func remove_tag(tag: MF_GTag, stacks: int = 1) -> void:
 	if tag == null or not tag.is_valid() or stacks <= 0:
 		return
 	var tag_name := tag.tag_name
@@ -36,27 +36,27 @@ func remove_tag(tag: GTag, stacks: int = 1) -> void:
 	emit_signal("tag_stack_changed", tag_name, new_count)
 
 
-func has_tag(tag: GTag) -> bool:
+func has_tag(tag: MF_GTag) -> bool:
 	if tag == null or not tag.is_valid():
 		return false
 	return int(_tag_stacks.get(tag.tag_name, 0)) > 0
 
 
-func has_all(tags: Array[GTag]) -> bool:
+func has_all(tags: Array[MF_GTag]) -> bool:
 	for tag in tags:
 		if not has_tag(tag):
 			return false
 	return true
 
 
-func has_any(tags: Array[GTag]) -> bool:
+func has_any(tags: Array[MF_GTag]) -> bool:
 	for tag in tags:
 		if has_tag(tag):
 			return true
 	return false
 
 
-func get_stack_count(tag: GTag) -> int:
+func get_stack_count(tag: MF_GTag) -> int:
 	if tag == null or not tag.is_valid():
 		return 0
 	return int(_tag_stacks.get(tag.tag_name, 0))

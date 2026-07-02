@@ -1,4 +1,4 @@
-extends BaseCombatant
+extends MF_BaseCombatant
 
 #region All imports
 @export var flesh_hit_scene: PackedScene
@@ -54,9 +54,9 @@ var movement_module: Node
 var camera_module: Node
 var quilt_module: Node
 var ability_system_component: Node
-var player_health_component: HealthComponent
-var ga_quilt: GA_Quilt
-var ga_on_kill_heal: GA_OnKillHeal
+var player_health_component: MF_HealthComponent
+var ga_quilt: MF_GA_Quilt
+var ga_on_kill_heal: MF_GA_OnKillHeal
 #endregion
 
 #region All signals
@@ -162,21 +162,21 @@ func _ready():
 	SPEED = WALK
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	def_weapon_holder_pos = weapon_holder.position
-	movement_module = MovementModule.new()
-	camera_module = CameraModule.new()
-	quilt_module = QuiltModule.new()
+	movement_module = MF_MovementModule.new()
+	camera_module = MF_CameraModule.new()
+	quilt_module = MF_QuiltModule.new()
 	add_child(movement_module)
 	add_child(camera_module)
 	add_child(quilt_module)
-	ability_system_component = AbilitySystemComponent.new()
-	ability_system_component.attributes = AttributeSet.new()
+	ability_system_component = MF_AbilitySystemComponent.new()
+	ability_system_component.attributes = MF_AttributeSet.new()
 	add_child(ability_system_component)
-	ga_quilt = GA_Quilt.new()
-	ga_on_kill_heal = GA_OnKillHeal.new()
+	ga_quilt = MF_GA_Quilt.new()
+	ga_on_kill_heal = MF_GA_OnKillHeal.new()
 	ability_system_component.add_owned_ability(ga_quilt)
 	ability_system_component.add_owned_ability(ga_on_kill_heal)
-	player_health_component = HealthComponent.new()
-	player_health_component.name = "HealthComponent"
+	player_health_component = MF_HealthComponent.new()
+	player_health_component.name = "MF_HealthComponent"
 	player_health_component.max_hp = max_hp
 	player_health_component.start_hp = max_hp
 	player_health_component.ability_component = ability_system_component
@@ -470,7 +470,7 @@ func is_quilt_target(enemy: Node3D) -> bool:
 
 func _on_battle_combatant_died(combatant: Node) -> void:
 	if combatant and combatant.is_in_group("Enemy_human"):
-		ability_system_component.activate_ability_by_id(StringName("GA_OnKillHeal"))
+		ability_system_component.activate_ability_by_id(StringName("MF_GA_OnKillHeal"))
 	
 	
 

@@ -1,5 +1,5 @@
 extends Node3D
-class_name PooledSpawner
+class_name MF_PooledSpawner
 
 @export var pool_id: StringName
 @export var scene: PackedScene

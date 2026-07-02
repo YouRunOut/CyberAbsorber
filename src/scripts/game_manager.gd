@@ -1,5 +1,5 @@
 extends Node
-class_name GameManager
+class_name MF_GameManager
 
 signal game_started
 signal game_restarted

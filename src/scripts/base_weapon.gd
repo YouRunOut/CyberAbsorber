@@ -1,5 +1,5 @@
 extends Node3D
-class_name BaseWeapon
+class_name MF_BaseWeapon
 
 @onready var animation: AnimationPlayer = %AnimationPlayer
 @onready var reload_timer: Timer = %ReloadTimer
@@ -108,7 +108,7 @@ func object_hit():
 		if battle_manager:
 			battle_manager.apply_damage(hit_object, int(DAMAGE), self)
 		else:
-			var combatant := hit_object as BaseCombatant
+			var combatant := hit_object as MF_BaseCombatant
 			if combatant:
 				combatant.get_damage(int(DAMAGE))
 		flesh = true

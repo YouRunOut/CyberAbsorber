@@ -1,24 +1,24 @@
 extends Node
-class_name QuiltModule
+class_name MF_QuiltModule
 
 signal quilt_tick
 signal quilt_target_changed(target: Node3D)
 signal quilt_ready
 
-var ability_component: AbilitySystemComponent
+var ability_component: MF_AbilitySystemComponent
 var owner_area: Area3D
 var charge_value: float = 0.0
 var nearest_enemy: Node3D = null
 var quilt_ready_pending: bool = false
-var quilt_ability_id: StringName = StringName("GA_Quilt")
-var quilt_ready_tag: GTag = GTag.new(StringName("GTag_QUILT_READY"))
+var quilt_ability_id: StringName = StringName("MF_GA_Quilt")
+var quilt_ready_tag: MF_GTag = MF_GTag.new(StringName("GTag_QUILT_READY"))
 
 
 func tick() -> void:
 	emit_signal("quilt_tick")
 
 
-func configure(component: AbilitySystemComponent, quilt_area: Area3D) -> void:
+func configure(component: MF_AbilitySystemComponent, quilt_area: Area3D) -> void:
 	ability_component = component
 	owner_area = quilt_area
 

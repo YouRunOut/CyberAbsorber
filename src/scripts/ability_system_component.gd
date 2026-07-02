@@ -1,31 +1,31 @@
 extends Node
-class_name AbilitySystemComponent
+class_name MF_AbilitySystemComponent
 
 signal ability_activated(ability_id: StringName)
-signal effect_applied(effect: GameplayEffect)
+signal effect_applied(effect: MF_GameplayEffect)
 
-@export var attributes: AttributeSet
-@export var owned_abilities: Array[GameAbility] = []
+@export var attributes: MF_AttributeSet
+@export var owned_abilities: Array[MF_GameAbility] = []
 
 var _cooldowns: Dictionary = {}
-var _tag_container: GTagContainer
+var _tag_container: MF_GTagContainer
 
 
 func _ready() -> void:
 	if attributes == null:
-		attributes = AttributeSet.new()
+		attributes = MF_AttributeSet.new()
 	_ensure_tag_container()
 
 
 func _ensure_tag_container() -> void:
 	if _tag_container != null:
 		return
-	_tag_container = GTagContainer.new()
-	_tag_container.name = "GTagContainer"
+	_tag_container = MF_GTagContainer.new()
+	_tag_container.name = "MF_GTagContainer"
 	add_child(_tag_container)
 
 
-func can_activate(ability: GameAbility) -> bool:
+func can_activate(ability: MF_GameAbility) -> bool:
 	_ensure_tag_container()
 	if ability == null:
 		return false
@@ -49,7 +49,7 @@ func activate_ability_by_id(ability_id: StringName) -> bool:
 	return false
 
 
-func activate_ability(ability: GameAbility) -> bool:
+func activate_ability(ability: MF_GameAbility) -> bool:
 	if not can_activate(ability):
 		return false
 	attributes.stamina -= ability.cost_stamina
@@ -61,7 +61,7 @@ func activate_ability(ability: GameAbility) -> bool:
 	return true
 
 
-func apply_effect(effect: GameplayEffect) -> void:
+func apply_effect(effect: MF_GameplayEffect) -> void:
 	_ensure_tag_container()
 	if effect == null:
 		return
@@ -73,22 +73,22 @@ func apply_effect(effect: GameplayEffect) -> void:
 	emit_signal("effect_applied", effect)
 
 
-func add_owned_ability(ability: GameAbility) -> void:
+func add_owned_ability(ability: MF_GameAbility) -> void:
 	if ability == null:
 		return
 	owned_abilities.append(ability)
 
 
-func has_tag(tag: GTag) -> bool:
+func has_tag(tag: MF_GTag) -> bool:
 	_ensure_tag_container()
 	return _tag_container.has_tag(tag)
 
 
-func remove_tag(tag: GTag, stacks: int = 1) -> void:
+func remove_tag(tag: MF_GTag, stacks: int = 1) -> void:
 	_ensure_tag_container()
 	_tag_container.remove_tag(tag, stacks)
 
 
-func add_tag(tag: GTag, stacks: int = 1) -> void:
+func add_tag(tag: MF_GTag, stacks: int = 1) -> void:
 	_ensure_tag_container()
 	_tag_container.add_tag(tag, stacks)

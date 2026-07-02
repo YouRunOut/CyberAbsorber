@@ -1,5 +1,5 @@
 extends Node
-class_name AiManager
+class_name MF_AiManager
 
 signal enemy_registered(enemy: Node)
 signal enemy_unregistered(enemy: Node)

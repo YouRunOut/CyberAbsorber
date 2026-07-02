@@ -1,5 +1,5 @@
 extends Node3D
-class_name BaseEntity
+class_name MF_BaseEntity
 
 signal entity_activated
 signal entity_deactivated

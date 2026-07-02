@@ -1,5 +1,5 @@
 extends Node3D
-class_name BaseVfxEntity
+class_name MF_BaseVfxEntity
 
 @export var life_time_sec: float = 0.8
 @export var auto_start: bool = true

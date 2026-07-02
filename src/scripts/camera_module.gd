@@ -1,5 +1,5 @@
 extends Node
-class_name CameraModule
+class_name MF_CameraModule
 
 signal camera_tick(delta: float)
 

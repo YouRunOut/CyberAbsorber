@@ -1,5 +1,5 @@
 extends Node
-class_name MovementModule
+class_name MF_MovementModule
 
 signal movement_tick(delta: float)
 

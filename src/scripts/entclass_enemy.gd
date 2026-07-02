@@ -1,4 +1,4 @@
-extends BaseCombatant
+extends MF_BaseCombatant
 
 var CombatMode: bool
 
@@ -34,7 +34,7 @@ var fsm_module: Node
 var perception_module: Node
 var cover_module: Node
 var ability_system_component: Node
-var enemy_health_component: HealthComponent
+var enemy_health_component: MF_HealthComponent
 
 var delay = false
 
@@ -83,17 +83,17 @@ func _ready():
 	hp = max_hp
 	pistol.who_take = "Enemy"
 	CombatMode = false
-	fsm_module = FsmModule.new()
-	perception_module = PerceptionModule.new()
-	cover_module = CoverModule.new()
+	fsm_module = MF_FsmModule.new()
+	perception_module = MF_PerceptionModule.new()
+	cover_module = MF_CoverModule.new()
 	add_child(fsm_module)
 	add_child(perception_module)
 	add_child(cover_module)
-	ability_system_component = AbilitySystemComponent.new()
-	ability_system_component.attributes = AttributeSet.new()
+	ability_system_component = MF_AbilitySystemComponent.new()
+	ability_system_component.attributes = MF_AttributeSet.new()
 	add_child(ability_system_component)
-	enemy_health_component = HealthComponent.new()
-	enemy_health_component.name = "HealthComponent"
+	enemy_health_component = MF_HealthComponent.new()
+	enemy_health_component.name = "MF_HealthComponent"
 	enemy_health_component.max_hp = max_hp
 	enemy_health_component.start_hp = max_hp
 	enemy_health_component.ability_component = ability_system_component

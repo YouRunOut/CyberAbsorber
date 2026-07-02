@@ -50,6 +50,14 @@ movie_writer/fps=144
 
 enabled=PackedStringArray("res://addons/GodotGAS/plugin.cfg", "res://addons/ggs/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://src/": "teal",
+"res://src/gas_attributes/": "orange"
+}
+
 [gui]
 
 fonts/size/mode=0

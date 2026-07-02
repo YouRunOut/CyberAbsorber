@@ -1,5 +1,5 @@
 extends CharacterBody3D
-class_name BaseCombatant
+class_name MF_BaseCombatant
 
 signal combatant_died
 signal combatant_damaged(amount: int)
@@ -8,12 +8,12 @@ signal combatant_damaged(amount: int)
 @export var use_main_player_hp_bridge: bool = false
 
 var hp: int = 100
-var health_component: HealthComponent
+var health_component: MF_HealthComponent
 
 
 func _ready() -> void:
 	if health_component == null:
-		health_component = get_node_or_null("HealthComponent")
+		health_component = get_node_or_null("MF_HealthComponent")
 	if health_component:
 		hp = health_component.current_hp
 	else:

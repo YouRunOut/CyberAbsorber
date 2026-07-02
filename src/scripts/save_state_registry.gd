@@ -1,5 +1,5 @@
 extends Node
-class_name SaveStateRegistry
+class_name MF_SaveStateRegistry
 
 var _saveables: Dictionary = {}
 

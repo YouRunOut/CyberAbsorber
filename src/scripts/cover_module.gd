@@ -1,5 +1,5 @@
 extends Node
-class_name CoverModule
+class_name MF_CoverModule
 
 signal cover_changed(cover_position: Vector3, cover_type: int)
 

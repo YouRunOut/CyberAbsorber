@@ -1,5 +1,5 @@
 extends Node3D
-class_name WeaponHolder
+class_name MF_WeaponHolder
 
 signal shoot
 signal reload

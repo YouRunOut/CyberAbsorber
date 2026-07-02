@@ -1,5 +1,5 @@
 extends Node3D
-class_name HitEffectSpawner
+class_name MF_HitEffectSpawner
 
 @export var flesh_hit_scene: PackedScene
 @export var material_hit_scene: PackedScene

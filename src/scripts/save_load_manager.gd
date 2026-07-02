@@ -1,5 +1,5 @@
 extends Node
-class_name SaveLoadManager
+class_name MF_SaveLoadManager
 
 @export var save_path: String = "user://savegame_v1.json"
 

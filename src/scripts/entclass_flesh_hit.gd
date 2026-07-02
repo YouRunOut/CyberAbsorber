@@ -1,4 +1,4 @@
-extends BaseVfxEntity
+extends MF_BaseVfxEntity
 @onready var life_timer: Timer = %LifeTimer
 
 @onready var blood: GPUParticles3D = %Blood

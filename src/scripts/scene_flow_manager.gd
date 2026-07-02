@@ -1,5 +1,5 @@
 extends Node
-class_name SceneFlowManager
+class_name MF_SceneFlowManager
 
 @export var first_level_path: String = "res://assets/scenes/locations/FirstLevel.tscn"
 @export var second_level_path: String = "res://assets/scenes/locations/SecondLevel.tscn"

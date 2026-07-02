@@ -1,5 +1,5 @@
 extends Node
-class_name EntityPoolManager
+class_name MF_EntityPoolManager
 
 var _pool: Dictionary = {}
 

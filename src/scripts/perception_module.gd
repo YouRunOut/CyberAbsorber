@@ -1,5 +1,5 @@
 extends Node
-class_name PerceptionModule
+class_name MF_PerceptionModule
 
 signal target_changed(target: Node3D)
 

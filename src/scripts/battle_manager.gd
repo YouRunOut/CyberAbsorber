@@ -1,5 +1,5 @@
 extends Node
-class_name BattleManager
+class_name MF_BattleManager
 
 signal damage_routed(target: Node, amount: int, source: Node)
 signal combatant_died(combatant: Node)
@@ -8,7 +8,7 @@ signal combatant_died(combatant: Node)
 func apply_damage(target: Node, amount: int, source: Node = null) -> void:
 	if target == null:
 		return
-	var combatant := target as BaseCombatant
+	var combatant := target as MF_BaseCombatant
 	if combatant == null:
 		return
 	combatant.get_damage(amount)

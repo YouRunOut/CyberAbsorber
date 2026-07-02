@@ -1,5 +1,5 @@
 extends Node
-class_name SaveStateSerializer
+class_name MF_SaveStateSerializer
 
 func build_snapshot(main_state: Node, registry: Node) -> Dictionary:
 	var snapshot := {
@@ -19,6 +19,6 @@ func build_snapshot(main_state: Node, registry: Node) -> Dictionary:
 	if registry:
 		for entity_id in registry.get_saveables().keys():
 			var node = registry.get_saveables()[entity_id]
-			if node and node is BaseEntity:
+			if node and node is MF_BaseEntity:
 				snapshot.world[str(entity_id)] = node.build_save_state()
 	return snapshot

@@ -1,5 +1,5 @@
 extends Node
-class_name GuiManager
+class_name MF_GuiManager
 
 signal skill_tree_visibility_changed(is_open: bool)
 signal hacking_visibility_changed(is_active: bool)

@@ -1,4 +1,4 @@
-extends BaseVfxEntity
+extends MF_BaseVfxEntity
 
 @onready var sparks: GPUParticles3D = %Sparks
 

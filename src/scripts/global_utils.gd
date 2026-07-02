@@ -1,5 +1,5 @@
 extends Node
-class_name GlobalUtils
+class_name MF_GlobalUtils
 
 
 static func delete_all_children_from_node(node: Node) -> void:

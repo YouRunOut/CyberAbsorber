@@ -1,5 +1,5 @@
 extends Resource
-class_name GameplayEffect
+class_name MF_GameplayEffect
 
 enum EffectMode {
 	INSTANT,
@@ -13,4 +13,4 @@ enum EffectMode {
 @export var health_delta: float = 0.0
 @export var damage_delta: float = 0.0
 @export var speed_multiplier: float = 1.0
-@export var tags: Array[GTag] = []
+@export var tags: Array[MF_GTag] = []

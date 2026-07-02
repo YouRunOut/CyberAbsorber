@@ -52,15 +52,15 @@ var ability_runtime
 
 
 func _init_managers() -> void:
-	game_manager = GameManager.new()
-	gui_manager = GuiManager.new()
-	ai_manager = AiManager.new()
-	scene_flow_manager = SceneFlowManager.new()
-	battle_manager = BattleManager.new()
-	entity_pool_manager = EntityPoolManager.new()
-	save_state_registry = SaveStateRegistry.new()
-	save_state_serializer = SaveStateSerializer.new()
-	save_load_manager = SaveLoadManager.new()
+	game_manager = MF_GameManager.new()
+	gui_manager = MF_GuiManager.new()
+	ai_manager = MF_AiManager.new()
+	scene_flow_manager = MF_SceneFlowManager.new()
+	battle_manager = MF_BattleManager.new()
+	entity_pool_manager = MF_EntityPoolManager.new()
+	save_state_registry = MF_SaveStateRegistry.new()
+	save_state_serializer = MF_SaveStateSerializer.new()
+	save_load_manager = MF_SaveLoadManager.new()
 	ability_runtime = Node.new()
 	ability_runtime.name = "AbilitySystemRuntime"
 
@@ -176,21 +176,21 @@ func get_player_node() -> Node:
 	return players[0]
 
 
-func get_player_health_component() -> HealthComponent:
+func get_player_health_component() -> MF_HealthComponent:
 	var player = get_player_node()
 	if player == null:
 		return null
-	return player.get_node_or_null("HealthComponent")
+	return player.get_node_or_null("MF_HealthComponent")
 
 
-func get_player_ability_component() -> AbilitySystemComponent:
+func get_player_ability_component() -> MF_AbilitySystemComponent:
 	var player = get_player_node()
 	if player == null:
 		return null
-	return player.get_node_or_null("AbilitySystemComponent")
+	return player.get_node_or_null("MF_AbilitySystemComponent")
 
 
-func get_player_attributes() -> AttributeSet:
+func get_player_attributes() -> MF_AttributeSet:
 	var ability = get_player_ability_component()
 	if ability == null:
 		return null
